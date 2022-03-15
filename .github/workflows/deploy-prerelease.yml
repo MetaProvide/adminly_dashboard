@@ -15,9 +15,10 @@ jobs:
         with:
           key: ${{ secrets.SSH_STAGING_PRIVATE_KEY }}
           known_hosts: ${{ secrets.SSH_STAGING_HOST_FINGERPRINT }}
-
-      # - name: Adding Known Hosts
-      #   run: echo "${{ secrets.SSH_STAGING_HOST_FINGERPRINT }}" >> ~/.ssh/known_hosts
+          config: |
+            Host *
+              HostKeyAlgorithms ssh-rsa-cert-v01@openssh.com,ssh-rsa
+              StrictHostKeyChecking yes
 
       - name: Deploy using server side script
-        run: ssh -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_STAGING_HOST }}
+        run: ssh -qT ${{ secrets.SSH_USER }}@${{ secrets.SSH_STAGING_HOST }}
