@@ -1,4 +1,5 @@
 name: Deploy Prerelease
+
 on:
   workflow_run:
     workflows: [Prerelease]
@@ -13,10 +14,10 @@ jobs:
         uses: shimataro/ssh-key-action@v2
         with:
           key: ${{ secrets.SSH_STAGING_PRIVATE_KEY }}
-          known_hosts: "just-a-placeholder-so-we-dont-get-errors"
+          known_hosts: ${{ secrets.SSH_STAGING_HOST_FINGERPRINT }}
 
-      - name: Adding Known Hosts
-        run: echo "${{ secrets.SSH_STAGING_HOST_FINGERPRINT }}" >> ~/.ssh/known_hosts
+      # - name: Adding Known Hosts
+      #   run: echo "${{ secrets.SSH_STAGING_HOST_FINGERPRINT }}" >> ~/.ssh/known_hosts
 
       - name: Deploy using server side script
-        run: ssh ${{ secrets.SSH_USER }}@${{ secrets.SSH_STAGING_HOST }} "sudo ./deploy-prerelease-adminly_dashboard.sh"
+        run: ssh -T ${{ secrets.SSH_USER }}@${{ secrets.SSH_STAGING_HOST }}
