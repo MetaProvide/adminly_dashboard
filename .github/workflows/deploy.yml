@@ -2,7 +2,7 @@ name: Deploy Prerelease
 
 on:
   workflow_run:
-    workflows: ["Prerelease"]
+    workflows: [Prerelease]
     types: [completed]
 
 jobs:
