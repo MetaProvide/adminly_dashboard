@@ -18,14 +18,11 @@
 </template>
 
 <script>
-
-import { getCurrentUser } from '@nextcloud/auth';
-
 export default {
 	name: 'App',
 	data() {
 		return {
-			message: 'Hello ' + getCurrentUser().displayName + '!',
+			message: 'Hello ' + document.querySelector('head').getAttribute('data-user-displayname') + '!',
 		};
 	},
 };
