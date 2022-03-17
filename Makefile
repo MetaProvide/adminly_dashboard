@@ -5,29 +5,21 @@ app_name=adminly_dashboard
 build_directory=$(CURDIR)/build
 temp_build_directory=$(build_directory)/temp
 build_tools_directory=$(CURDIR)/build/tools
-composer=$(shell which composer 2> /dev/null)
 
 all: dev-setup lint build-js-production test
 
 release: npm-init build-js-production build-tarball
-# Dev env management
+
 dev-setup: clean clean-dev composer npm-init
 
+lint: eslint stylelint prettier
 
-# Installs and updates the composer dependencies. If composer is not installed
-# a copy is fetched from the web
+lint-fix: eslint-fix stylelint-fix prettier-fix
+
+# Dependencies
 composer:
-ifeq (, $(composer))
-	@echo "No composer command available, downloading a copy from the web"
-	mkdir -p $(build_tools_directory)
-	curl -sS https://getcomposer.org/installer | php
-	mv composer.phar $(build_tools_directory)
-	php $(build_tools_directory)/composer.phar install --prefer-dist
-	php $(build_tools_directory)/composer.phar update --prefer-dist
-else
 	composer install --prefer-dist
 	composer update --prefer-dist
-endif
 
 npm-init:
 	npm ci
@@ -49,11 +41,11 @@ serve-js:
 	npm run serve
 
 # Linting
-lint:
-	npm run lint
+eslint:
+	npm run eslint
 
-lint-fix:
-	npm run lint:fix
+eslint-fix:
+	npm run eslint:fix
 
 # Style linting
 stylelint:
@@ -61,6 +53,13 @@ stylelint:
 
 stylelint-fix:
 	npm run stylelint:fix
+
+# Prettier
+prettier:
+	npm run prettier
+
+prettier-fix:
+	npm run prettier:fix
 
 # Cleaning
 clean:
