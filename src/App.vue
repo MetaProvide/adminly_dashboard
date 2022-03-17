@@ -22,7 +22,7 @@ export default {
 	name: 'App',
 	data() {
 		return {
-			message: 'Hello Joao!',
+			message: 'Hello ' + document.querySelector('head').getAttribute('data-user-displayname') + '!',
 		};
 	},
 };
