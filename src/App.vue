@@ -5,24 +5,23 @@
 			<p>It's good to see you again!</p>
 		</div>
 
-		<div class="calendar-widget centered large-text">
-			Calendar
-		</div>
-		<div class="events-widget centered large-text">
-			Events
-		</div>
-		<div class="booking-widget centered large-text">
-			Create Booking
-		</div>
+		<div class="calendar-widget centered large-text">Calendar</div>
+		<div class="events-widget centered large-text">Events</div>
+		<div class="booking-widget centered large-text">Create Booking</div>
 	</main>
 </template>
 
 <script>
 export default {
-	name: 'App',
+	name: "App",
 	data() {
 		return {
-			message: 'Hello ' + document.querySelector('head').getAttribute('data-user-displayname') + '!',
+			message:
+				"Hello " +
+				document
+					.querySelector("head")
+					.getAttribute("data-user-displayname") +
+				"!",
 		};
 	},
 };
