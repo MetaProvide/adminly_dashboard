@@ -89,8 +89,4 @@ main {
 	grid-row-start: 3;
 	grid-row-end: 4;
 }
-
-.event {
-	background-color: lightgreen;
-}
 </style>
