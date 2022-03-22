@@ -15,44 +15,7 @@
 </template>
 
 <script>
-import axios from "@nextcloud/axios";
 import Events from "./components/Events.vue";
-
-const calendarEvents = [];
-let description = "";
-const currentDate = Date.now().toString().slice(0, -5);
-axios
-	.get(
-		"/remote.php/dav/calendars/testsson/personal?" +
-			"&export&accept=jcal&componentType=VEVENT&start=" +
-			currentDate +
-			"&end=" +
-			currentDate +
-			600000
-	)
-	.then(function (response) {
-		// handle success
-		response.data[2].slice(1).forEach((element) => {
-			if (Object.keys(element[1]).length > 9) {
-				description = element[1][9][3];
-			} else description = "";
-			const startDate = new Date(element[1][5][3]);
-			const endDate = new Date(element[1][6][3]);
-			calendarEvents.unshift({
-				id: element[1][4][3],
-				title: element[1][8][3],
-				content: description,
-				tstart: startDate.toLocaleTimeString([], {
-					hour: "2-digit",
-					minute: "2-digit",
-				}),
-				tend: endDate.toLocaleTimeString([], {
-					hour: "2-digit",
-					minute: "2-digit",
-				}),
-			});
-		});
-	});
 
 export default {
 	name: "App",
