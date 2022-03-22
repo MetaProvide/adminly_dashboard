@@ -10,12 +10,8 @@
 		</div>
 		<div class="events-widget large-text">
 			Events
-			<br>
-			<ul v-for="item in items" v-bind:key="item.id" class="event">
-				<li >{{ item.title }} {{ item.tstart }} </li>
-				<h3 >{{ item.content }}</h3>
-				<h4 >{{ item.tstart }} - {{ item.tend }}</h4>
-			</ul>
+			<Events/>
+
 		</div>
 		<div class="booking-widget centered large-text">
 			Create Booking
@@ -25,6 +21,7 @@
 
 <script>
 import axios from '@nextcloud/axios';
+import Events from './components/Events.vue';
 
 const calendarEvents = [];
 let description = "";
@@ -51,6 +48,9 @@ axios.get('/remote.php/dav/calendars/testsson/personal?'
 
 export default {
 	name: 'App',
+  components: {
+    Events
+  },
 	data() {
 		return {
 			message:
@@ -58,8 +58,7 @@ export default {
 				document
 					.querySelector("head")
 					.getAttribute("data-user-displayname") +
-				"!",
-			items: calendarEvents
+				"!"
 		};
 	},
 };
