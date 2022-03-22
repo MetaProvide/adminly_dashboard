@@ -30,8 +30,7 @@ export default {
 			.get(
 				"/remote.php/dav/calendars/" +
 					userName +
-					"/personal?" +
-					"&export&accept=jcal&componentType=VEVENT&start=" +
+					"/personal?export&accept=jcal&componentType=VEVENT&start=" +
 					currentDate +
 					"&end=" +
 					currentDate +
