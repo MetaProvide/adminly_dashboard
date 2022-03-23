@@ -1,7 +1,7 @@
 export const userName = document
 	.querySelector("head")
 	.getAttribute("data-user-displayname");
-export const getEventsUrl = (userName, calendarName,fromDate) =>
+export const getEventsUrl = (userName, calendarName, fromDate) =>
 	`/remote.php/dav/calendars/${userName}/${calendarName}?export&accept=jcal&componentType=VEVENT&start=${fromDate}`;
 export const getEventId = (event) => event[1][4][3];
 export const getTitle = (event) => event[1][8][3];
