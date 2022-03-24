@@ -10,16 +10,7 @@
 
 <script>
 import axios from "@nextcloud/axios";
-import {
-	getEventsUrl,
-	getEventId,
-	getDescription,
-	getEndDate,
-	getEventsObjects,
-	getStartDate,
-	getTitle,
-	userName,
-} from "../utils.js";
+import { EventUtil, UserUtil } from "../utils.js";
 
 const currentDate = Date.now().toString().slice(0, -3);
 export default {
@@ -36,16 +27,22 @@ export default {
 	methods: {
 		loadCalendarEvents() {
 			axios
-				.get(getEventsUrl(userName, "personal", currentDate))
+				.get(
+					EventUtil.getApiUrl(
+						UserUtil.getName,
+						"personal",
+						currentDate
+					)
+				)
 				.then((response) => {
 					// handle success
-					this.events = getEventsObjects(response.data).map(
+					this.events = EventUtil.getObjects(response.data).map(
 						(element) => ({
-							id: getEventId(element),
-							title: getTitle(element),
-							description: getDescription(element),
-							tstart: getStartDate(element),
-							tend: getEndDate(element),
+							id: EventUtil.getId(element),
+							title: EventUtil.getTitle(element),
+							description: EventUtil.getDescription(element),
+							tstart: EventUtil.getStartDate(element),
+							tend: EventUtil.getEndDate(element),
 						})
 					);
 				});
