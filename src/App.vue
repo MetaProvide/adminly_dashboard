@@ -6,14 +6,22 @@
 		</div>
 
 		<div class="calendar-widget centered large-text">Calendar</div>
-		<div class="events-widget centered large-text">Events</div>
+		<div class="events-widget large-text">
+			Events
+			<Events />
+		</div>
 		<div class="booking-widget centered large-text">Create Booking</div>
 	</main>
 </template>
 
 <script>
+import Events from "./components/Events.vue";
+
 export default {
 	name: "App",
+	components: {
+		Events,
+	},
 	data() {
 		return {
 			message:
