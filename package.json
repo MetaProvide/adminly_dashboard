@@ -12,6 +12,7 @@
 		"@nextcloud/webpack-vue-config": "^5.0.0",
 		"babel-loader": "^8.2.3",
 		"css-loader": "^6.7.1",
+		"cypress": "^9.5.2",
 		"eslint": "^8.10.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-config-standard": "^17.0.0-1",
@@ -50,7 +51,9 @@
 		"stylelint": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue",
 		"stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
 		"prettier": "prettier --check .",
-		"prettier:fix": "prettier --write ."
+		"prettier:fix": "prettier --write .",
+		"test": "npx cypress run",
+		"test:open": "npx cypress open"
 	},
 	"dependencies": {
 		"@nextcloud/axios": "^1.9.0",
