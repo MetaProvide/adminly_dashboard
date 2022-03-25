@@ -52,15 +52,17 @@
 		"stylelint:fix": "stylelint css/*.css css/*.scss src/**/*.scss src/**/*.vue --fix",
 		"prettier": "prettier --check .",
 		"prettier:fix": "prettier --write .",
-		"test": "npx cypress run",
-		"test:open": "npx cypress open"
+		"test": "echo 'No tests currently implemented!'",
+		"cypress": "npx cypress run",
+		"cypress:open": "npx cypress open"
 	},
 	"dependencies": {
 		"@nextcloud/axios": "^1.9.0",
 		"@nextcloud/dialogs": "^3.1.2",
 		"@nextcloud/router": "^2.0.0",
 		"@nextcloud/vue": "^4.4.0",
-		"vue": "^2.6.14"
+		"vue": "^2.6.14",
+		"vue2-slot-calendar": "^2.2.5"
 	},
 	"browserslist": [
 		"extends @nextcloud/browserslist-config"

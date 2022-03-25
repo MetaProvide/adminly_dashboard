@@ -5,10 +5,11 @@
 			<p>It's good to see you again!</p>
 		</div>
 
-		<div class="calendar-widget centered large-text">Calendar</div>
-		<div class="events-widget large-text">
-			Events
-			<Events />
+		<div class="calendar-widget centered large-text">
+			<Calendar :events="calendarEvents" />
+		</div>
+		<div class="events-widget centered large-text">
+			<Events :events="upcomingEvents" />
 		</div>
 		<div class="booking-widget centered large-text">Create Booking</div>
 	</main>
@@ -16,21 +17,35 @@
 
 <script>
 import Events from "./components/Events.vue";
+import Calendar from "./components/Calendar";
+import { UserUtil, EventUtil } from "./utils";
 
 export default {
 	name: "App",
 	components: {
+		Calendar,
 		Events,
 	},
 	data() {
 		return {
-			message:
-				"Hello " +
-				document
-					.querySelector("head")
-					.getAttribute("data-user-displayname") +
-				"!",
+			message: `Hello ${UserUtil.getDisplayName()}!`,
+			calendarEvents: null,
+			upcomingEvents: null,
 		};
+	},
+	async mounted() {
+		const today = EventUtil.getSecondsSinceEpoch();
+		this.upcomingEvents = await EventUtil.fetchCalendarEvents(
+			UserUtil.getUserName(),
+			"personal",
+			today
+		);
+		const sixMonthsBack = EventUtil.getSecondsSinceEpochMinus6Months();
+		this.calendarEvents = await EventUtil.fetchCalendarEvents(
+			UserUtil.getUserName(),
+			"personal",
+			sixMonthsBack
+		);
 	},
 };
 </script>
