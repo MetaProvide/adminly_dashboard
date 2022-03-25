@@ -1,13 +1,12 @@
 /// <reference types="cypress" />
 
 describe("An Adminly user", () => {
+	const username = "testsson";
+	const password = "test";
 
-	const username = 'testsson';
-	const password = 'test';
-
-    // beforeAll(function () {
+	// beforeAll(function () {
 	//
-    // })
+	// })
 
 	it("displays a login page", () => {
 		// We use the `cy.get()` command to get all elements that match the selector.
@@ -15,12 +14,12 @@ describe("An Adminly user", () => {
 		// which are the two default items.
 		// likely want to do this in a support file
 
-		Cypress.on('uncaught:exception', (err, runnable) => {
+		Cypress.on("uncaught:exception", (err, runnable) => {
 			// returning false here prevents Cypress from
 			// failing the test on uncaught exception
-			console.log("Exception!")
-			return false
-		})
+			console.log("Exception!");
+			return false;
+		});
 
 		cy.visit("http://localhost/login");
 		cy.get("#user").should("have.value", "");
@@ -34,21 +33,20 @@ describe("An Adminly user", () => {
 		// which are the two default items.
 		// likely want to do this in a support file
 
-		Cypress.on('uncaught:exception', (err, runnable) => {
+		Cypress.on("uncaught:exception", (err, runnable) => {
 			// returning false here prevents Cypress from
 			// failing the test on uncaught exception
-			console.log("Exception!")
-			return false
-		})
+			console.log("Exception!");
+			return false;
+		});
 
 		cy.visit("http://localhost/login");
 		cy.get("#user").type(username);
 		cy.get("#password").type(password);
 		cy.get("#submit-form").click();
 
-		cy.url().should('include', '/apps/');
+		cy.url().should("include", "/apps/");
 	});
-
 
 	it("Logged in user can navigate to Adminly Dashboard", () => {
 		// We use the `cy.get()` command to get all elements that match the selector.
@@ -56,18 +54,18 @@ describe("An Adminly user", () => {
 		// which are the two default items.
 		// likely want to do this in a support file
 
-		Cypress.on('uncaught:exception', (err, runnable) => {
+		Cypress.on("uncaught:exception", (err, runnable) => {
 			// returning false here prevents Cypress from
 			// failing the test on uncaught exception
-			console.log("Exception!")
-			return false
-		})
+			console.log("Exception!");
+			return false;
+		});
 		cy.visit("http://localhost/login");
 		cy.get("#user").type(username);
 		cy.get("#password").type(password);
 		cy.get("#submit-form").click();
 
 		cy.visit("http://localhost/apps/adminly_dashboard/");
-		cy.contains('Hello');
+		cy.contains("Hello");
 	});
 });
