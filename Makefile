@@ -9,7 +9,7 @@ build_tools_directory=$(CURDIR)/build/tools
 all: dev-setup lint build-js-production test
 
 release: npm-init build-js-production build-tarball
-
+# Dev env management
 dev-setup: clean clean-dev composer npm-init
 
 lint: eslint stylelint prettier
@@ -70,6 +70,7 @@ clean-dev:
 
 # Tests
 test:
+	npm run test
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml
 
 build-tarball:
