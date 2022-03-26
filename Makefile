@@ -72,3 +72,27 @@ clean-dev:
 test:
 	npm run test
 	./vendor/phpunit/phpunit/phpunit -c phpunit.xml
+
+build-tarball:
+	rm -rf $(build_directory)
+	mkdir -p $(temp_build_directory)
+	rsync -a \
+	--exclude=".git" \
+	--exclude=".github" \
+	--exclude=".vscode" \
+	--exclude="node_modules" \
+	--exclude="build" \
+	--exclude="vendor" \
+	--exclude=".editorconfig" \
+	--exclude=".gitignore" \
+	--exclude=".php_cs.dist" \
+	--exclude=".prettierrc" \
+	--exclude=".stylelintrc.json" \
+	--exclude="composer.json" \
+	--exclude="composer.lock" \
+	--exclude="Makefile" \
+	--exclude="package-lock.json" \
+	--exclude="package.json" \
+	../$(app_name)/ $(temp_build_directory)/$(app_name)
+	tar czf $(build_directory)/$(app_name).tar.gz \
+		-C $(temp_build_directory) $(app_name)
