@@ -96,3 +96,4 @@ build-tarball:
 	../$(app_name)/ $(temp_build_directory)/$(app_name)
 	tar czf $(build_directory)/$(app_name).tar.gz \
 		-C $(temp_build_directory) $(app_name)
+
