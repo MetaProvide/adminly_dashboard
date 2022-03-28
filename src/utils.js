@@ -1,15 +1,40 @@
+import axios from "@nextcloud/axios";
+
 export const UserUtil = {
-	getName: document.querySelector("head").getAttribute("data-user"),
-	getDisplayName: document
-		.querySelector("head")
-		.getAttribute("data-user-displayname"),
+	getUserName: () => document.querySelector("head").getAttribute("data-user"),
+	getDisplayName: () =>
+		document.querySelector("head").getAttribute("data-user-displayname"),
 };
 
 export const EventUtil = {
 	getApiUrl: (userName, calendarName, fromDate) =>
 		`/remote.php/dav/calendars/${userName}/${calendarName}?export&accept=jcal&componentType=VEVENT&start=${fromDate}`,
+	fetchCalendarEvents: async (user, calendarName, fromDate) => {
+		const url = EventUtil.getApiUrl(user, calendarName, fromDate);
+		return axios
+			.get(url)
+			.then((resp) => {
+				if (resp.status !== 200)
+					throw new Error("Error fetching events");
+				const events = EventUtil.getObjects(resp.data).map(
+					EventUtil.mapEvents
+				);
+				return events;
+			})
+			.catch((err) => console.err(err));
+	},
+	mapEvents: (element) => ({
+		id: EventUtil.getId(element),
+		title: EventUtil.getTitle(element),
+		description: EventUtil.getDescription(element),
+		tstart: EventUtil.getStartDate(element),
+		tend: EventUtil.getEndDate(element),
+	}),
 	getId: (event) => event[1][4][3],
 	getTitle: (event) => event[1][8][3],
+	getSecondsSinceEpoch: () => Math.round(Date.now() / 1000),
+	getSecondsSinceEpochMinus6Months: () =>
+		Math.round(Date.now() / 1000 - 16200000),
 	getStartDate: (event) =>
 		new Date(event[1][5][3]).toISOString().split("T")[0],
 	getEndDate: (event) => new Date(event[1][6][3]).toISOString().split("T")[0],

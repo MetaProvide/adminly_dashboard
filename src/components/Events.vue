@@ -9,43 +9,14 @@
 </template>
 
 <script>
-import axios from "@nextcloud/axios";
-import { EventUtil, UserUtil } from "../utils.js";
-
-const currentDate = Date.now().toString().slice(0, -3);
 export default {
 	name: "Events",
-	data() {
-		return {
-			events: null,
-		};
-	},
-	mounted() {
-		this.loadCalendarEvents();
-	},
-
-	methods: {
-		loadCalendarEvents() {
-			axios
-				.get(
-					EventUtil.getApiUrl(
-						UserUtil.getName,
-						"personal",
-						currentDate
-					)
-				)
-				.then((response) => {
-					// handle success
-					this.events = EventUtil.getObjects(response.data).map(
-						(element) => ({
-							id: EventUtil.getId(element),
-							title: EventUtil.getTitle(element),
-							description: EventUtil.getDescription(element),
-							tstart: EventUtil.getStartDate(element),
-							tend: EventUtil.getEndDate(element),
-						})
-					);
-				});
+	props: {
+		events: {
+			type: Array,
+			default() {
+				return [];
+			},
 		},
 	},
 };
