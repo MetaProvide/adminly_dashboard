@@ -56,7 +56,13 @@ export default {
 	},
 	methods: {
 		getNextFiveEvents: (events) =>
-			events.slice(0, Math.min(5, events.length)),
+			events
+				.sort(
+					(evt1, evt2) =>
+						new Date(evt1.dateStart).getTime() -
+						new Date(evt2.dateStart).getTime()
+				)
+				.slice(0, Math.min(5, events.length)),
 		getEventsByUniqueStartDate: (events) =>
 			events.reduce((acc, cur) => {
 				if (!acc.some((evt) => cur.dateStart === evt.dateStart))
