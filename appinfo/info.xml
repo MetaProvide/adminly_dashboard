@@ -5,7 +5,7 @@
     <name>Dashboard</name>
     <summary><![CDATA[Adminly Dashboard]]></summary>
     <description><![CDATA[Adminly Dashboard]]></description>
-    <version>0.1.0</version>
+    <version>0.1.0-alpha2</version>
     <licence>agpl</licence>
     <author>MetaProvide</author>
     <namespace>Adminly_Dashboard</namespace>
@@ -23,5 +23,4 @@
         <order>-1</order>
       </navigation>
 	</navigations>
-
 </info>
