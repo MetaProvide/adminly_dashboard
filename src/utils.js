@@ -21,33 +21,42 @@ export const EventUtil = {
 				);
 				return events;
 			})
-			.catch((err) => console.err(err));
+			.catch((err) => console.error(err));
 	},
 	mapEvents: (element) => ({
 		id: EventUtil.getId(element),
 		title: EventUtil.getTitle(element),
 		description: EventUtil.getDescription(element),
-		tstart: EventUtil.getStartDate(element),
-		tend: EventUtil.getEndDate(element),
+		dateStart: EventUtil.getStartDate(element),
+		dateEnd: EventUtil.getEndDate(element),
+		timeStart: EventUtil.getStartHour(element),
+		timeEnd: EventUtil.getEndHour(element),
 	}),
 	getId: (event) => event[1][4][3],
-	getTitle: (event) => event[1][8][3],
+	getTitle: (event) => event[1]?.[8]?.[3] ?? "Untitled event",
 	getSecondsSinceEpoch: () => Math.round(Date.now() / 1000),
 	getSecondsSinceEpochMinus6Months: () =>
 		Math.round(Date.now() / 1000 - 16200000),
 	getStartDate: (event) =>
 		new Date(event[1][5][3]).toISOString().split("T")[0],
-	getEndDate: (event) => new Date(event[1][6][3]).toISOString().split("T")[0],
+	getEndDate: (event) =>
+		event[1]?.[6]?.[3]
+			? new Date(event[1][6][3])?.toISOString()?.split("T")[0]
+			: null,
 	getStartHour: (event) =>
-		new Date(event[1][5][3]).toLocaleTimeString([], {
-			hour: "2-digit",
-			minute: "2-digit",
-		}),
+		event[1]?.[5]?.[3]
+			? new Date(event[1][5][3]).toLocaleTimeString([], {
+					hour: "2-digit",
+					minute: "2-digit",
+			  })
+			: null,
 	getEndHour: (event) =>
-		new Date(event[1][6][3]).toLocaleTimeString([], {
-			hour: "2-digit",
-			minute: "2-digit",
-		}),
+		event[1]?.[6]?.[3]
+			? new Date(event[1][6][3]).toLocaleTimeString([], {
+					hour: "2-digit",
+					minute: "2-digit",
+			  })
+			: null,
 	getObjects: (data) => data[2].slice(1),
 	getDescription: (event) =>
 		Object.keys(event[1]).length > 9 ? event[1][9][3] : "",

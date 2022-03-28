@@ -29,23 +29,40 @@ export default {
 	data() {
 		return {
 			message: `Hello ${UserUtil.getDisplayName()}!`,
-			calendarEvents: null,
-			upcomingEvents: null,
+			calendarEvents: [],
+			upcomingEvents: [],
 		};
 	},
 	async mounted() {
+		// Upcoming events
 		const today = EventUtil.getSecondsSinceEpoch();
-		this.upcomingEvents = await EventUtil.fetchCalendarEvents(
+		const upcomingEvents = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
 			"personal",
 			today
 		);
+
+		this.upcomingEvents = this.getNextFiveEvents(upcomingEvents);
+
+		// Calendar events
 		const sixMonthsBack = EventUtil.getSecondsSinceEpochMinus6Months();
-		this.calendarEvents = await EventUtil.fetchCalendarEvents(
+		const calendarEvents = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
 			"personal",
 			sixMonthsBack
 		);
+
+		this.calendarEvents = this.getEventsByUniqueStartDate(calendarEvents);
+	},
+	methods: {
+		getNextFiveEvents: (events) =>
+			events.slice(0, Math.min(5, events.length)),
+		getEventsByUniqueStartDate: (events) =>
+			events.reduce((acc, cur) => {
+				if (!acc.some((evt) => cur.dateStart === evt.dateStart))
+					acc.push(cur);
+				return acc;
+			}, []),
 	},
 };
 </script>

@@ -1,9 +1,12 @@
 <template>
 	<div>
 		<ul v-for="event in events" :key="event.id" class="event">
-			<li>{{ event.title }} {{ event.tstart }}</li>
+			<li>{{ event.title }} {{ event.dateStart }}</li>
 			<h3>{{ event.description }}</h3>
-			<h4>{{ event.tstart }} - {{ event.tend }}</h4>
+			<h4 v-if="event.timeStart !== event.timeEnd">
+				Today: {{ event.timeStart }} - {{ event.timeEnd }}
+			</h4>
+			<h4 v-else>Whole Day</h4>
 		</ul>
 	</div>
 </template>
