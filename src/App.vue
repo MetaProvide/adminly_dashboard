@@ -6,9 +6,12 @@
 		</div>
 
 		<div class="calendar-widget centered large-text">
-			<Calendar :events="calendarEvents" />
+			<Calendar
+				:events="calendarEvents"
+				:change-pane="handleFetchCalendarEvents"
+			/>
 		</div>
-		<div class="events-widget centered large-text">
+		<div class="events-widget centered">
 			<Events :events="upcomingEvents" />
 		</div>
 		<div class="booking-widget centered large-text">Create Booking</div>
@@ -29,23 +32,54 @@ export default {
 	data() {
 		return {
 			message: `Hello ${UserUtil.getDisplayName()}!`,
-			calendarEvents: null,
-			upcomingEvents: null,
+			calendarEvents: [],
+			upcomingEvents: [],
 		};
 	},
 	async mounted() {
-		const today = EventUtil.getSecondsSinceEpoch();
-		this.upcomingEvents = await EventUtil.fetchCalendarEvents(
+		// Upcoming events
+		const today = EventUtil.getSecondsSince(Date.now());
+		const upcomingEvents = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
 			"personal",
 			today
 		);
-		const sixMonthsBack = EventUtil.getSecondsSinceEpochMinus6Months();
-		this.calendarEvents = await EventUtil.fetchCalendarEvents(
-			UserUtil.getUserName(),
-			"personal",
-			sixMonthsBack
-		);
+
+		this.upcomingEvents = this.getNextFiveEvents(upcomingEvents);
+	},
+	methods: {
+		getNextFiveEvents: (events) =>
+			events
+				.sort(
+					(evt1, evt2) =>
+						new Date(evt1.dateStart).getTime() -
+						new Date(evt2.dateStart).getTime()
+				)
+				.slice(0, Math.min(5, events.length)),
+		getEventsByUniqueStartDate: (events) =>
+			events.reduce((acc, cur) => {
+				if (!acc.some((evt) => cur.dateStart === evt.dateStart))
+					acc.push(cur);
+				return acc;
+			}, []),
+		async handleFetchCalendarEvents(year, month, _) {
+			const lastMonth = EventUtil.getSecondsSince(
+				new Date(year, month - 1).getTime()
+			);
+			const nextMonth = EventUtil.getSecondsSince(
+				new Date(year, month + 1).getTime()
+			);
+
+			const calendarEvents = await EventUtil.fetchCalendarEvents(
+				UserUtil.getUserName(),
+				"personal",
+				lastMonth,
+				nextMonth
+			);
+
+			this.calendarEvents =
+				this.getEventsByUniqueStartDate(calendarEvents);
+		},
 	},
 };
 </script>
