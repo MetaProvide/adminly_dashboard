@@ -12,6 +12,7 @@
 			:on-day-click="handleDayClick"
 			:width="width"
 			:first-day-of-week="firstDayOfWeek"
+			:change-pane="changePane"
 			class="event-calendar"
 		>
 			<div
@@ -37,6 +38,12 @@ export default {
 				return [];
 			},
 		},
+		changePane: {
+			type: Function,
+			default() {
+				return () => true;
+			},
+		},
 	},
 	data() {
 		return {
@@ -47,7 +54,7 @@ export default {
 			clear: true,
 			placeholder: "Start Date",
 			width: "440px",
-			firstDayOfWeek: 1, // Monday is the first day of the week, right!?
+			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
 		};

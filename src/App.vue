@@ -6,9 +6,12 @@
 		</div>
 
 		<div class="calendar-widget centered large-text">
-			<Calendar :events="calendarEvents" />
+			<Calendar
+				:events="calendarEvents"
+				:change-pane="handleFetchCalendarEvents"
+			/>
 		</div>
-		<div class="events-widget centered large-text">
+		<div class="events-widget centered">
 			<Events :events="upcomingEvents" />
 		</div>
 		<div class="booking-widget centered large-text">Create Booking</div>
@@ -35,7 +38,7 @@ export default {
 	},
 	async mounted() {
 		// Upcoming events
-		const today = EventUtil.getSecondsSinceEpoch();
+		const today = EventUtil.getSecondsSince(Date.now());
 		const upcomingEvents = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
 			"personal",
@@ -43,16 +46,6 @@ export default {
 		);
 
 		this.upcomingEvents = this.getNextFiveEvents(upcomingEvents);
-
-		// Calendar events
-		const sixMonthsBack = EventUtil.getSecondsSinceEpochMinus6Months();
-		const calendarEvents = await EventUtil.fetchCalendarEvents(
-			UserUtil.getUserName(),
-			"personal",
-			sixMonthsBack
-		);
-
-		this.calendarEvents = this.getEventsByUniqueStartDate(calendarEvents);
 	},
 	methods: {
 		getNextFiveEvents: (events) =>
@@ -69,6 +62,24 @@ export default {
 					acc.push(cur);
 				return acc;
 			}, []),
+		async handleFetchCalendarEvents(year, month, _) {
+			const lastMonth = EventUtil.getSecondsSince(
+				new Date(year, month - 1).getTime()
+			);
+			const nextMonth = EventUtil.getSecondsSince(
+				new Date(year, month + 1).getTime()
+			);
+
+			const calendarEvents = await EventUtil.fetchCalendarEvents(
+				UserUtil.getUserName(),
+				"personal",
+				lastMonth,
+				nextMonth
+			);
+
+			this.calendarEvents =
+				this.getEventsByUniqueStartDate(calendarEvents);
+		},
 	},
 };
 </script>
