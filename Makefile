@@ -19,6 +19,8 @@ lint-fix: eslint-fix stylelint-fix prettier-fix
 # Dependencies
 composer:
 	composer install --prefer-dist
+
+composer-update:
 	composer update --prefer-dist
 
 npm-init:
