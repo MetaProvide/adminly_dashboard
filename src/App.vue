@@ -84,7 +84,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .centered {
 	height: 100%;
 	display: flex;
@@ -137,5 +137,9 @@ main {
 	grid-column-end: 3;
 	grid-row-start: 3;
 	grid-row-end: 4;
+}
+
+a {
+	font-weight: 600;
 }
 </style>

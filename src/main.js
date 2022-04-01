@@ -23,7 +23,9 @@ import { generateFilePath } from "@nextcloud/router";
 
 import Vue from "vue";
 import App from "./App";
+import linkify from "vue-linkify";
 
+Vue.directive("linkified", linkify);
 // eslint-disable-next-line
 __webpack_public_path__ = generateFilePath("adminly_dashboard", "", "js/");
 
