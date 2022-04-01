@@ -1,6 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div>
+		<h2>Events</h2>
 		<ul v-for="event in safeHtmlEvents" :key="event.key" class="event">
 			<li>{{ event.title }} {{ event.dateStart }}</li>
 			<h3

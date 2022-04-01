@@ -14,13 +14,14 @@
 		<div class="events-widget centered">
 			<Events :events="upcomingEvents" />
 		</div>
-		<div class="booking-widget centered large-text">Create Booking</div>
+		<div class="booking-widget centered"><Booking /></div>
 	</main>
 </template>
 
 <script>
-import Events from "./components/Events.vue";
+import Events from "./components/Events";
 import Calendar from "./components/Calendar";
+import Booking from "./components/Booking";
 import { UserUtil, EventUtil } from "./utils";
 
 export default {
@@ -28,6 +29,7 @@ export default {
 	components: {
 		Calendar,
 		Events,
+		Booking,
 	},
 	data() {
 		return {
