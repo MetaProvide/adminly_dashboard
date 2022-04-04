@@ -12,9 +12,9 @@ release: npm-init build-js-production build-tarball
 # Dev env management
 dev-setup: clean clean-dev composer npm-init
 
-lint: eslint stylelint prettier
+lint: eslint stylelint prettier php-cs
 
-lint-fix: eslint-fix stylelint-fix prettier-fix
+lint-fix: eslint-fix stylelint-fix prettier-fix php-cs-fix
 
 # Dependencies
 composer:
@@ -62,6 +62,13 @@ prettier:
 
 prettier-fix:
 	npm run prettier:fix
+
+# PHP CS Fixer
+php-cs:
+	vendor/bin/php-cs-fixer fix -v --dry-run
+
+php-cs-fix:
+	vendor/bin/php-cs-fixer fix -v
 
 # Cleaning
 clean:
