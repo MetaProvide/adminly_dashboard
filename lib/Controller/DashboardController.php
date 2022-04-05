@@ -34,20 +34,18 @@ use OCP\AppFramework\Controller;
 use OCP\Util;
 
 class DashboardController extends Controller {
-
-	public function __construct(string $AppName, IRequest $request){
+	public function __construct(string $AppName, IRequest $request) {
 		parent::__construct($AppName, $request);
 	}
 
 	/**
-	* @NoAdminRequired
-	* @NoCSRFRequired
-	*
-	* Render default template
-	*/
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * Render default template
+	 */
 	public function index() {
 		Util::addScript($this->appName, 'adminly_dashboard-main');
 		return new TemplateResponse('adminly_dashboard', 'main');
 	}
-
 }

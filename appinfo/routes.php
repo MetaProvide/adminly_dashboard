@@ -24,5 +24,5 @@
  */
 
 return ['routes' => [
-    ['name' => 'dashboard#index', 'url' => '/', 'verb' => 'GET']
+	['name' => 'dashboard#index', 'url' => '/', 'verb' => 'GET']
 ]];
