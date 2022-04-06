@@ -4,7 +4,7 @@
 		<iframe
 			v-if="bookingFormUrl"
 			id="bookingForm"
-			src="http://localhost/index.php/apps/appointments/embed/PyqxrRDiEYm43JHC/form"
+			src="bookingFormUrl"
 			frameborder="0"
 		></iframe>
 		<div v-else>Please setup a public form in appointments app</div>
