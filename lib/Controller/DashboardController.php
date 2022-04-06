@@ -35,6 +35,8 @@ use OCP\Util;
 use OCP\IUserSession;
 use OCP\IURLGenerator;
 use OCA\Appointments\Backend\BackendUtils;
+use OCP\IURLGenerator;
+
 
 
 class DashboardController extends Controller {

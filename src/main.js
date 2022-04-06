@@ -31,5 +31,19 @@ __webpack_public_path__ = generateFilePath("adminly_dashboard", "", "js/");
 
 export default new Vue({
 	el: "#app",
-	render: (h) => h(App),
+	data() {
+		return {
+			bookingFormUrl: "",
+		};
+	},
+	beforeMount() {
+		// importing server data into the store
+		const dataset = document.querySelector("#app").dataset;
+		const params = JSON.parse(dataset.params);
+
+		this.bookingFormUrl = params.formEmbedUrl;
+	},
+	render(h) {
+		return h(App, { props: { bookingFormUrl: this.bookingFormUrl } });
+	},
 });

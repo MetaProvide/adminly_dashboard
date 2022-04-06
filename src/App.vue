@@ -14,7 +14,9 @@
 		<div class="events-widget centered">
 			<Events :events="upcomingEvents" />
 		</div>
-		<div class="booking-widget centered"><Booking /></div>
+		<div class="booking-widget centered">
+			<Booking :booking-form-url="bookingFormUrl" />
+		</div>
 	</main>
 </template>
 
@@ -30,6 +32,14 @@ export default {
 		Calendar,
 		Events,
 		Booking,
+	},
+	props: {
+		bookingFormUrl: {
+			type: String,
+			default() {
+				return "";
+			},
+		},
 	},
 	data() {
 		return {
@@ -101,7 +111,7 @@ export default {
 main {
 	background-color: #e6e4e4;
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	padding: 20px;
 	display: grid;
 	gap: 20px;
