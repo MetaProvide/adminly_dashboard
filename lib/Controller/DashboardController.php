@@ -36,12 +36,10 @@ use OCP\IUserSession;
 use OCP\IURLGenerator;
 use OCA\Appointments\Backend\BackendUtils;
 
-
-
 class DashboardController extends Controller {
 
 	/** @var string */
-    private $userId;
+	private $userId;
 	private $urlGenerator;
 	private $appointmentsUtils;
 
@@ -53,11 +51,11 @@ class DashboardController extends Controller {
 	}
 
 	/**
-	* @NoAdminRequired
-	* @NoCSRFRequired
-	*
-	* Render default template
-	*/
+	 * @NoAdminRequired
+	 * @NoCSRFRequired
+	 *
+	 * Render default template
+	 */
 	public function index() {
 		Util::addScript($this->appName, 'adminly_dashboard-main');
 
@@ -67,5 +65,4 @@ class DashboardController extends Controller {
 		$params = ["formEmbedUrl" => $formEmbedUrl];
 		return new TemplateResponse('adminly_dashboard', 'main', ['params' => $params]);
 	}
-
 }
