@@ -35,7 +35,6 @@ use OCP\Util;
 use OCP\IUserSession;
 use OCP\IURLGenerator;
 use OCA\Appointments\Backend\BackendUtils;
-use OCP\IURLGenerator;
 
 
 
@@ -63,7 +62,7 @@ class DashboardController extends Controller {
 		Util::addScript($this->appName, 'adminly_dashboard-main');
 
 		$formToken = $this->appointmentsUtils->getToken($this->userId);
-		$formEmbedUrl = $this->urlGenerator->getBaseUrl() . "/apps/appointments/embed/" . $formToken . "/form";
+		$formEmbedUrl = $this->urlGenerator->getBaseUrl() . "/index.php/apps/appointments/embed/" . $formToken . "/form";
 
 		$params = ["formEmbedUrl" => $formEmbedUrl];
 		return new TemplateResponse('adminly_dashboard', 'main', ['params' => $params]);

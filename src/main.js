@@ -37,7 +37,7 @@ export default new Vue({
 		};
 	},
 	beforeMount() {
-		// importing server data into the store
+		// importing params from backend
 		const dataset = document.querySelector("#app").dataset;
 		const params = JSON.parse(dataset.params);
 
