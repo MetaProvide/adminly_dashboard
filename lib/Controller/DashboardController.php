@@ -32,10 +32,25 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 use OCP\Util;
+use OCP\IUserSession;
+use OCP\IURLGenerator;
+use OCA\Appointments\Backend\BackendUtils;
 
 class DashboardController extends Controller {
-	public function __construct(string $AppName, IRequest $request) {
+	/** @var string */
+	private $userId;
+
+	/** @var IURLGenerator */
+	private $urlGenerator;
+
+	/** @var BackendUtils */
+	private $appointmentsUtils;
+
+	public function __construct(string $AppName, IRequest $request, IUserSession $userSession, BackendUtils $appointmentsUtils, IURLGenerator $urlGenerator) {
 		parent::__construct($AppName, $request);
+		$this->userId = $userSession->getUser()->getUID();
+		$this->appointmentsUtils = $appointmentsUtils;
+		$this->urlGenerator = $urlGenerator;
 	}
 
 	/**
@@ -44,8 +59,13 @@ class DashboardController extends Controller {
 	 *
 	 * Render default template
 	 */
-	public function index() {
+	public function index() : TemplateResponse {
 		Util::addScript($this->appName, 'adminly_dashboard-main');
-		return new TemplateResponse('adminly_dashboard', 'main');
+
+		$formToken = $this->appointmentsUtils->getToken($this->userId);
+		$formEmbedUrl = $this->urlGenerator->getBaseUrl() . "/index.php/apps/appointments/embed/" . $formToken . "/form";
+
+		$params = ["formEmbedUrl" => $formEmbedUrl];
+		return new TemplateResponse('adminly_dashboard', 'main', ['params' => $params]);
 	}
 }

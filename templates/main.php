@@ -23,4 +23,4 @@
  *
  */
 ?>
-<div id="app"></div>
+<div id="app" data-params="<?php p(json_encode($_['params'])); ?>"></div>

@@ -14,13 +14,16 @@
 		<div class="events-widget centered">
 			<Events :events="upcomingEvents" />
 		</div>
-		<div class="booking-widget centered large-text">Create Booking</div>
+		<div class="booking-widget centered">
+			<Booking :booking-form-url="bookingFormUrl" />
+		</div>
 	</main>
 </template>
 
 <script>
-import Events from "./components/Events.vue";
+import Events from "./components/Events";
 import Calendar from "./components/Calendar";
+import Booking from "./components/Booking";
 import { UserUtil, EventUtil } from "./utils";
 
 export default {
@@ -28,6 +31,15 @@ export default {
 	components: {
 		Calendar,
 		Events,
+		Booking,
+	},
+	props: {
+		bookingFormUrl: {
+			type: String,
+			default() {
+				return "";
+			},
+		},
 	},
 	data() {
 		return {
@@ -99,7 +111,7 @@ export default {
 main {
 	background-color: #e6e4e4;
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	padding: 20px;
 	display: grid;
 	gap: 20px;
