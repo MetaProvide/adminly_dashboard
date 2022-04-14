@@ -158,6 +158,7 @@ main {
 	grid-row-start: 3;
 	grid-row-end: 4;
 }
+
 .newsfeed-widget {
 	background-color: lightyellow;
 	grid-column-start: 1;
@@ -165,6 +166,7 @@ main {
 	grid-row-start: 5;
 	grid-row-end: 6;
 }
+
 a {
 	font-weight: 600;
 }
