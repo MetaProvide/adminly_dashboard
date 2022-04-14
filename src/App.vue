@@ -17,6 +17,9 @@
 		<div class="booking-widget centered">
 			<Booking :booking-form-url="bookingFormUrl" />
 		</div>
+		<div class="newsfeed-widget centered">
+			<Newsfeed :news="upcomingNews" />
+		</div>
 	</main>
 </template>
 
@@ -24,7 +27,8 @@
 import Events from "./components/Events";
 import Calendar from "./components/Calendar";
 import Booking from "./components/Booking";
-import { UserUtil, EventUtil } from "./utils";
+import Newsfeed from "./components/Newsfeed";
+import { UserUtil, EventUtil, NewsUtil } from "./utils";
 
 export default {
 	name: "App",
@@ -32,6 +36,7 @@ export default {
 		Calendar,
 		Events,
 		Booking,
+		Newsfeed,
 	},
 	props: {
 		bookingFormUrl: {
@@ -46,6 +51,7 @@ export default {
 			message: `Hello ${UserUtil.getDisplayName()}!`,
 			calendarEvents: [],
 			upcomingEvents: [],
+			upcomingNews: [],
 		};
 	},
 	async mounted() {
@@ -58,6 +64,8 @@ export default {
 		);
 
 		this.upcomingEvents = this.getNextFiveEvents(upcomingEvents);
+
+		this.upcomingNews = await NewsUtil.fetchBookingNews();
 	},
 	methods: {
 		getNextFiveEvents: (events) =>
@@ -150,7 +158,13 @@ main {
 	grid-row-start: 3;
 	grid-row-end: 4;
 }
-
+.newsfeed-widget {
+	background-color: lightyellow;
+	grid-column-start: 1;
+	grid-column-end: 3;
+	grid-row-start: 5;
+	grid-row-end: 6;
+}
 a {
 	font-weight: 600;
 }
