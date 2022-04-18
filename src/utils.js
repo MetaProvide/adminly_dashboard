@@ -77,8 +77,7 @@ export const NewsUtil = {
 		return axios
 			.get(url)
 			.then((resp) => {
-				if (resp.status !== 200)
-					throw new Error("Error fetching events");
+				if (resp.status !== 200) throw new Error("Error fetching news");
 
 				const bookingNews = resp.data.ocs.data.filter(function (elm) {
 					return (
@@ -86,39 +85,9 @@ export const NewsUtil = {
 						elm.subject.includes("You updated event ✔️")
 					);
 				});
-				bookingNews.forEach((element) => {
-					element.timeSince = timeSince(Date.parse(element.datetime));
-				});
 
 				return bookingNews;
 			})
 			.catch((err) => console.error(err));
 	},
-};
-
-const timeSince = (date) => {
-	const seconds = Math.floor((new Date() - date) / 1000);
-
-	let interval = seconds / 31536000;
-
-	if (interval > 1) {
-		return Math.floor(interval) + " years ago";
-	}
-	interval = seconds / 2592000;
-	if (interval > 1) {
-		return Math.floor(interval) + " months ago";
-	}
-	interval = seconds / 86400;
-	if (interval > 1) {
-		return Math.floor(interval) + " days ago";
-	}
-	interval = seconds / 3600;
-	if (interval > 1) {
-		return Math.floor(interval) + " hours ago";
-	}
-	interval = seconds / 60;
-	if (interval > 1) {
-		return Math.floor(interval) + " minutes ago";
-	}
-	return Math.floor(seconds) + " seconds ago";
 };
