@@ -64,29 +64,9 @@ export default {
 		);
 
 		this.upcomingEvents = this.getNextFiveEvents(upcomingEvents);
-		this.upcomingNews = await NewsUtil.fetchBookingNews();
-		this.upcomingNews = this.upcomingNews.concat([
-			{ subject: "New booking from Carlos", time: "11AM" },
-			{
-				subject: "Reschedule booking from Carlos",
-				time: "11AM",
-				title: "RESCHEDULE:",
-				type: "appointments",
-			},
-			{
-				subject:
-					"Hi, This is a sample text message from your virtual assistant",
-				time: "11AM",
-				vaName: "Your VA Name",
-				type: "vaMessage",
-				icon: "/svg/core/logo/logo?color=000000&v=1",
-			},
-			{
-				subject: "Deleted booking from Carlos",
-				time: "1PM",
-				type: "appointments",
-			},
-		]);
+		const bookingNews = await NewsUtil.fetchBookingNews();
+		const vaMessages = await NewsUtil.fetchVaMessages();
+		this.upcomingNews = this.upcomingNews.concat(vaMessages, bookingNews);
 	},
 	methods: {
 		getNextFiveEvents: (events) =>

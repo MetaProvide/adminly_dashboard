@@ -90,4 +90,43 @@ export const NewsUtil = {
 			})
 			.catch((err) => console.error(err));
 	},
+	fetchVaMessages: () => {
+		// TODO
+		return [
+			{
+				subject:
+					"Hi, This is a sample text message from your virtual assistant",
+				time: "11AM",
+				vaName: "Your VA Name",
+				type: "vaMessage",
+				icon: "/svg/core/logo/logo?color=000000&v=1",
+			},
+			{
+				subject: "Hi, This is a second text message from your VA",
+				time: "11AM",
+				vaName: "Your VA Name",
+				type: "vaMessage",
+				icon: "/svg/core/logo/logo?color=000000&v=1",
+			},
+			{ subject: "New booking from Carlos", time: "1PM" },
+			{
+				subject: "Reschedule booking from Carlos",
+				time: "1PM",
+				title: "RESCHEDULE:",
+				type: "appointments",
+			},
+			{
+				subject: "Deleted booking from Carlos",
+				time: "2PM",
+				type: "appointments",
+			},
+			{ subject: "New booking from Carlos", time: "4PM" },
+			{
+				subject: "Reschedule booking from Carlos",
+				time: "6PM",
+				title: "RESCHEDULE:",
+				type: "appointments",
+			},
+		];
+	},
 };
