@@ -105,7 +105,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .centered {
 	height: 100%;
 	display: flex;

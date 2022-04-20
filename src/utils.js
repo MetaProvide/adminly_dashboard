@@ -80,10 +80,9 @@ export const NewsUtil = {
 				if (resp.status !== 200) throw new Error("Error fetching news");
 
 				const bookingNews = resp.data.ocs.data.filter(function (elm) {
-					return (
-						elm.type === "calendar_event" &&
-						elm.subject.includes("You updated event ✔️")
-					);
+					return (elm) =>
+						elm.type === "calendar_events" &&
+						elm.subject.includes("You updated event ✔️");
 				});
 
 				return bookingNews;
