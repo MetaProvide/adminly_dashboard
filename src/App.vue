@@ -168,7 +168,7 @@ main {
 	grid-row-end: 6;
 }
 
-a {
+main a {
 	font-weight: 600;
 }
 </style>
