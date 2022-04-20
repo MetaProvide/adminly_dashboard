@@ -79,11 +79,11 @@ export const NewsUtil = {
 			.then((resp) => {
 				if (resp.status !== 200) throw new Error("Error fetching news");
 
-				const bookingNews = resp.data.ocs.data.filter(function (elm) {
-					return (elm) =>
+				const bookingNews = resp.data.ocs.data.filter(
+					(elm) =>
 						elm.type === "calendar_events" &&
-						elm.subject.includes("You updated event ✔️");
-				});
+						elm.subject.includes("You updated event ✔️")
+				);
 
 				return bookingNews;
 			})
