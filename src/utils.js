@@ -8,6 +8,28 @@ export const UserUtil = {
 
 const camelize = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
+// Function to check if a date is today or not
+export const isDateSame = (date, baselineDate) => {
+	const otherDate = new Date(date);
+
+	if (
+		otherDate.getDate() === baselineDate.getDate() &&
+		otherDate.getMonth() === baselineDate.getMonth() &&
+		otherDate.getYear() === baselineDate.getYear()
+	) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+export const getDateTomorrow = () => {
+	const today = new Date();
+	const tomorrow = new Date(today);
+	tomorrow.setDate(tomorrow.getDate() + 1);
+	return tomorrow;
+};
+
 export const EventUtil = {
 	oneMonthInSeconds: 60 * 60 * 24 * 31,
 	getApiUrl: (userName, calendarName, fromDate, endDate) => {
@@ -40,12 +62,16 @@ export const EventUtil = {
 			: vent.dtstart.split("T")[1].slice(0, 5);
 		const timeEnd = isAllDay ? null : vent.dtend.split("T")[1].slice(0, 5);
 		const recurranceId = vent.recurrenceId ?? "";
-		return {
+		const description = vent.description ?? "";
+		const meetingType =
+			description.match(/Meeting type: (.*)/)?.[1] ?? "Meeting";
+		const event = {
 			id: vent.uid,
 			recurranceId,
 			key: vent.uid + recurranceId,
-			title: vent.summary ?? "Untitled event",
-			description: vent.description ?? "",
+			summary: vent.summary ?? "Untitled event",
+			description,
+			meetingType,
 			isAllDay,
 			dateStart,
 			dateEnd,
@@ -53,6 +79,7 @@ export const EventUtil = {
 			timeEnd,
 			location: vent.location ?? "",
 		};
+		return event;
 	},
 	getSecondsSince: (dateByMilliSecs) => Math.round(dateByMilliSecs / 1000),
 	getSecondsSinceMinusOneMonth: (dateByMilliSecs) =>
@@ -79,11 +106,11 @@ export const NewsUtil = {
 			.then((resp) => {
 				if (resp.status !== 200) throw new Error("Error fetching news");
 
-				const bookingNews = resp.data.ocs.data.filter(function (elm) {
-					return (elm) =>
+				const bookingNews = resp.data.ocs.data.filter(
+					(elm) =>
 						elm.type === "calendar_events" &&
-						elm.subject.includes("You updated event ✔️");
-				});
+						elm.subject.includes("You updated event ✔️")
+				);
 
 				return bookingNews;
 			})

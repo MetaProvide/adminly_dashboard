@@ -1,24 +1,19 @@
 <template>
 	<main>
-		<div class="greeting-card">
-			<h1>{{ message }}</h1>
-			<p>It's good to see you again!</p>
+		<div class="events-widget">
+			<h2>UPCOMING EVENTS</h2>
+			<Events :events="upcomingEvents" />
 		</div>
-
-		<div class="calendar-widget centered large-text">
+		<div class="newsfeed-widget">
+			<Newsfeed :news="upcomingNews" />
+		</div>
+		<div class="booking-widget">
+			<h2>BOOK APPOINTMENT</h2>
 			<Calendar
 				:events="calendarEvents"
 				:change-pane="handleFetchCalendarEvents"
 			/>
-		</div>
-		<div class="events-widget centered">
-			<Events :events="upcomingEvents" />
-		</div>
-		<div class="booking-widget centered">
 			<Booking :booking-form-url="bookingFormUrl" />
-		</div>
-		<div class="newsfeed-widget centered">
-			<Newsfeed :news="upcomingNews" />
 		</div>
 	</main>
 </template>
@@ -106,66 +101,42 @@ export default {
 </script>
 
 <style scoped>
-.centered {
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-content: center;
-}
-
-.large-text {
-	font-size: 1.5rem;
-}
-
 main {
-	background-color: #e6e4e4;
+	background-color: #fff;
 	width: 100%;
 	min-height: 100vh;
-	padding: 20px;
+	padding: 20px 0;
 	display: grid;
 	gap: 20px;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 3fr 2fr;
-}
-
-.greeting-card {
-	background-color: lightblue;
-	grid-column-start: 1;
-	grid-column-end: 3;
-	grid-row-start: 1;
-	grid-row-end: 2;
-}
-
-.calendar-widget {
-	background-color: azure;
-	grid-column-start: 1;
-	grid-column-end: 2;
-	grid-row-start: 2;
-	grid-row-end: 3;
+	grid-template-columns: 1fr 2fr 1fr;
+	grid-template-rows: 1fr;
 }
 
 .events-widget {
-	background-color: lightpink;
-	grid-column-start: 2;
-	grid-column-end: 3;
-	grid-row-start: 2;
-	grid-row-end: 3;
+	max-width: 390px;
+	height: calc(100vh - 70px);
+	grid-column-start: 1;
+	grid-column-end: 2;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
 }
 
-.booking-widget {
-	background-color: bisque;
-	grid-column-start: 1;
-	grid-column-end: 3;
-	grid-row-start: 3;
-	grid-row-end: 4;
+.events-widget h2 {
+	text-align: center;
 }
 
 .newsfeed-widget {
-	background-color: lightyellow;
-	grid-column-start: 1;
+	grid-column-start: 2;
 	grid-column-end: 3;
-	grid-row-start: 5;
-	grid-row-end: 6;
+}
+
+.booking-widget {
+	grid-column-start: 3;
+	grid-column-end: 4;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 main a {
