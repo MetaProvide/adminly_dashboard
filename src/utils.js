@@ -108,7 +108,11 @@ export const NewsUtil = {
 
 				const bookingNews = resp.data.ocs.data.filter(
 					(elm) =>
+<<<<<<< HEAD
 						elm.type === "calendar_event" &&
+=======
+						elm.type === "calendar_events" &&
+>>>>>>> event cards new look
 						elm.subject.includes("You updated event ✔️")
 				);
 
