@@ -1,6 +1,5 @@
 <template>
-	<div style="height: 600px">
-		<h2 class="widget-title">Calendar</h2>
+	<div style="height: 500px">
 		<SlotCalendar
 			v-model="value"
 			:disabled-days-of-week="disabled"

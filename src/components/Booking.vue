@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h2>Booking</h2>
 		<iframe
 			v-if="bookingFormUrl"
 			id="bookingForm"
