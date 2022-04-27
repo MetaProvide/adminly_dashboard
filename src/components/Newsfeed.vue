@@ -1,15 +1,11 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="newsFeed">
-<<<<<<< HEAD
 		<div
 			v-for="message in news"
 			:key="message.activityId"
 			class="message-box"
 		>
-=======
-		<div v-for="message in news" :key="message.subject" class="message-box">
->>>>>>> event cards new look
 			<div class="message">
 				<div class="subject">
 					<div v-if="message.type == 'vaMessage'" class="vaBox">

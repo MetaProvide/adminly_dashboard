@@ -75,7 +75,7 @@
 			<span class="text"
 				>Link:
 				<a
-					v-href="safeLink"
+					:href="safeLink"
 					class="link"
 					:class="{ primary: isPrimary }"
 					>{{ safeLink }}</a
