@@ -122,7 +122,8 @@ main {
 	align-content: center;
 }
 
-.events-widget h2 {
+h2 {
+	color: #255280;
 	text-align: center;
 }
 
