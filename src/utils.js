@@ -120,6 +120,7 @@ export const NewsUtil = {
 		// TODO
 		return [
 			{
+				activityId: 11,
 				subject:
 					"Hi, This is a sample text message from your virtual assistant",
 				time: "11AM",
@@ -128,26 +129,28 @@ export const NewsUtil = {
 				icon: "/svg/core/logo/logo?color=000000&v=1",
 			},
 			{
+				activityId: 12,
 				subject: "Hi, This is a second text message from your VA",
 				time: "11AM",
 				vaName: "Your VA Name",
 				type: "vaMessage",
 				icon: "/svg/core/logo/logo?color=000000&v=1",
 			},
-			{ subject: "New booking from Carlos", time: "1PM" },
 			{
+				activityId: 13,
 				subject: "Reschedule booking from Carlos",
 				time: "1PM",
 				title: "RESCHEDULE:",
 				type: "appointments",
 			},
 			{
+				activityId: 14,
 				subject: "Deleted booking from Carlos",
 				time: "2PM",
 				type: "appointments",
 			},
-			{ subject: "New booking from Carlos", time: "4PM" },
 			{
+				activityId: 15,
 				subject: "Reschedule booking from Carlos",
 				time: "6PM",
 				title: "RESCHEDULE:",

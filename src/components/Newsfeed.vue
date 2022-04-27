@@ -1,7 +1,11 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="newsFeed">
-		<div v-for="message in news" :key="message.subject" class="message-box">
+		<div
+			v-for="message in news"
+			:key="message.activityId"
+			class="message-box"
+		>
 			<div class="message">
 				<div class="subject">
 					<div v-if="message.type == 'vaMessage'" class="vaBox">
