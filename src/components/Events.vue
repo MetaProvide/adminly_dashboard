@@ -2,7 +2,7 @@
 <template>
 	<div class="event-column">
 		<div v-for="(event, idx) in safeHtmlNonAllDayEvents" :key="event.key">
-			<Card
+			<UpcomingEventCard
 				:is-primary="idx === 0"
 				:main-title="event.meetingType"
 				:start-date="event.dateStart"
@@ -19,11 +19,11 @@
 
 <script>
 import sanitizeHtml from "sanitize-html";
-import Card from "./Card.vue";
+import UpcomingEventCard from "./UpcomingEventCard.vue";
 
 export default {
 	name: "Events",
-	components: { Card },
+	components: { UpcomingEventCard },
 	props: {
 		events: {
 			type: Array,

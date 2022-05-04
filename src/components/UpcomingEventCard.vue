@@ -91,7 +91,6 @@ import sanitizeHtml from "sanitize-html";
 import { isDateSame, getDateTomorrow } from "../utils";
 
 export default {
-	name: "Card",
 	components: {
 		Avatar,
 	},
