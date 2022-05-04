@@ -91,7 +91,7 @@ import sanitizeHtml from "sanitize-html";
 import { isDateSame, getDateTomorrow } from "../utils";
 
 export default {
-	name: "Card",
+	name: "EventCard",
 	components: {
 		Avatar,
 	},
@@ -160,12 +160,12 @@ export default {
 		},
 		participantsText() {
 			return this.participants
-				.map((text) => text.replace(/[^a-zåäö ]/gi, "").trim())
+				.map((text) => text.replace(/\p{Emoji}/gu, "").trim())
 				.join(", ");
 		},
 		cleanedParticipants() {
 			return this.participants.map((text) =>
-				text.replace(/[^a-zåäö ]/gi, "").trim()
+				text.replace(/\p{Emoji}/gu, "").trim()
 			);
 		},
 		timeText() {

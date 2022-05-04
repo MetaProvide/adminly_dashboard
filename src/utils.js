@@ -38,6 +38,7 @@ export const EventUtil = {
 		return url;
 	},
 	fetchCalendarEvents: async (user, calendarName, fromDate, endDate) => {
+		console.log("Fetching...");
 		const url = EventUtil.getApiUrl(user, calendarName, fromDate, endDate);
 		return axios
 			.get(url)
@@ -48,6 +49,7 @@ export const EventUtil = {
 					EventUtil.mapEvents
 				);
 
+				console.log("events", events);
 				return events;
 			})
 			.catch((err) => console.error(err));
@@ -64,7 +66,7 @@ export const EventUtil = {
 		const recurranceId = vent.recurrenceId ?? "";
 		const description = vent.description ?? "";
 		const meetingType =
-			description.match(/Meeting type: (.*)/)?.[1] ?? "Meeting";
+			description.match(/Meeting type: (.*)/)?.[1] ?? "Session";
 		const event = {
 			id: vent.uid,
 			recurranceId,
