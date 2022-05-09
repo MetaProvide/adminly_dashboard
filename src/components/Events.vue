@@ -9,12 +9,12 @@
 >>>>>>> fixed uft8 characters
 				:is-primary="idx === 0"
 				:main-title="event.meetingType"
-				:start-date="event.dateStart"
-				:start-time="event.timeStart"
+				:date-time-start="event.dtstart"
+				:date-time-end="event.dtend"
 				:participants="event.summary.split('\n')[0].split(',')"
 				:has-paid="false"
-				:description="'One time I will be connected ta proper description about the meeting. Until now it is just dummy text.'"
-				:link="'meet.ranomlink.com/meetingishere'"
+				:location="event.location"
+				:description="event.description"
 				:meeting-type="event.meetingType"
 			/>
 		</div>
