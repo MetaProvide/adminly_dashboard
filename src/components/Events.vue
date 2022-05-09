@@ -2,11 +2,7 @@
 <template>
 	<div class="event-column">
 		<div v-for="(event, idx) in safeHtmlNonAllDayEvents" :key="event.key">
-<<<<<<< HEAD
 			<UpcomingEventCard
-=======
-			<EventCard
->>>>>>> fixed uft8 characters
 				:is-primary="idx === 0"
 				:main-title="event.meetingType"
 				:date-time-start="event.dtstart"

@@ -72,14 +72,11 @@
 					fill="#6295E2"
 				/>
 			</svg>
-			<span class="text"
+			<span v-if="link" class="text"
 				>Link:
-				<a
-					:href="safeLink"
-					class="link"
-					:class="{ primary: isPrimary }"
-					>{{ safeLink }}</a
-				></span
+				<a :href="link" class="link" :class="{ primary: isPrimary }">{{
+					link
+				}}</a></span
 			>
 		</p>
 	</div>
@@ -89,8 +86,10 @@
 import Avatar from "vue-avatar";
 import sanitizeHtml from "sanitize-html";
 import { isDateSame, getDateTomorrow } from "../utils";
+import moment from "moment";
 
 export default {
+	name: "UpcomingEventCard",
 	components: {
 		Avatar,
 	},
@@ -131,19 +130,19 @@ export default {
 				return "";
 			},
 		},
-		link: {
+		location: {
 			type: String,
 			default() {
 				return "";
 			},
 		},
-		startDate: {
+		dateTimeStart: {
 			type: String,
 			default() {
 				return "";
 			},
 		},
-		startTime: {
+		dateTimeEnd: {
 			type: String,
 			default() {
 				return "";
@@ -151,32 +150,43 @@ export default {
 		},
 	},
 	computed: {
+		link() {
+			// Find first link in description or location
+			return [
+				...(this.linkify(this.description || "") || []),
+				...(this.linkify(this.location || "") || []),
+			].filter(Boolean)?.[0];
+		},
 		safeDescription() {
 			return sanitizeHtml(this.description);
 		},
-		safeLink() {
-			return sanitizeHtml(this.link);
-		},
 		participantsText() {
 			return this.participants
-				.map((text) => text.replace(/[^a-zåäö ]/gi, "").trim())
+				.map((text) => text.replace(/\p{Emoji}/gu, "").trim())
 				.join(", ");
 		},
 		cleanedParticipants() {
 			return this.participants.map((text) =>
-				text.replace(/[^a-zåäö ]/gi, "").trim()
+				text.replace(/\p{Emoji}/gu, "").trim()
 			);
 		},
 		timeText() {
 			const today = new Date();
 			const tomorrow = getDateTomorrow();
-			if (isDateSame(this.startDate, today)) {
-				return this.startTime;
-			} else if (isDateSame(this.startDate, tomorrow)) {
+			if (isDateSame(this.dateTimeStart, today)) {
+				return moment(this.dateTimeStart).format("HH:mm");
+			} else if (isDateSame(this.dateTimeStart, tomorrow)) {
 				return "Tomorrow";
 			} else {
-				return this.startDate;
+				return moment(this.dateTimeStart).format("YYYY-MM-DD");
 			}
+		},
+	},
+	methods: {
+		linkify(text) {
+			const urlRegex =
+				/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; // eslint-disable-line
+			return text.match(urlRegex);
 		},
 	},
 };
