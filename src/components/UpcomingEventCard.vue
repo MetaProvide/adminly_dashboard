@@ -270,5 +270,9 @@ export default {
 		color: #595959;
 		line-height: 15px;
 	}
+
+	.event .vue-avatar--wrapper span {
+		margin-left: 0;
+	}
 }
 </style>
