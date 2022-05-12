@@ -1,18 +1,26 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="event-column">
-		<div v-for="(event, idx) in safeHtmlNonAllDayEvents" :key="event.key">
-			<UpcomingEventCard
-				:is-primary="idx === 0"
-				:main-title="event.meetingType"
-				:date-time-start="event.dtstart"
-				:date-time-end="event.dtend"
-				:participants="event.summary.split('\n')[0].split(',')"
-				:has-paid="false"
-				:location="event.location"
-				:description="event.description"
-				:meeting-type="event.meetingType"
-			/>
+		<div v-if="hasEvents">
+			<div
+				v-for="(event, idx) in safeHtmlNonAllDayEvents"
+				:key="event.key"
+			>
+				<UpcomingEventCard
+					:is-primary="idx === 0"
+					:main-title="event.meetingType"
+					:date-time-start="event.dtstart"
+					:date-time-end="event.dtend"
+					:participants="event.summary.split('\n')[0].split(',')"
+					:has-paid="false"
+					:location="event.location"
+					:description="event.description"
+					:meeting-type="event.meetingType"
+				/>
+			</div>
+		</div>
+		<div v-else class="no-event-container">
+			<p>No sessions in the next 5 days 💤</p>
 		</div>
 	</div>
 </template>
@@ -33,6 +41,9 @@ export default {
 		},
 	},
 	computed: {
+		hasEvents() {
+			return this.events.length > 0;
+		},
 		safeHtmlNonAllDayEvents() {
 			return this.events
 				.filter((evt) => !evt.isAllDay)
@@ -58,6 +69,17 @@ export default {
 		#dcedff 79.45%,
 		#e2e2ff 100%
 	);
+}
+
+.no-event-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 50%;
+}
+
+.no-event-container p {
+	font-weight: 300;
 }
 
 ::-webkit-scrollbar {

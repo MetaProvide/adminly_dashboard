@@ -124,12 +124,14 @@ main {
 
 .events-widget {
 	max-width: 390px;
-	height: calc(100vh - 70px);
+	height: calc(100% - 70px);
 	grid-column-start: 1;
 	grid-column-end: 2;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
+	position: sticky;
+	top: 0;
 }
 
 h2 {
