@@ -23,6 +23,8 @@ import Events from "./components/Events";
 import Calendar from "./components/Calendar";
 import Booking from "./components/Booking";
 import Newsfeed from "./components/Newsfeed";
+import dayjs from "dayjs";
+
 import { UserUtil, EventUtil, NewsUtil } from "./utils";
 
 export default {
@@ -51,30 +53,38 @@ export default {
 	},
 	async mounted() {
 		// Upcoming events
-		const today = EventUtil.getSecondsSince(Date.now());
+		const today = dayjs();
+		const nextMonth = dayjs().month(today.month() + 1);
 		const upcomingEvents = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
 			"personal",
-			today
+			today.unix(),
+			nextMonth.unix()
 		);
 
-		this.upcomingEvents = this.getNextFiveEvents(upcomingEvents);
+		this.upcomingEvents = this.getNextFiveNonAllDayEvents(upcomingEvents);
+
 		const bookingNews = await NewsUtil.fetchBookingNews();
 		const vaMessages = await NewsUtil.fetchVaMessages();
 		this.upcomingNews = this.upcomingNews.concat(vaMessages, bookingNews);
 	},
 	methods: {
-		getNextFiveEvents: (events) =>
+		getNextFiveNonAllDayEvents: (events) =>
 			events
-				.sort(
-					(evt1, evt2) =>
-						new Date(evt1.dateStart).getTime() -
-						new Date(evt2.dateStart).getTime()
-				)
+				.filter((evt) => !evt.isAllDay)
+				.sort((evt1, evt2) => {
+					const c = new Date(evt1.dtstart);
+					const d = new Date(evt2.dtstart);
+					return c - d;
+				})
 				.slice(0, Math.min(5, events.length)),
 		getEventsByUniqueStartDate: (events) =>
 			events.reduce((acc, cur) => {
-				if (!acc.some((evt) => cur.dateStart === evt.dateStart))
+				if (
+					!acc.some((evt) =>
+						dayjs(cur.dtstart).isSame(evt.dtstart, "day")
+					)
+				)
 					acc.push(cur);
 				return acc;
 			}, []),
@@ -114,12 +124,14 @@ main {
 
 .events-widget {
 	max-width: 390px;
-	height: calc(100vh - 70px);
+	height: calc(100% - 70px);
 	grid-column-start: 1;
 	grid-column-end: 2;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
+	position: sticky;
+	top: 0;
 }
 
 h2 {

@@ -44,6 +44,7 @@ export const EventUtil = {
 			.then((resp) => {
 				if (resp.status !== 200)
 					throw new Error("Error fetching events");
+
 				const events = EventUtil.getObjects(resp.data).map(
 					EventUtil.mapEvents
 				);
@@ -55,28 +56,20 @@ export const EventUtil = {
 	mapEvents: (vent) => {
 		const isAllDay =
 			!vent.dtstart.includes("T") && !vent.dtend.includes("T");
-		const dateStart = isAllDay ? vent.dtstart : vent.dtstart.split("T")[0];
-		const dateEnd = isAllDay ? vent.dtend : vent.dtend.split("T")[0];
-		const timeStart = isAllDay
-			? null
-			: vent.dtstart.split("T")[1].slice(0, 5);
-		const timeEnd = isAllDay ? null : vent.dtend.split("T")[1].slice(0, 5);
 		const recurranceId = vent.recurrenceId ?? "";
 		const description = vent.description ?? "";
 		const meetingType =
-			description.match(/Meeting type: (.*)/)?.[1] ?? "Meeting";
+			description.match(/Meeting type: (.*)/)?.[1] ?? "Session";
 		const event = {
 			id: vent.uid,
 			recurranceId,
 			key: vent.uid + recurranceId,
 			summary: vent.summary ?? "Untitled event",
+			dtstart: vent.dtstart,
+			dtend: vent.dtend,
 			description,
 			meetingType,
 			isAllDay,
-			dateStart,
-			dateEnd,
-			timeStart,
-			timeEnd,
 			location: vent.location ?? "",
 		};
 		return event;
@@ -108,7 +101,7 @@ export const NewsUtil = {
 
 				const bookingNews = resp.data.ocs.data.filter(
 					(elm) =>
-						elm.type === "calendar_event" &&
+						elm.type === "calendar_events" &&
 						elm.subject.includes("You updated event ✔️")
 				);
 

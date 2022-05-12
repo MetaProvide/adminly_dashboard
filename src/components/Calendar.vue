@@ -17,7 +17,7 @@
 			<div
 				v-for="(evt, idx) in events"
 				:key="idx"
-				:slot="evt.dateStart"
+				:slot="evt.dtstart.slice(0, 10)"
 				class="event-indicator"
 			></div>
 		</SlotCalendar>

@@ -57,7 +57,7 @@
 				v-html="safeDescription"
 			></p>
 		</div>
-		<p v-if="link" class="row">
+		<p v-if="mainLink" class="row">
 			<svg
 				width="21"
 				height="14"
@@ -72,13 +72,17 @@
 					fill="#6295E2"
 				/>
 			</svg>
-			<span class="text"
+			<span v-if="mainLink" class="text"
 				>Link:
 				<a
-					:href="safeLink"
+					:href="mainLink"
 					class="link"
 					:class="{ primary: isPrimary }"
-					>{{ safeLink }}</a
+					>{{
+						mainLink.length > 32
+							? mainLink.slice(0, 32) + "..."
+							: mainLink
+					}}</a
 				></span
 			>
 		</p>
@@ -89,8 +93,10 @@
 import Avatar from "vue-avatar";
 import sanitizeHtml from "sanitize-html";
 import { isDateSame, getDateTomorrow } from "../utils";
+import dayjs from "dayjs";
 
 export default {
+	name: "UpcomingEventCard",
 	components: {
 		Avatar,
 	},
@@ -131,19 +137,19 @@ export default {
 				return "";
 			},
 		},
-		link: {
+		location: {
 			type: String,
 			default() {
 				return "";
 			},
 		},
-		startDate: {
+		dateTimeStart: {
 			type: String,
 			default() {
 				return "";
 			},
 		},
-		startTime: {
+		dateTimeEnd: {
 			type: String,
 			default() {
 				return "";
@@ -151,32 +157,52 @@ export default {
 		},
 	},
 	computed: {
-		safeDescription() {
-			return sanitizeHtml(this.description);
+		mainLink() {
+			// Find last link in description or location
+			const links = [
+				...(this.linkify(this.location || "") || []),
+				...(this.linkify(this.description || "") || []),
+			].filter(Boolean);
+
+			return links.pop();
 		},
-		safeLink() {
-			return sanitizeHtml(this.link);
+		safeDescription() {
+			return sanitizeHtml(this.talkUrlPruned(this.description));
 		},
 		participantsText() {
 			return this.participants
-				.map((text) => text.replace(/[^a-zåäö ]/gi, "").trim())
+				.map((text) => text.replace(/\p{Emoji}/gu, "").trim())
 				.join(", ");
 		},
 		cleanedParticipants() {
-			return this.participants.map((text) =>
-				text.replace(/[^a-zåäö ]/gi, "").trim()
-			);
+			return this.participants.map((text) => {
+				const fullname = text.replace(/\p{Emoji}/gu, "").trim();
+				const words = fullname.split(" ");
+				const wordLimit = Math.max(words.length - 1, 2);
+				return words.slice(0, wordLimit).join(" ");
+			});
 		},
 		timeText() {
 			const today = new Date();
 			const tomorrow = getDateTomorrow();
-			if (isDateSame(this.startDate, today)) {
-				return this.startTime;
-			} else if (isDateSame(this.startDate, tomorrow)) {
+			if (isDateSame(this.dateTimeStart, today)) {
+				return dayjs(this.dateTimeStart).format("HH:mm");
+			} else if (isDateSame(this.dateTimeStart, tomorrow)) {
 				return "Tomorrow";
 			} else {
-				return this.startDate;
+				return dayjs(this.dateTimeStart).format("YYYY-MM-DD");
 			}
+		},
+	},
+	methods: {
+		talkUrlPruned(str) {
+			// remove any text that is part of `/call\/[a-z0-9]+/`
+			return str.replace(/https:\/\/.*\/call\/[a-z0-9]+/g, "");
+		},
+		linkify(text) {
+			const urlRegex =
+				/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; // eslint-disable-line
+			return text.match(urlRegex);
 		},
 	},
 };
@@ -243,6 +269,10 @@ export default {
 	.description-text {
 		color: #595959;
 		line-height: 15px;
+	}
+
+	.vue-avatar--wrapper span {
+		margin-left: 0;
 	}
 }
 </style>
