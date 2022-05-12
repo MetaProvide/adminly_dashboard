@@ -44,6 +44,7 @@ export const EventUtil = {
 			.then((resp) => {
 				if (resp.status !== 200)
 					throw new Error("Error fetching events");
+
 				const events = EventUtil.getObjects(resp.data).map(
 					EventUtil.mapEvents
 				);

@@ -23,6 +23,7 @@ import Events from "./components/Events";
 import Calendar from "./components/Calendar";
 import Booking from "./components/Booking";
 import Newsfeed from "./components/Newsfeed";
+import dayjs from "dayjs";
 
 import { UserUtil, EventUtil, NewsUtil } from "./utils";
 
@@ -52,11 +53,13 @@ export default {
 	},
 	async mounted() {
 		// Upcoming events
-		const today = EventUtil.getSecondsSince(Date.now());
+		const today = dayjs();
+		const nextMonth = dayjs().month(today.month() + 1);
 		const upcomingEvents = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
 			"personal",
-			today
+			today.unix(),
+			nextMonth.unix()
 		);
 
 		this.upcomingEvents = this.getNextFiveNonAllDayEvents(upcomingEvents);
@@ -77,7 +80,11 @@ export default {
 				.slice(0, Math.min(5, events.length)),
 		getEventsByUniqueStartDate: (events) =>
 			events.reduce((acc, cur) => {
-				if (!acc.some((evt) => cur.dateTimeStart === evt.dateTimeStart))
+				if (
+					!acc.some((evt) =>
+						dayjs(cur.dtstart).isSame(evt.dtstart, "day")
+					)
+				)
 					acc.push(cur);
 				return acc;
 			}, []),

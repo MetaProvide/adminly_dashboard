@@ -50,7 +50,7 @@ export default {
 .event-column {
 	max-width: 385px;
 	padding: 10px 22px 0px 22px;
-	overflow-y: scroll;
+	overflow-y: hidden;
 	height: 100%;
 	background: linear-gradient(
 		180deg,

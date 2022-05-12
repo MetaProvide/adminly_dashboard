@@ -75,7 +75,7 @@
 			<span v-if="link" class="text"
 				>Link:
 				<a :href="link" class="link" :class="{ primary: isPrimary }">{{
-					link
+					link.length > 32 ? link.slice(0, 32) + "..." : link
 				}}</a></span
 			>
 		</p>
@@ -86,7 +86,7 @@
 import Avatar from "vue-avatar";
 import sanitizeHtml from "sanitize-html";
 import { isDateSame, getDateTomorrow } from "../utils";
-import moment from "moment";
+import dayjs from "dayjs";
 
 export default {
 	name: "UpcomingEventCard",
@@ -158,7 +158,7 @@ export default {
 			].filter(Boolean)?.[0];
 		},
 		safeDescription() {
-			return sanitizeHtml(this.description);
+			return sanitizeHtml(this.talkUrlPruned(this.description));
 		},
 		participantsText() {
 			return this.participants
@@ -174,15 +174,20 @@ export default {
 			const today = new Date();
 			const tomorrow = getDateTomorrow();
 			if (isDateSame(this.dateTimeStart, today)) {
-				return moment(this.dateTimeStart).format("HH:mm");
+				return dayjs(this.dateTimeStart).format("HH:mm");
 			} else if (isDateSame(this.dateTimeStart, tomorrow)) {
 				return "Tomorrow";
 			} else {
-				return moment(this.dateTimeStart).format("YYYY-MM-DD");
+				return dayjs(this.dateTimeStart).format("YYYY-MM-DD");
 			}
 		},
 	},
 	methods: {
+		talkUrlPruned(str) {
+			// remove any text that is part of `/call\/[a-z0-9]+/`
+			return str.replace(/https:\/\/.*\/call\/[a-z0-9]+/g, "");
+			// https://\w+\.\w+\.\w+\./\w+\.\w+\./call/[a-z0-9]+
+		},
 		linkify(text) {
 			const urlRegex =
 				/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; // eslint-disable-line
