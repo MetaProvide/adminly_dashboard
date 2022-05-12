@@ -271,7 +271,7 @@ export default {
 		line-height: 15px;
 	}
 
-	.event .vue-avatar--wrapper span {
+	.vue-avatar--wrapper span {
 		margin-left: 0;
 	}
 }
