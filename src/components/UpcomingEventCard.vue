@@ -57,7 +57,7 @@
 				v-html="safeDescription"
 			></p>
 		</div>
-		<p v-if="link" class="row">
+		<p v-if="mainLink" class="row">
 			<svg
 				width="21"
 				height="14"
@@ -72,11 +72,18 @@
 					fill="#6295E2"
 				/>
 			</svg>
-			<span v-if="link" class="text"
+			<span v-if="mainLink" class="text"
 				>Link:
-				<a :href="link" class="link" :class="{ primary: isPrimary }">{{
-					link.length > 32 ? link.slice(0, 32) + "..." : link
-				}}</a></span
+				<a
+					:href="mainLink"
+					class="link"
+					:class="{ primary: isPrimary }"
+					>{{
+						mainLink.length > 32
+							? mainLink.slice(0, 32) + "..."
+							: mainLink
+					}}</a
+				></span
 			>
 		</p>
 	</div>
@@ -150,12 +157,14 @@ export default {
 		},
 	},
 	computed: {
-		link() {
-			// Find first link in description or location
-			return [
-				...(this.linkify(this.description || "") || []),
+		mainLink() {
+			// Find last link in description or location
+			const links = [
 				...(this.linkify(this.location || "") || []),
-			].filter(Boolean)?.[0];
+				...(this.linkify(this.description || "") || []),
+			].filter(Boolean);
+
+			return links.pop();
 		},
 		safeDescription() {
 			return sanitizeHtml(this.talkUrlPruned(this.description));
@@ -166,9 +175,12 @@ export default {
 				.join(", ");
 		},
 		cleanedParticipants() {
-			return this.participants.map((text) =>
-				text.replace(/\p{Emoji}/gu, "").trim()
-			);
+			return this.participants.map((text) => {
+				const fullname = text.replace(/\p{Emoji}/gu, "").trim();
+				const words = fullname.split(" ");
+				const wordLimit = Math.max(words.length - 1, 2);
+				return words.slice(0, wordLimit).join(" ");
+			});
 		},
 		timeText() {
 			const today = new Date();
@@ -186,7 +198,6 @@ export default {
 		talkUrlPruned(str) {
 			// remove any text that is part of `/call\/[a-z0-9]+/`
 			return str.replace(/https:\/\/.*\/call\/[a-z0-9]+/g, "");
-			// https://\w+\.\w+\.\w+\./\w+\.\w+\./call/[a-z0-9]+
 		},
 		linkify(text) {
 			const urlRegex =
