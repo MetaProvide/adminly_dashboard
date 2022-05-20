@@ -1,9 +1,10 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="event">
-		<h2 class="row title" :class="{ primary: isPrimary }">
-			<span>{{ mainTitle }}</span> <span>{{ timeText }}</span>
-		</h2>
+		<h3 class="row just-sb" :class="{ primary: isPrimary }">
+			<span class="title">{{ mainTitle }}</span>
+			<span class="time">{{ timeText }}</span>
+		</h3>
 		<div class="row">
 			<div
 				v-for="participant in cleanedParticipants"
@@ -186,11 +187,13 @@ export default {
 			const today = new Date();
 			const tomorrow = getDateTomorrow();
 			if (isDateSame(this.dateTimeStart, today)) {
-				return dayjs(this.dateTimeStart).format("HH:mm");
+				return dayjs(this.dateTimeStart).format("HH:mm A");
 			} else if (isDateSame(this.dateTimeStart, tomorrow)) {
-				return "Tomorrow";
+				return `Tomorrow ${dayjs(this.dateTimeStart).format(
+					"hh:mm A"
+				)}`;
 			} else {
-				return dayjs(this.dateTimeStart).format("YYYY-MM-DD");
+				return dayjs(this.dateTimeStart).format("dddd hh:mm A");
 			}
 		},
 	},
@@ -234,6 +237,19 @@ export default {
 		span {
 			margin-left: 8px;
 		}
+
+		.title {
+			font-size: 1.05rem;
+			font-weight: 500;
+			margin-left: 0;
+		}
+
+		.time {
+			font-size: 0.85rem;
+			text-align: right;
+			font-weight: 400;
+			margin-left: 0;
+		}
 	}
 
 	.column {
@@ -247,19 +263,13 @@ export default {
 	}
 
 	.text {
-		font-size: 0.85rem;
+		font-size: 0.75rem;
 		font-weight: 500;
-		line-height: 0.9rem;
+		line-height: 0.87rem;
 	}
 
-	.title {
-		font-size: 1.2rem;
-		font-weight: 500;
-		width: 100%;
+	.just-sb {
 		justify-content: space-between;
-		span {
-			margin: 0;
-		}
 	}
 
 	.link {
