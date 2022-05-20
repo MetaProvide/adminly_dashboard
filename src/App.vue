@@ -130,8 +130,8 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-content: center;
-	position: sticky;
-	top: 0;
+	position: fixed;
+	top: 70px;
 }
 
 h2 {
@@ -150,6 +150,11 @@ h2 {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	/* Use style below to make fixed */
+	/* TODO: adjust calendar & booking component to Figma Design */
+	/* position: fixed;
+	top: 70px;
+	left: calc(100% - 440px); */
 }
 
 main a {
