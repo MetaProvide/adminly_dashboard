@@ -93,19 +93,13 @@ export const EventUtil = {
 export const NewsUtil = {
 	fetchBookingNews: () => {
 		const url =
-			"/ocs/v2.php/apps/activity/api/v2/activity/calendar?format=json";
+			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json";
 		return axios
 			.get(url)
 			.then((resp) => {
 				if (resp.status !== 200) throw new Error("Error fetching news");
 
-				const bookingNews = resp.data.ocs.data.filter(
-					(elm) =>
-						elm.type === "calendar_events" &&
-						elm.subject.includes("You updated event ✔️")
-				);
-
-				return bookingNews.map((elm) => ({
+				return resp.data.ocs.data.map((elm) => ({
 					...elm,
 					time: new Date(elm.datetime).toLocaleString(),
 				}));
