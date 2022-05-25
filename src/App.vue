@@ -5,7 +5,7 @@
 			<Events :events="upcomingEvents" />
 		</div>
 		<div class="newsfeed-widget">
-			<Newsfeed :news="upcomingNews" />
+			<Newsfeed :news="sortedNews" />
 		</div>
 		<div class="booking-widget">
 			<h2>BOOK APPOINTMENT</h2>
@@ -50,6 +50,13 @@ export default {
 			upcomingEvents: [],
 			upcomingNews: [],
 		};
+	},
+	computed: {
+		sortedNews() {
+			return this.upcomingNews
+				.slice(0)
+				.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+		},
 	},
 	async mounted() {
 		// Upcoming events
