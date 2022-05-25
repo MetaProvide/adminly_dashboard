@@ -124,6 +124,7 @@ export const NewsUtil = {
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
 					title: "NEW CLIENT:",
+					link: "/apps/adminly_clients/",
 					subject: elm.subject_rich[0].replace(
 						"{client}",
 						elm.subject_rich[1].client.name
