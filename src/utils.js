@@ -102,6 +102,7 @@ export const NewsUtil = {
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
 					time: new Date(elm.datetime).toLocaleString(),
+					link: elm.subject_rich[1].booking.link,
 				}));
 			})
 			.catch((err) => console.error(err));
