@@ -112,6 +112,26 @@ export const NewsUtil = {
 			})
 			.catch((err) => console.error(err));
 	},
+	fetchClientNews: () => {
+		const url =
+			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json";
+		return axios
+			.get(url)
+			.then((resp) => {
+				if (resp.status !== 200) throw new Error("Error fetching news");
+
+				return resp.data.ocs.data.map((elm) => ({
+					...elm,
+					title: "NEW CLIENT:",
+					subject: elm.subject_rich[0].replace(
+						"{client}",
+						elm.subject_rich[1].client.name
+					),
+					time: new Date(elm.datetime).toLocaleString(),
+				}));
+			})
+			.catch((err) => console.error(err));
+	},
 	fetchVaMessages: () => {
 		// TODO
 		return [

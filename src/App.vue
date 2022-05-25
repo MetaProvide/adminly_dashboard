@@ -65,8 +65,13 @@ export default {
 		this.upcomingEvents = this.getNextFiveNonAllDayEvents(upcomingEvents);
 
 		const bookingNews = await NewsUtil.fetchBookingNews();
+		const clientNews = await NewsUtil.fetchClientNews();
 		const vaMessages = await NewsUtil.fetchVaMessages();
-		this.upcomingNews = this.upcomingNews.concat(vaMessages, bookingNews);
+		this.upcomingNews = this.upcomingNews.concat(
+			vaMessages,
+			bookingNews,
+			clientNews
+		);
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
