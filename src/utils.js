@@ -8,6 +8,11 @@ export const UserUtil = {
 
 const camelize = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
+const getBookingTitleBySubject = (subject) => {
+	if (subject.includes("new")) return "NEW BOOKING CREATED:";
+	else if (subject.includes("confirmed")) return "BOOKING CONFIRMED:";
+	else return "BOOKING UPDATED:";
+};
 // Function to check if a date is today or not
 export const isDateSame = (date, baselineDate) => {
 	const otherDate = new Date(date);
@@ -101,6 +106,7 @@ export const NewsUtil = {
 
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
+					title: getBookingTitleBySubject(elm.subject),
 					time: new Date(elm.datetime).toLocaleString(),
 					link: elm.subject_rich[1].booking.link,
 				}));
@@ -146,26 +152,6 @@ export const NewsUtil = {
 				vaName: "Your VA Name",
 				type: "vaMessage",
 				icon: "/svg/core/logo/logo?color=000000&v=1",
-			},
-			{
-				activityId: 13,
-				subject: "Reschedule booking from Carlos",
-				time: "1PM",
-				title: "RESCHEDULE:",
-				type: "appointments",
-			},
-			{
-				activityId: 14,
-				subject: "Deleted booking from Carlos",
-				time: "2PM",
-				type: "appointments",
-			},
-			{
-				activityId: 15,
-				subject: "Reschedule booking from Carlos",
-				time: "6PM",
-				title: "RESCHEDULE:",
-				type: "appointments",
 			},
 		];
 	},
