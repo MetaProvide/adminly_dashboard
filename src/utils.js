@@ -100,10 +100,20 @@ export const NewsUtil = {
 		const url =
 			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json";
 		return axios
-			.get(url)
+			.get(url, {
+				validateStatus: (status) => {
+					return status < 500; // Resolve only if the status code is less than 500
+				},
+			})
 			.then((resp) => {
-				if (resp.status !== 200) throw new Error("Error fetching news");
-
+				switch (resp.status) {
+					case 200:
+						break;
+					case 304:
+						return [];
+					default:
+						throw new Error("Error appointments activities");
+				}
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
 					title: getBookingTitleBySubject(elm.subject),
@@ -117,9 +127,20 @@ export const NewsUtil = {
 		const url =
 			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json";
 		return axios
-			.get(url)
+			.get(url, {
+				validateStatus: (status) => {
+					return status < 500; // Resolve only if the status code is less than 500
+				},
+			})
 			.then((resp) => {
-				if (resp.status !== 200) throw new Error("Error fetching news");
+				switch (resp.status) {
+					case 200:
+						break;
+					case 304:
+						return [];
+					default:
+						throw new Error("Error fetching client activities");
+				}
 
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
