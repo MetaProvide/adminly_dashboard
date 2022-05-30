@@ -6,17 +6,23 @@
 			:key="message.activityId"
 			class="message-box"
 		>
-			<div class="message">
-				<div class="subject">
-					<div v-if="message.type == 'vaMessage'" class="vaBox">
-						<img :src="message.icon" alt="Avatar" class="avatar" />
-						<p>{{ message.vaName }}</p>
+			<a :href="message.link">
+				<div class="message">
+					<div class="subject">
+						<div v-if="message.type == 'vaMessage'" class="vaBox">
+							<img
+								:src="message.icon"
+								alt="Avatar"
+								class="avatar"
+							/>
+							<p>{{ message.vaName }}</p>
+						</div>
+						<p>{{ message.title }}</p>
+						<span>{{ message.subject }}</span>
 					</div>
-					<p>{{ message.title }}</p>
-					<span>{{ message.subject }}</span>
+					<div class="time">{{ message.time }}</div>
 				</div>
-				<div class="time">{{ message.time }}</div>
-			</div>
+			</a>
 		</div>
 	</div>
 </template>
@@ -30,6 +36,11 @@ export default {
 			default() {
 				return [];
 			},
+		},
+	},
+	methods: {
+		openLink: (link) => {
+			window.location.href = link;
 		},
 	},
 };

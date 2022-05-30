@@ -8,6 +8,11 @@ export const UserUtil = {
 
 const camelize = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
+const getBookingTitleBySubject = (subject) => {
+	if (subject.includes("new")) return "NEW BOOKING CREATED:";
+	else if (subject.includes("confirmed")) return "BOOKING CONFIRMED:";
+	else return "BOOKING UPDATED:";
+};
 // Function to check if a date is today or not
 export const isDateSame = (date, baselineDate) => {
 	const otherDate = new Date(date);
@@ -93,20 +98,58 @@ export const EventUtil = {
 export const NewsUtil = {
 	fetchBookingNews: () => {
 		const url =
-			"/ocs/v2.php/apps/activity/api/v2/activity/calendar?format=json";
+			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json";
 		return axios
-			.get(url)
+			.get(url, {
+				validateStatus: (status) => {
+					return status < 500; // Resolve only if the status code is less than 500
+				},
+			})
 			.then((resp) => {
-				if (resp.status !== 200) throw new Error("Error fetching news");
-
-				const bookingNews = resp.data.ocs.data.filter(
-					(elm) =>
-						elm.type === "calendar_events" &&
-						elm.subject.includes("You updated event ✔️")
-				);
-
-				return bookingNews.map((elm) => ({
+				switch (resp.status) {
+					case 200:
+						break;
+					case 304:
+						return [];
+					default:
+						throw new Error("Error appointments activities");
+				}
+				return resp.data.ocs.data.map((elm) => ({
 					...elm,
+					title: getBookingTitleBySubject(elm.subject),
+					time: new Date(elm.datetime).toLocaleString(),
+					link: elm.subject_rich[1].booking.link,
+				}));
+			})
+			.catch((err) => console.error(err));
+	},
+	fetchClientNews: () => {
+		const url =
+			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json";
+		return axios
+			.get(url, {
+				validateStatus: (status) => {
+					return status < 500; // Resolve only if the status code is less than 500
+				},
+			})
+			.then((resp) => {
+				switch (resp.status) {
+					case 200:
+						break;
+					case 304:
+						return [];
+					default:
+						throw new Error("Error fetching client activities");
+				}
+
+				return resp.data.ocs.data.map((elm) => ({
+					...elm,
+					title: "NEW CLIENT:",
+					link: "/apps/adminly_clients/",
+					subject: elm.subject_rich[0].replace(
+						"{client}",
+						elm.subject_rich[1].client.name
+					),
 					time: new Date(elm.datetime).toLocaleString(),
 				}));
 			})
@@ -131,26 +174,6 @@ export const NewsUtil = {
 				vaName: "Your VA Name",
 				type: "vaMessage",
 				icon: "/svg/core/logo/logo?color=000000&v=1",
-			},
-			{
-				activityId: 13,
-				subject: "Reschedule booking from Carlos",
-				time: "1PM",
-				title: "RESCHEDULE:",
-				type: "appointments",
-			},
-			{
-				activityId: 14,
-				subject: "Deleted booking from Carlos",
-				time: "2PM",
-				type: "appointments",
-			},
-			{
-				activityId: 15,
-				subject: "Reschedule booking from Carlos",
-				time: "6PM",
-				title: "RESCHEDULE:",
-				type: "appointments",
 			},
 		];
 	},

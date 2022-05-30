@@ -5,7 +5,7 @@
 			<Events :events="upcomingEvents" />
 		</div>
 		<div class="newsfeed-widget">
-			<Newsfeed :news="upcomingNews" />
+			<Newsfeed :news="sortedNews" />
 		</div>
 		<div class="booking-widget">
 			<h2>BOOK APPOINTMENT</h2>
@@ -51,6 +51,13 @@ export default {
 			upcomingNews: [],
 		};
 	},
+	computed: {
+		sortedNews() {
+			return this.upcomingNews
+				.slice(0)
+				.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
+		},
+	},
 	async mounted() {
 		// Upcoming events
 		const today = dayjs();
@@ -65,8 +72,13 @@ export default {
 		this.upcomingEvents = this.getNextFiveNonAllDayEvents(upcomingEvents);
 
 		const bookingNews = await NewsUtil.fetchBookingNews();
+		const clientNews = await NewsUtil.fetchClientNews();
 		const vaMessages = await NewsUtil.fetchVaMessages();
-		this.upcomingNews = this.upcomingNews.concat(vaMessages, bookingNews);
+		this.upcomingNews = this.upcomingNews.concat(
+			vaMessages,
+			bookingNews,
+			clientNews
+		);
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
