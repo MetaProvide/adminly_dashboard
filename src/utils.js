@@ -35,6 +35,13 @@ export const getDateTomorrow = () => {
 	return tomorrow;
 };
 
+export const getDateYesterday = () => {
+	const today = new Date();
+	const yesterday = new Date(today);
+	yesterday.setDate(yesterday.getDate() - 1);
+	return yesterday;
+};
+
 export const EventUtil = {
 	oneMonthInSeconds: 60 * 60 * 24 * 31,
 	getApiUrl: (userName, calendarName, fromDate, endDate) => {
@@ -117,7 +124,6 @@ export const NewsUtil = {
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
 					title: getBookingTitleBySubject(elm.subject),
-					time: new Date(elm.datetime).toLocaleString(),
 					link: elm.subject_rich[1].booking.link,
 				}));
 			})
@@ -150,7 +156,6 @@ export const NewsUtil = {
 						"{client}",
 						elm.subject_rich[1].client.name
 					),
-					time: new Date(elm.datetime).toLocaleString(),
 				}));
 			})
 			.catch((err) => console.error(err));

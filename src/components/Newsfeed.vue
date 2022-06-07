@@ -21,7 +21,7 @@
 						<span>{{ message.subject }}</span>
 					</div>
 					<div class="time">
-						{{ timeText(message.time) + message.time }}
+						{{ timeText(message.datetime) }}
 					</div>
 				</div>
 			</a>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { isDateSame, getDateTomorrow } from "../utils";
+import { isDateSame, getDateYesterday } from "../utils";
 import dayjs from "dayjs";
 
 export default {
@@ -49,11 +49,11 @@ export default {
 		},
 		timeText(dateTime) {
 			const today = new Date();
-			const tomorrow = getDateTomorrow();
+			const yesterday = getDateYesterday();
 			if (isDateSame(dateTime, today)) {
 				return dayjs(dateTime).format("HH:mm A");
-			} else if (isDateSame(dateTime, tomorrow)) {
-				return `Tomorrow ${dayjs(dateTime).format("hh:mm A")}`;
+			} else if (isDateSame(dateTime, yesterday)) {
+				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
 			} else {
 				return dayjs(dateTime).format("dddd hh:mm A");
 			}
