@@ -98,7 +98,7 @@ export const EventUtil = {
 export const NewsUtil = {
 	fetchBookingNews: () => {
 		const url =
-			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json";
+			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json&limit=5";
 		return axios
 			.get(url, {
 				validateStatus: (status) => {
@@ -125,7 +125,7 @@ export const NewsUtil = {
 	},
 	fetchClientNews: () => {
 		const url =
-			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json";
+			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json&limit=5";
 		return axios
 			.get(url, {
 				validateStatus: (status) => {
