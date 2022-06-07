@@ -125,6 +125,9 @@ export const NewsUtil = {
 					...elm,
 					title: getBookingTitleBySubject(elm.subject),
 					link: elm.subject_rich[1].booking.link,
+					booking: elm.subject_rich[1].booking.name,
+					dtStart: elm.subject_rich[1].dtStart.name,
+					subject: elm.subject_rich[0].replace(/{([^}]+)}/g, ""),
 				}));
 			})
 			.catch((err) => console.error(err));
@@ -152,10 +155,8 @@ export const NewsUtil = {
 					...elm,
 					title: "NEW CLIENT:",
 					link: "/apps/adminly_clients/",
-					subject: elm.subject_rich[0].replace(
-						"{client}",
-						elm.subject_rich[1].client.name
-					),
+					subject: elm.subject_rich[0].replace("{client}", ""),
+					clientName: elm.subject_rich[1].client.name,
 				}));
 			})
 			.catch((err) => console.error(err));

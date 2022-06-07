@@ -18,7 +18,21 @@
 							<p>{{ message.vaName }}</p>
 						</div>
 						<p>{{ message.title }}</p>
-						<span>{{ message.subject }}</span>
+						<p v-if="message.type == 'clients'">
+							{{ message.subject }}
+							<span>
+								{{ message.clientName }}
+							</span>
+						</p>
+						<p v-if="message.type == 'appointment'">
+							<span>
+								{{ message.booking }}
+							</span>
+							{{ message.subject }}
+							<span>
+								{{ message.dtStart }}
+							</span>
+						</p>
 					</div>
 					<div class="time">
 						{{ timeText(message.datetime) }}
@@ -66,6 +80,10 @@ export default {
 .newsFeed {
 	overflow-y: scroll;
 	height: 100vh;
+}
+
+p span {
+	color: #6295e2;
 }
 
 .message-box {
