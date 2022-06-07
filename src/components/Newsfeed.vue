@@ -55,7 +55,7 @@ export default {
 			} else if (isDateSame(dateTime, yesterday)) {
 				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
 			} else {
-				return dayjs(dateTime).format("dddd hh:mm A");
+				return dayjs(dateTime).format("dddd");
 			}
 		},
 	},
