@@ -88,6 +88,7 @@ export default {
 .time {
 	margin-left: auto;
 	color: blue;
+	text-align: end;
 }
 
 .avatar {
