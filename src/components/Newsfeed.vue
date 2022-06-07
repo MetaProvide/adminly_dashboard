@@ -20,7 +20,9 @@
 						<p>{{ message.title }}</p>
 						<span>{{ message.subject }}</span>
 					</div>
-					<div class="time">{{ message.time }}</div>
+					<div class="time">
+						{{ timeText(message.time) + message.time }}
+					</div>
 				</div>
 			</a>
 		</div>
@@ -28,6 +30,9 @@
 </template>
 
 <script>
+import { isDateSame, getDateTomorrow } from "../utils";
+import dayjs from "dayjs";
+
 export default {
 	name: "Newsfeed",
 	props: {
@@ -42,13 +47,25 @@ export default {
 		openLink: (link) => {
 			window.location.href = link;
 		},
+		timeText(dateTime) {
+			const today = new Date();
+			const tomorrow = getDateTomorrow();
+			if (isDateSame(dateTime, today)) {
+				return dayjs(dateTime).format("HH:mm A");
+			} else if (isDateSame(dateTime, tomorrow)) {
+				return `Tomorrow ${dayjs(dateTime).format("hh:mm A")}`;
+			} else {
+				return dayjs(dateTime).format("dddd hh:mm A");
+			}
+		},
 	},
 };
 </script>
 
 <style scoped>
 .newsFeed {
-	width: 100%;
+	overflow-y: scroll;
+	height: 100vh;
 }
 
 .message-box {

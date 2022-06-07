@@ -5,6 +5,7 @@
 			<Events :events="upcomingEvents" />
 		</div>
 		<div class="newsfeed-widget">
+			<h2>NEWSFEED</h2>
 			<Newsfeed :news="sortedNews" />
 		</div>
 		<div class="booking-widget">
