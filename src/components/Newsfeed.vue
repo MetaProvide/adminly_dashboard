@@ -65,11 +65,11 @@ export default {
 			const today = new Date();
 			const yesterday = getDateYesterday();
 			if (isDateSame(dateTime, today)) {
-				return dayjs(dateTime).format("HH:mm A");
+				return dayjs(dateTime).format("hh:mm A");
 			} else if (isDateSame(dateTime, yesterday)) {
 				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
 			} else {
-				return dayjs(dateTime).format("dddd");
+				return dayjs(dateTime).format("dddd hh:mm A");
 			}
 		},
 	},
