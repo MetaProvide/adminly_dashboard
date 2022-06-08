@@ -42,6 +42,12 @@ export const getDateYesterday = () => {
 	return yesterday;
 };
 
+export const isMoreThanAweekAgo = (dateTime) => {
+	const today = new Date();
+	const date = new Date(dateTime);
+	return today.getDate() - date.getDate() >= 7;
+};
+
 export const EventUtil = {
 	oneMonthInSeconds: 60 * 60 * 24 * 31,
 	getApiUrl: (userName, calendarName, fromDate, endDate) => {

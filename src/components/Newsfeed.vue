@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { isDateSame, getDateYesterday } from "../utils";
+import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils";
 import dayjs from "dayjs";
 
 export default {
@@ -68,6 +68,8 @@ export default {
 				return dayjs(dateTime).format("hh:mm A");
 			} else if (isDateSame(dateTime, yesterday)) {
 				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
+			} else if (isMoreThanAweekAgo(dateTime)) {
+				return dayjs(dateTime).format("MMMM D");
 			} else {
 				return dayjs(dateTime).format("dddd hh:mm A");
 			}
