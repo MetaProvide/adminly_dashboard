@@ -43,7 +43,6 @@ export const EventUtil = {
 		return url;
 	},
 	fetchCalendarEvents: async (user, calendarName, fromDate, endDate) => {
-
 		const url = EventUtil.getApiUrl(user, calendarName, fromDate, endDate);
 		return axios
 			.get(url)
