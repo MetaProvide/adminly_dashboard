@@ -35,6 +35,19 @@ export const getDateTomorrow = () => {
 	return tomorrow;
 };
 
+export const getDateYesterday = () => {
+	const today = new Date();
+	const yesterday = new Date(today);
+	yesterday.setDate(yesterday.getDate() - 1);
+	return yesterday;
+};
+
+export const isMoreThanAweekAgo = (dateTime) => {
+	const today = new Date();
+	const date = new Date(dateTime);
+	return today.getDate() - date.getDate() >= 7;
+};
+
 export const EventUtil = {
 	oneMonthInSeconds: 60 * 60 * 24 * 31,
 	getApiUrl: (userName, calendarName, fromDate, endDate) => {
@@ -98,7 +111,7 @@ export const EventUtil = {
 export const NewsUtil = {
 	fetchBookingNews: () => {
 		const url =
-			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json";
+			"/ocs/v2.php/apps/activity/api/v2/activity/appointment?format=json&limit=10";
 		return axios
 			.get(url, {
 				validateStatus: (status) => {
@@ -117,15 +130,17 @@ export const NewsUtil = {
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
 					title: getBookingTitleBySubject(elm.subject),
-					time: new Date(elm.datetime).toLocaleString(),
 					link: elm.subject_rich[1].booking.link,
+					booking: elm.subject_rich[1].booking.name,
+					dtStart: elm.subject_rich[1].dtStart.name,
+					subject: elm.subject_rich[0].replace(/{([^}]+)}/g, ""),
 				}));
 			})
 			.catch((err) => console.error(err));
 	},
 	fetchClientNews: () => {
 		const url =
-			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json";
+			"/ocs/v2.php/apps/activity/api/v2/activity/clients?format=json&limit=10";
 		return axios
 			.get(url, {
 				validateStatus: (status) => {
@@ -146,11 +161,8 @@ export const NewsUtil = {
 					...elm,
 					title: "NEW CLIENT:",
 					link: "/apps/adminly_clients/",
-					subject: elm.subject_rich[0].replace(
-						"{client}",
-						elm.subject_rich[1].client.name
-					),
-					time: new Date(elm.datetime).toLocaleString(),
+					subject: elm.subject_rich[0].replace("{client}", ""),
+					clientName: elm.subject_rich[1].client.name,
 				}));
 			})
 			.catch((err) => console.error(err));

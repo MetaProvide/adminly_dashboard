@@ -5,6 +5,7 @@
 			<Events :events="upcomingEvents" />
 		</div>
 		<div class="newsfeed-widget">
+			<h2>NEWSFEED</h2>
 			<Newsfeed :news="sortedNews" />
 		</div>
 		<div class="booking-widget">
@@ -73,12 +74,8 @@ export default {
 
 		const bookingNews = await NewsUtil.fetchBookingNews();
 		const clientNews = await NewsUtil.fetchClientNews();
-		const vaMessages = await NewsUtil.fetchVaMessages();
-		this.upcomingNews = this.upcomingNews.concat(
-			vaMessages,
-			bookingNews,
-			clientNews
-		);
+		// const vaMessages = await NewsUtil.fetchVaMessages();
+		this.upcomingNews = this.upcomingNews.concat(bookingNews, clientNews);
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>

@@ -18,9 +18,25 @@
 							<p>{{ message.vaName }}</p>
 						</div>
 						<p>{{ message.title }}</p>
-						<span>{{ message.subject }}</span>
+						<p v-if="message.type == 'clients'">
+							{{ message.subject }}
+							<span>
+								{{ message.clientName }}
+							</span>
+						</p>
+						<p v-if="message.type == 'appointment'">
+							<span>
+								{{ message.booking }}
+							</span>
+							{{ message.subject }}
+							<span>
+								{{ message.dtStart }}
+							</span>
+						</p>
 					</div>
-					<div class="time">{{ message.time }}</div>
+					<div class="time">
+						{{ timeText(message.datetime) }}
+					</div>
 				</div>
 			</a>
 		</div>
@@ -28,6 +44,9 @@
 </template>
 
 <script>
+import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils";
+import dayjs from "dayjs";
+
 export default {
 	name: "Newsfeed",
 	props: {
@@ -42,13 +61,31 @@ export default {
 		openLink: (link) => {
 			window.location.href = link;
 		},
+		timeText(dateTime) {
+			const today = new Date();
+			const yesterday = getDateYesterday();
+			if (isDateSame(dateTime, today)) {
+				return dayjs(dateTime).format("hh:mm A");
+			} else if (isDateSame(dateTime, yesterday)) {
+				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
+			} else if (isMoreThanAweekAgo(dateTime)) {
+				return dayjs(dateTime).format("MMMM D");
+			} else {
+				return dayjs(dateTime).format("dddd hh:mm A");
+			}
+		},
 	},
 };
 </script>
 
 <style scoped>
 .newsFeed {
-	width: 100%;
+	overflow-y: scroll;
+	height: 100vh;
+}
+
+p span {
+	color: #6295e2;
 }
 
 .message-box {
@@ -71,6 +108,7 @@ export default {
 .time {
 	margin-left: auto;
 	color: blue;
+	text-align: end;
 }
 
 .avatar {
