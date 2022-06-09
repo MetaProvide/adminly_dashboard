@@ -15,41 +15,6 @@
 			</div>
 			<span class="text">{{ participantsText }}</span>
 		</div>
-		<div v-if="Math.random() > 0.5" class="row">
-			<svg
-				width="24"
-				height="24"
-				viewBox="0 0 23 23"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<circle cx="11.5" cy="11.5" r="11.5" fill="#6295E2" />
-				<path
-					d="M16.2453 6.13281L10.0894 14.2489L6.44987 10.612L4.77051 12.2914L10.3675 17.8884L18.2054 7.81218L16.2453 6.13281Z"
-					fill="white"
-				/>
-			</svg>
-
-			<span class="text">Payment Done</span>
-		</div>
-		<div v-else class="row">
-			<svg
-				width="23"
-				height="23"
-				viewBox="0 0 23 23"
-				fill="none"
-				xmlns="http://www.w3.org/2000/svg"
-			>
-				<circle
-					cx="11.5"
-					cy="11.5"
-					r="10.5"
-					stroke="#6295E2"
-					stroke-width="2"
-				/>
-			</svg>
-			<span class="text">Not Paid Yet</span>
-		</div>
 		<div v-if="isPrimary" class="column title">
 			<h4>Description</h4>
 			<p
@@ -118,12 +83,6 @@ export default {
 			type: Array,
 			default() {
 				return [];
-			},
-		},
-		hasPaid: {
-			type: Boolean,
-			default() {
-				return false;
 			},
 		},
 		descriptionTitle: {
