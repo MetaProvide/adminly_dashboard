@@ -93,6 +93,10 @@ export default {
 	}
 
 	.datepicker-body {
+		.datepicker-dateRange-item-active {
+			border-radius: 8px;
+		}
+
 		span {
 			width: 45px;
 			height: 45px;
@@ -102,9 +106,12 @@ export default {
 		}
 
 		span div {
-			height: 0;
+			transform: translate(0, 25%);
 		}
 
+		span div div {
+			height: 0;
+		}
 		// .event-indicator {
 		// 	background-color: rgb(206, 182, 117);
 		// 	position: relative;
