@@ -1,5 +1,6 @@
 <template>
-	<div style="height: 500px">
+		<div>
+		<h3 class="today-text">{{todayText}}</h3>
 		<SlotCalendar
 			v-model="value"
 			:disabled-days-of-week="disabled"
@@ -21,11 +22,13 @@
 				class="event-indicator"
 			></div>
 		</SlotCalendar>
-	</div>
+		</div>
 </template>
 
 <script>
+import dayjs from "dayjs";
 import SlotCalendar from "vue2-slot-calendar";
+// import dayjs from "dayjs";
 
 export default {
 	name: "Calendar",
@@ -52,11 +55,17 @@ export default {
 			format: "yyyy-MM-dd",
 			clear: true,
 			placeholder: "Start Date",
-			width: "440px",
+			width: "345px",
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
 		};
+	},
+	computed: {
+		todayText() {
+			const today = dayjs();
+			return `Today, ${today.format("D MMMM YYYY")}`;
+		}
 	},
 	methods: {
 		redirectToCalendar(e) {
@@ -67,43 +76,53 @@ export default {
 </script>
 
 <style lang="scss">
-.widget-title {
-	margin: 16px 4px;
+.today-text {
+	text-align: center;
+	font-size: 20px;
+	line-height: 30px;
 }
 
 .event-calendar {
-	.datepicker-inner {
-		width: 440px;
+
+	.datepicker-popup {
+		box-shadow: none;
 	}
+
+	.datepicker-inner {
+		width: 345px;
+	}
+
 	.datepicker-body {
 		span {
-			width: 60px;
-			height: 60px;
-			vertical-align: top;
+			width: 45px;
+			height: 45px;
+			// display: flex;
+			// justify-content: center;
+			// align-items: center;
 		}
 
 		span div {
-			cursor: pointer;
+			height: 0;
 		}
 
-		.event-indicator {
-			background-color: rgb(206, 182, 117);
-			position: relative;
-			top: 5px;
-			margin: 0 auto;
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			cursor: pointer;
-		}
+		// .event-indicator {
+		// 	background-color: rgb(206, 182, 117);
+		// 	position: relative;
+		// 	top: 5px;
+		// 	margin: 0 auto;
+		// 	width: 10px;
+		// 	height: 10px;
+		// 	border-radius: 50%;
+		// 	cursor: pointer;
+		// }
 
-		.datepicker-monthRange span {
-			width: 100px;
-			height: 100px;
-			vertical-align: middle;
-			line-height: 100px;
-			// font-weight: 600;
-		}
+		// .datepicker-monthRange span {
+		// 	width: 100px;
+		// 	height: 100px;
+		// 	vertical-align: middle;
+		// 	line-height: 100px;
+		// 	// font-weight: 600;
+		// }
 	}
 }
 </style>

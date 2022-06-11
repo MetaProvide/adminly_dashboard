@@ -9,11 +9,12 @@
 			<Newsfeed :news="sortedNews" />
 		</div>
 		<div class="booking-widget">
-			<h2>BOOK APPOINTMENT</h2>
 			<Calendar
 				:events="calendarEvents"
 				:change-pane="handleFetchCalendarEvents"
 			/>
+			<div class="separator-line"></div>
+			<h2 class="temporary-header-adjustment">BOOK APPOINTMENT</h2>
 			<Booking :booking-form-url="bookingFormUrl" />
 		</div>
 	</main>
@@ -148,12 +149,29 @@ h2 {
 	text-align: center;
 }
 
+.separator-line {
+	height: 0px;
+	width: 65%;
+	border: none;
+	border-top: 1.2px solid rgba(216, 216, 216, 0.44);
+}
+
+/* Used since iframe has built in margin */
+.temporary-header-adjustment {
+	position: relative;
+	top: 25px;
+}
+
 .newsfeed-widget {
 	grid-column-start: 2;
 	grid-column-end: 3;
 }
 
 .booking-widget {
+	margin-right: 12px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+	border-radius: 16px;
+	padding-top: 24px;
 	grid-column-start: 3;
 	grid-column-end: 4;
 	display: flex;

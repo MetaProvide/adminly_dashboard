@@ -172,7 +172,7 @@ export default {
 
 <style lang="scss">
 .event {
-	max-width: 345px;
+	width: 345px;
 	padding: 22px;
 	background: #ffffff;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
