@@ -17,7 +17,7 @@
 							/>
 							<p>{{ message.vaName }}</p>
 						</div>
-						<p>{{ message.title }}</p>
+						<p class="title">{{ message.title }}</p>
 						<p v-if="message.type == 'clients'">
 							{{ message.subject }}
 							<span>
@@ -120,5 +120,10 @@ p span {
 
 .vaBox {
 	display: flex;
+}
+
+.title {
+	margin-block: 0.5rem;
+	font-weight: bold;
 }
 </style>
