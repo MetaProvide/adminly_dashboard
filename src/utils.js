@@ -9,9 +9,9 @@ export const UserUtil = {
 const camelize = (s) => s.replace(/-./g, (x) => x[1].toUpperCase());
 
 const getBookingTitleBySubject = (subject) => {
-	if (subject.includes("new")) return "NEW BOOKING CREATED:";
-	else if (subject.includes("confirmed")) return "BOOKING CONFIRMED:";
-	else return "BOOKING UPDATED:";
+	if (subject.includes("new")) return "New booking created";
+	else if (subject.includes("confirmed")) return "Booking confirmed";
+	else return "Booking updated";
 };
 // Function to check if a date is today or not
 export const isDateSame = (date, baselineDate) => {
@@ -159,7 +159,7 @@ export const NewsUtil = {
 
 				return resp.data.ocs.data.map((elm) => ({
 					...elm,
-					title: "NEW CLIENT:",
+					title: "New client",
 					link: "/apps/adminly_clients/",
 					subject: elm.subject_rich[0].replace("{client}", ""),
 					clientName: elm.subject_rich[1].client.name,
