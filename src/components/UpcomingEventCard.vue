@@ -172,12 +172,12 @@ export default {
 
 <style lang="scss">
 .event {
-	max-width: 345px;
-	padding: 22px;
+	width: 345px;
+	padding: 1.5rem;
 	background: #ffffff;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 	border-radius: 16px;
-	margin-bottom: 16px;
+	margin-bottom: 1rem;
 
 	svg {
 		width: 24px;
@@ -185,16 +185,16 @@ export default {
 	}
 
 	.avatar-container:not(:first-child) {
-		margin-left: -8px;
+		margin-left: -0.5rem;
 	}
 
 	.row {
 		display: flex;
 		align-items: center;
-		margin-bottom: 8px;
+		margin-bottom: 0.5rem;
 
 		span {
-			margin-left: 8px;
+			margin-left: 0.5rem;
 		}
 
 		.title {
@@ -214,7 +214,7 @@ export default {
 	.column {
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 8px;
+		margin-bottom: 0.5rem;
 	}
 
 	.primary {
@@ -237,7 +237,7 @@ export default {
 
 	.description-text {
 		color: #595959;
-		line-height: 15px;
+		line-height: 1rem;
 	}
 
 	.vue-avatar--wrapper span {

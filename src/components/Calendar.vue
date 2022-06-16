@@ -1,5 +1,6 @@
 <template>
-	<div style="height: 500px">
+	<div>
+		<h3 class="today-text">{{ todayText }}</h3>
 		<SlotCalendar
 			v-model="value"
 			:disabled-days-of-week="disabled"
@@ -18,14 +19,15 @@
 				v-for="(evt, idx) in events"
 				:key="idx"
 				:slot="evt.dtstart.slice(0, 10)"
-				class="event-indicator"
 			></div>
 		</SlotCalendar>
 	</div>
 </template>
 
 <script>
+import dayjs from "dayjs";
 import SlotCalendar from "vue2-slot-calendar";
+// import dayjs from "dayjs";
 
 export default {
 	name: "Calendar",
@@ -52,57 +54,89 @@ export default {
 			format: "yyyy-MM-dd",
 			clear: true,
 			placeholder: "Start Date",
-			width: "440px",
+			width: "345px",
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
 		};
 	},
+	computed: {
+		todayText() {
+			const today = dayjs();
+			return `Today, ${today.format("D MMMM YYYY")}`;
+		},
+	},
+	updated() {
+		this.applyDateStyling();
+	},
 	methods: {
 		redirectToCalendar(e) {
 			window.location.href = "/apps/calendar/dayGridMonth/now";
+		},
+		mod(a, n) {
+			return a - n * Math.floor(a / n);
+		},
+		applyDateStyling() {
+			const today = dayjs();
+			const currentDayIndex = this.mod(today.day() - 1, 6); // because monday should be index 0
+
+			document
+				.querySelector(".datepicker-weekRange")
+				.childNodes.forEach((daySpan, idx) => {
+					daySpan.style.fontWeight =
+						currentDayIndex === idx ? 900 : 500;
+				});
+
+			document.querySelectorAll(".day-cell").forEach((day) => {
+				if (
+					this.events.some(
+						(evt) =>
+							dayjs(evt.dtstart).date() === Number(day.innerText)
+					)
+				) {
+					day.style.color = "#F68500";
+					day.style.fontWeight = 600;
+				}
+			});
 		},
 	},
 };
 </script>
 
 <style lang="scss">
-.widget-title {
-	margin: 16px 4px;
+.today-text {
+	text-align: center;
+	font-size: 1.3rem;
+	line-height: 1.8rem;
 }
 
 .event-calendar {
-	.datepicker-inner {
-		width: 440px;
+	.datepicker-popup {
+		box-shadow: none;
 	}
+
+	.datepicker-inner {
+		width: 345px;
+	}
+
 	.datepicker-body {
+		.datepicker-dateRange-item-active {
+			border-radius: 14px;
+			border: 3px solid white;
+			outline: thin solid #3276b1;
+		}
+
 		span {
-			width: 60px;
-			height: 60px;
-			vertical-align: top;
+			width: 45px;
+			height: 45px;
 		}
 
 		span div {
-			cursor: pointer;
+			transform: translate(0, 25%);
 		}
 
-		.event-indicator {
-			background-color: rgb(206, 182, 117);
-			position: relative;
-			top: 5px;
-			margin: 0 auto;
-			width: 10px;
-			height: 10px;
-			border-radius: 50%;
-			cursor: pointer;
-		}
-
-		.datepicker-monthRange span {
-			width: 100px;
-			height: 100px;
-			vertical-align: middle;
-			line-height: 100px;
-			// font-weight: 600;
+		span div div {
+			height: 0;
 		}
 	}
 }
