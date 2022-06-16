@@ -106,8 +106,8 @@ export default {
 <style lang="scss">
 .today-text {
 	text-align: center;
-	font-size: 20px;
-	line-height: 30px;
+	font-size: 1.3rem;
+	line-height: 1.8rem;
 }
 
 .event-calendar {
