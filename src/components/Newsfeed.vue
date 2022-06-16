@@ -40,6 +40,13 @@
 				</div>
 			</a>
 		</div>
+		<div v-if="!news.length" class="message-box">
+			<div class="message">
+				<div class="subject">
+					ℹ️ Your bookings and new clients will show up here
+				</div>
+			</div>
+		</div>
 	</div>
 </template>
 
