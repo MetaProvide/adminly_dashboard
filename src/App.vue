@@ -125,23 +125,21 @@ main {
 	background-color: #fff;
 	width: 100%;
 	min-height: 100vh;
-	padding: 20px 0;
+	padding: 1.25rem 0;
 	display: grid;
-	gap: 20px;
+	gap: 1.25rem;
 	grid-template-columns: 1fr 2fr 1fr;
 	grid-template-rows: 1fr;
 }
 
 .events-widget {
 	width: 390px;
-	height: calc(100% - 70px);
 	grid-column-start: 1;
 	grid-column-end: 2;
 	display: flex;
 	flex-direction: column;
 	align-content: center;
-	position: fixed;
-	top: 70px;
+	position: static;
 }
 
 h2 {
@@ -159,7 +157,7 @@ h2 {
 /* Used since iframe has built in margin */
 .temporary-header-adjustment {
 	position: relative;
-	top: 25px;
+	top: 2.25rem;
 }
 
 .newsfeed-widget {
@@ -168,10 +166,10 @@ h2 {
 }
 
 .booking-widget {
-	margin-right: 12px;
+	margin-right: 0.75rem;
 	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 	border-radius: 16px;
-	padding-top: 24px;
+	padding-top: 1.8rem;
 	grid-column-start: 3;
 	grid-column-end: 4;
 	display: flex;
