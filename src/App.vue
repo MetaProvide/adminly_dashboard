@@ -6,7 +6,7 @@
 		</div>
 		<div class="newsfeed-widget">
 			<h2>NEWSFEED</h2>
-			<Newsfeed :news="sortedNews" />
+			<Newsfeed :news="sortedNews" :is-empty="isNewsfeedEmpty" />
 		</div>
 		<div class="booking-widget">
 			<Calendar
@@ -51,6 +51,7 @@ export default {
 			calendarEvents: [],
 			upcomingEvents: [],
 			upcomingNews: [],
+			isNewsfeedEmpty: false,
 		};
 	},
 	computed: {
@@ -77,6 +78,9 @@ export default {
 		const clientNews = await NewsUtil.fetchClientNews();
 		// const vaMessages = await NewsUtil.fetchVaMessages();
 		this.upcomingNews = this.upcomingNews.concat(bookingNews, clientNews);
+		this.upcomingNews.length === 0
+			? (this.isNewsfeedEmpty = true)
+			: (this.isNewsfeedEmpty = false);
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
