@@ -19,9 +19,10 @@
 				/>
 			</div>
 		</div>
-		<div v-else class="no-event-container">
+		<div v-else-if="isEmpty" class="no-event-container">
 			<p>No sessions in the next 5 days 💤</p>
 		</div>
+		<div v-if="!isEmpty && !hasEvents" class="loading"></div>
 	</div>
 </template>
 
@@ -37,6 +38,12 @@ export default {
 			type: Array,
 			default() {
 				return [];
+			},
+		},
+		isEmpty: {
+			type: Boolean,
+			default() {
+				return false;
 			},
 		},
 	},
@@ -95,5 +102,9 @@ export default {
 	border-radius: 10px;
 	border: transparent;
 	height: 10px;
+}
+
+.loading {
+	margin-top: 2rem;
 }
 </style>

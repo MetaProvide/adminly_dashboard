@@ -2,7 +2,10 @@
 	<main>
 		<div class="events-widget">
 			<h2>UPCOMING EVENTS</h2>
-			<Events :events="upcomingEvents" />
+			<Events
+				:events="upcomingEvents"
+				:is-empty="isUpcomingEventsEmpty"
+			/>
 		</div>
 		<div class="newsfeed-widget">
 			<h2>NEWSFEED</h2>
@@ -52,6 +55,7 @@ export default {
 			upcomingEvents: [],
 			upcomingNews: [],
 			isNewsfeedEmpty: false,
+			isUpcomingEventsEmpty: false,
 		};
 	},
 	computed: {
@@ -73,6 +77,10 @@ export default {
 		);
 
 		this.upcomingEvents = this.getNextFiveNonAllDayEvents(upcomingEvents);
+
+		this.upcomingEvents.length === 0
+			? (this.isUpcomingEventsEmpty = true)
+			: (this.isUpcomingEventsEmpty = false);
 
 		const bookingNews = await NewsUtil.fetchBookingNews();
 		const clientNews = await NewsUtil.fetchClientNews();
