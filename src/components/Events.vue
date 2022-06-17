@@ -22,7 +22,7 @@
 		<div v-else-if="isEmpty" class="no-event-container">
 			<p>No sessions in the next 5 days 💤</p>
 		</div>
-		<div v-if="!isEmpty && !hasEvents" class="loading"></div>
+		<div v-if="shouldLoadEvents" class="loading"></div>
 	</div>
 </template>
 
@@ -59,6 +59,9 @@ export default {
 					description: sanitizeHtml(evt.description),
 					location: sanitizeHtml(evt.location),
 				}));
+		},
+		shouldLoadEvents() {
+			return !this.isEmpty && !this.hasEvents;
 		},
 	},
 };

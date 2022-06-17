@@ -47,7 +47,7 @@
 				</div>
 			</div>
 		</div>
-		<div v-if="!isEmpty && !news.length" class="loading"></div>
+		<div v-if="shouldLoadNews" class="loading"></div>
 	</div>
 </template>
 
@@ -69,6 +69,11 @@ export default {
 			default() {
 				return false;
 			},
+		},
+	},
+	computed: {
+		shouldLoadNews() {
+			return !this.isEmpty && !this.news.length;
 		},
 	},
 	methods: {

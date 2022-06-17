@@ -78,17 +78,14 @@ export default {
 
 		this.upcomingEvents = this.getNextFiveNonAllDayEvents(upcomingEvents);
 
-		this.upcomingEvents.length === 0
-			? (this.isUpcomingEventsEmpty = true)
-			: (this.isUpcomingEventsEmpty = false);
+		this.isUpcomingEventsEmpty = this.upcomingEvents.length === 0;
 
 		const bookingNews = await NewsUtil.fetchBookingNews();
 		const clientNews = await NewsUtil.fetchClientNews();
 		// const vaMessages = await NewsUtil.fetchVaMessages();
 		this.upcomingNews = this.upcomingNews.concat(bookingNews, clientNews);
-		this.upcomingNews.length === 0
-			? (this.isNewsfeedEmpty = true)
-			: (this.isNewsfeedEmpty = false);
+
+		this.isNewsfeedEmpty = this.upcomingNews.length === 0;
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
