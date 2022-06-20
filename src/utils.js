@@ -96,7 +96,7 @@ export const EventUtil = {
 	getSecondsSinceMinusOneMonth: (dateByMilliSecs) =>
 		Math.round(dateByMilliSecs / 1000 - EventUtil.oneMonthInSeconds),
 	getObjects: (data) => {
-		const vevents = data[2].slice(1);
+		const vevents = data[2];
 		const veventsData = vevents.map((vevt) => vevt[1]);
 		const recontructedEvents = veventsData.map((vevent) =>
 			vevent.reduce((acc, el) => {
