@@ -19,9 +19,10 @@
 				/>
 			</div>
 		</div>
-		<div v-else class="no-event-container">
+		<div v-else-if="isEmpty" class="no-event-container">
 			<p>No sessions in the next 5 days 💤</p>
 		</div>
+		<div v-if="shouldLoadEvents" class="loading"></div>
 	</div>
 </template>
 
@@ -39,6 +40,12 @@ export default {
 				return [];
 			},
 		},
+		isEmpty: {
+			type: Boolean,
+			default() {
+				return false;
+			},
+		},
 	},
 	computed: {
 		hasEvents() {
@@ -52,6 +59,9 @@ export default {
 					description: sanitizeHtml(evt.description),
 					location: sanitizeHtml(evt.location),
 				}));
+		},
+		shouldLoadEvents() {
+			return !this.isEmpty && !this.hasEvents;
 		},
 	},
 };
@@ -95,5 +105,9 @@ export default {
 	border-radius: 10px;
 	border: transparent;
 	height: 10px;
+}
+
+.loading {
+	margin-top: 2rem;
 }
 </style>

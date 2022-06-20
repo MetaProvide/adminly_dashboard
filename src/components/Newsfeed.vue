@@ -40,13 +40,14 @@
 				</div>
 			</a>
 		</div>
-		<div v-if="!news.length" class="message-box">
+		<div v-if="isEmpty" class="message-box">
 			<div class="message">
 				<div class="subject">
 					ℹ️ Your bookings and new clients will show up here
 				</div>
 			</div>
 		</div>
+		<div v-if="shouldLoadNews" class="loading"></div>
 	</div>
 </template>
 
@@ -62,6 +63,17 @@ export default {
 			default() {
 				return [];
 			},
+		},
+		isEmpty: {
+			type: Boolean,
+			default() {
+				return false;
+			},
+		},
+	},
+	computed: {
+		shouldLoadNews() {
+			return !this.isEmpty && !this.news.length;
 		},
 	},
 	methods: {
@@ -132,5 +144,11 @@ p span {
 .title {
 	margin-block: 0.5rem;
 	font-weight: bold;
+}
+
+.loading {
+	width: 70%;
+	margin: auto;
+	margin-top: 2rem;
 }
 </style>
