@@ -134,7 +134,7 @@ main {
 	background-color: #fff;
 	width: 100%;
 	min-height: 100vh;
-	padding: 1.25rem 0;
+	padding-top: 1.25rem;
 	display: grid;
 	gap: 1.25rem;
 	grid-template-columns: 1fr 2fr 1fr;
