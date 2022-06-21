@@ -17,7 +17,7 @@
 				:change-pane="handleFetchCalendarEvents"
 			/>
 			<div class="separator-line"></div>
-			<h2 class="temporary-header-adjustment">BOOK APPOINTMENT</h2>
+			<h2 class="booking-header">BOOK APPOINTMENT</h2>
 			<Booking :booking-form-url="bookingFormUrl" />
 		</div>
 	</main>
@@ -163,10 +163,9 @@ h2 {
 	border-top: 1.2px solid rgba(216, 216, 216, 0.44);
 }
 
-/* Used since iframe has built in margin */
-.temporary-header-adjustment {
-	position: relative;
-	top: 2.25rem;
+.booking-header {
+	margin-top: 2.25rem;
+	margin-bottom: 0.5rem;
 }
 
 .newsfeed-widget {
