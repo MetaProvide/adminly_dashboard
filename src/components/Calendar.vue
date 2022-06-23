@@ -66,9 +66,7 @@ export default {
 			return `Today, ${today.format("D MMMM YYYY")}`;
 		},
 	},
-	updated() {
-		this.applyDateStyling();
-	},
+	updated() {},
 	methods: {
 		redirectToCalendar(e) {
 			window.location.href = "/apps/calendar/dayGridMonth/now";
@@ -123,7 +121,7 @@ export default {
 		.datepicker-dateRange-item-active {
 			border: 3px solid white;
 			outline: thin solid #3276b1;
-			line-height: 27px;
+			line-height: 24px;
 		}
 
 		span {
@@ -131,7 +129,7 @@ export default {
 			height: 42px;
 			border-radius: 14px;
 			margin: 2px;
-			line-height: 30px;
+			line-height: 28px;
 		}
 
 		span div {
