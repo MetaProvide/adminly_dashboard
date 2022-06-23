@@ -121,14 +121,17 @@ export default {
 
 	.datepicker-body {
 		.datepicker-dateRange-item-active {
-			border-radius: 14px;
 			border: 3px solid white;
 			outline: thin solid #3276b1;
+			line-height: 27px;
 		}
 
 		span {
-			width: 45px;
-			height: 45px;
+			width: 42px;
+			height: 42px;
+			border-radius: 14px;
+			margin: 2px;
+			line-height: 30px;
 		}
 
 		span div {
@@ -138,6 +141,11 @@ export default {
 		span div div {
 			height: 0;
 		}
+	}
+
+	.datepicker-item-gray {
+		color: unset;
+		opacity: 0.5;
 	}
 }
 </style>
