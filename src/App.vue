@@ -29,8 +29,11 @@ import Calendar from "./components/Calendar";
 import Booking from "./components/Booking";
 import Newsfeed from "./components/Newsfeed";
 import dayjs from "dayjs";
-
+import isBetween from "dayjs/plugin/isBetween";
 import { UserUtil, EventUtil, NewsUtil } from "./utils";
+import axios from "axios";
+
+dayjs.extend(isBetween);
 
 export default {
 	name: "App",
@@ -86,6 +89,33 @@ export default {
 		this.upcomingNews = this.upcomingNews.concat(bookingNews, clientNews);
 
 		this.isNewsfeedEmpty = this.upcomingNews.length === 0;
+
+
+		const previousMonth = dayjs().month(today.month() - 1);
+		const eventsThisMonth = await EventUtil.fetchCalendarEvents(
+			UserUtil.getUserName(),
+			"personal",
+			previousMonth.unix(),
+			nextMonth.unix()
+		);
+
+		const slotsThisMonth = await EventUtil.fetchCalendarEvents(
+			UserUtil.getUserName(),
+			"appointment-slots",
+			previousMonth.unix(),
+			nextMonth.unix()
+		);
+
+		console.log("Events this month", eventsThisMonth);
+		console.log("Slots this month", slotsThisMonth);
+
+		for (const slotEvent of slotsThisMonth) {
+			const isSlotTaken = eventsThisMonth.some( evt => dayjs(slotEvent.dtstart).isBetween( evt.dtstart, evt.dtend, 'minute', '[]') );
+
+			console.log('isSlotToken for ', slotEvent.dtstart, ' : ', isSlotTaken);
+		}
+		// const availabiltyCodes = slotsThisMonth
+		// 							.map(slotEvent => slotEvent.dtstart)
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
