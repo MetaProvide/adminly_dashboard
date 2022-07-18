@@ -28,7 +28,6 @@
 <script>
 import dayjs from "dayjs";
 import SlotCalendar from "vue2-slot-calendar";
-// import dayjs from "dayjs";
 
 export default {
 	name: "Calendar",
@@ -65,43 +64,45 @@ export default {
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
-			colorCodes: {}
+			colorCodes: {},
 		};
 	},
 	computed: {
 		todayText() {
 			const today = dayjs();
 			return `Today, ${today.format("D MMMM YYYY")}`;
-		}
+		},
 	},
-	watch:{
+	watch: {
 		slots(_new, _old) {
 			// Accumulate slots by date
 			const obj = {};
 			for (const slotEvent of this.slots) {
 				const dateStr = slotEvent.dtstart.slice(0, 10);
-				obj[dateStr] = obj[dateStr] ? [...obj[dateStr], slotEvent.isBooked] : [slotEvent.isBooked] ;
+				obj[dateStr] = obj[dateStr]
+					? [...obj[dateStr], slotEvent.isBooked]
+					: [slotEvent.isBooked];
 			}
 
 			// calculate ratios for each date
 			for (const dateStr in obj) {
 				if (Object.hasOwnProperty.call(obj, dateStr)) {
-
-					const busyRatio = obj[dateStr].filter(isBooked => isBooked).length / obj[dateStr].length;
+					const busyRatio =
+						obj[dateStr].filter((isBooked) => isBooked).length /
+						obj[dateStr].length;
 
 					if (busyRatio >= 0.99) {
-						this.colorCodes[dateStr] = 'red';
-					} else if (busyRatio >= 0.30) {
-						this.colorCodes[dateStr] = '#E1AD01';
+						this.colorCodes[dateStr] = "red";
+					} else if (busyRatio >= 0.3) {
+						this.colorCodes[dateStr] = "#E1AD01";
 					} else {
-						this.colorCodes[dateStr] = 'blue';
+						this.colorCodes[dateStr] = "blue";
 					}
-
 				}
 			}
 
 			this.applyDateStyling();
-		}
+		},
 	},
 	updated() {},
 	methods: {
@@ -113,7 +114,7 @@ export default {
 		},
 		applyDateStyling() {
 			document.querySelectorAll(".day-cell").forEach((day) => {
-					day.style.color = this.colorCodes[day.dataset.date] || 'black';
+				day.style.color = this.colorCodes[day.dataset.date] || "black";
 			});
 		},
 	},
@@ -121,9 +122,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-
-
 .today-text {
 	text-align: center;
 	font-size: 1.3rem;

@@ -91,7 +91,6 @@ export default {
 
 		this.isNewsfeedEmpty = this.upcomingNews.length === 0;
 
-
 		const previousMonth = dayjs().month(today.month() - 1);
 		const eventsThisMonth = await EventUtil.fetchCalendarEvents(
 			UserUtil.getUserName(),
@@ -107,12 +106,17 @@ export default {
 			nextMonth.unix()
 		);
 
-		console.log("Events this month", eventsThisMonth);
-		console.log("Slots this month", slotsThisMonth);
-
-		this.calendarSlots = slotsThisMonth.map(slotEvent => ({ ...slotEvent, isBooked: eventsThisMonth.some(evt => dayjs(slotEvent.dtstart).isBetween( evt.dtstart, evt.dtend, 'minute', '[]') )}));
-
-		console.log("App.vue, calendarSlots", this.calendarSlots);
+		this.calendarSlots = slotsThisMonth.map((slotEvent) => ({
+			...slotEvent,
+			isBooked: eventsThisMonth.some((evt) =>
+				dayjs(slotEvent.dtstart).isBetween(
+					evt.dtstart,
+					evt.dtend,
+					"minute",
+					"[]"
+				)
+			),
+		}));
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
