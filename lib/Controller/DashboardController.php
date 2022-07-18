@@ -32,7 +32,6 @@ use OCP\IRequest;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Controller;
 use OCP\Util;
-use OCP\IUserSession;
 use OCP\IURLGenerator;
 use OCA\Appointments\Backend\BackendUtils;
 
@@ -46,11 +45,17 @@ class DashboardController extends Controller {
 	/** @var BackendUtils */
 	private $appointmentsUtils;
 
-	public function __construct(string $AppName, IRequest $request, IUserSession $userSession, BackendUtils $appointmentsUtils, IURLGenerator $urlGenerator) {
+	public function __construct(
+		string $AppName,
+		IRequest $request,
+		BackendUtils $appointmentsUtils,
+		IURLGenerator $urlGenerator,
+		?string $userId
+	) {
 		parent::__construct($AppName, $request);
-		$this->userId = $userSession->getUser()->getUID();
 		$this->appointmentsUtils = $appointmentsUtils;
 		$this->urlGenerator = $urlGenerator;
+		$this->userId = $userId;
 	}
 
 	/**
@@ -59,7 +64,7 @@ class DashboardController extends Controller {
 	 *
 	 * Render default template
 	 */
-	public function index() : TemplateResponse {
+	public function index(): TemplateResponse {
 		Util::addScript($this->appName, 'adminly_dashboard-main');
 
 		$formToken = $this->appointmentsUtils->getToken($this->userId);
