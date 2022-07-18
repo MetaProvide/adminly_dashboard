@@ -14,6 +14,7 @@
 		<div class="booking-widget">
 			<Calendar
 				:events="calendarEvents"
+				:slots="calendarSlots"
 				:change-pane="handleFetchCalendarEvents"
 			/>
 			<div class="separator-line"></div>
@@ -31,7 +32,6 @@ import Newsfeed from "./components/Newsfeed";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
 import { UserUtil, EventUtil, NewsUtil } from "./utils";
-import axios from "axios";
 
 dayjs.extend(isBetween);
 
@@ -55,6 +55,7 @@ export default {
 		return {
 			message: `Hello ${UserUtil.getDisplayName()}!`,
 			calendarEvents: [],
+			calendarSlots: [],
 			upcomingEvents: [],
 			upcomingNews: [],
 			isNewsfeedEmpty: false,
@@ -109,13 +110,9 @@ export default {
 		console.log("Events this month", eventsThisMonth);
 		console.log("Slots this month", slotsThisMonth);
 
-		for (const slotEvent of slotsThisMonth) {
-			const isSlotTaken = eventsThisMonth.some( evt => dayjs(slotEvent.dtstart).isBetween( evt.dtstart, evt.dtend, 'minute', '[]') );
+		this.calendarSlots = slotsThisMonth.map(slotEvent => ({ ...slotEvent, isBooked: eventsThisMonth.some(evt => dayjs(slotEvent.dtstart).isBetween( evt.dtstart, evt.dtend, 'minute', '[]') )}));
 
-			console.log('isSlotToken for ', slotEvent.dtstart, ' : ', isSlotTaken);
-		}
-		// const availabiltyCodes = slotsThisMonth
-		// 							.map(slotEvent => slotEvent.dtstart)
+		console.log("App.vue, calendarSlots", this.calendarSlots);
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>
