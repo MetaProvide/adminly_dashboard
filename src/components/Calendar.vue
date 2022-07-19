@@ -76,20 +76,20 @@ export default {
 	watch: {
 		slots(_new, _old) {
 			// Accumulate slots by date
-			const obj = {};
+			const slotsObj = {};
 			for (const slotEvent of this.slots) {
 				const dateStr = slotEvent.dtstart.slice(0, 10);
-				obj[dateStr] = obj[dateStr]
-					? [...obj[dateStr], slotEvent.isBooked]
+				slotsObj[dateStr] = slotsObj[dateStr]
+					? [...slotsObj[dateStr], slotEvent.isBooked]
 					: [slotEvent.isBooked];
 			}
 
 			// calculate ratios for each date
-			for (const dateStr in obj) {
-				if (Object.hasOwnProperty.call(obj, dateStr)) {
+			for (const dateStr in slotsObj) {
+				if (Object.hasOwnProperty.call(slotsObj, dateStr)) {
 					const busyRatio =
-						obj[dateStr].filter((isBooked) => isBooked).length /
-						obj[dateStr].length;
+						slotsObj[dateStr].filter(Boolean).length /
+						slotsObj[dateStr].length;
 
 					if (busyRatio >= 0.99) {
 						this.colorCodes[dateStr] = "red";
@@ -159,20 +159,6 @@ export default {
 		span div div {
 			height: 0;
 		}
-
-		// .day-cell {
-		// 	&.red {
-		// 		color: red;
-		// 	}
-
-		// 	&.yellow {
-		// 		color: yellow;
-		// 	}
-
-		// 	&.blue {
-		// 		color: blue;
-		// 	}
-		// }
 	}
 
 	.datepicker-item-gray {
