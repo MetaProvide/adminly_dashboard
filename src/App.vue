@@ -14,6 +14,7 @@
 		<div class="booking-widget">
 			<Calendar
 				:events="calendarEvents"
+				:slots="calendarSlots"
 				:change-pane="handleFetchCalendarEvents"
 			/>
 			<div class="separator-line"></div>
@@ -29,8 +30,10 @@ import Calendar from "./components/Calendar";
 import Booking from "./components/Booking";
 import Newsfeed from "./components/Newsfeed";
 import dayjs from "dayjs";
-
+import isBetween from "dayjs/plugin/isBetween";
 import { UserUtil, EventUtil, NewsUtil } from "./utils";
+
+dayjs.extend(isBetween);
 
 export default {
 	name: "App",
@@ -52,6 +55,7 @@ export default {
 		return {
 			message: `Hello ${UserUtil.getDisplayName()}!`,
 			calendarEvents: [],
+			calendarSlots: [],
 			upcomingEvents: [],
 			upcomingNews: [],
 			isNewsfeedEmpty: false,
@@ -86,6 +90,33 @@ export default {
 		this.upcomingNews = this.upcomingNews.concat(bookingNews, clientNews);
 
 		this.isNewsfeedEmpty = this.upcomingNews.length === 0;
+
+		const previousMonth = dayjs().month(today.month() - 1);
+		const eventsThisMonth = await EventUtil.fetchCalendarEvents(
+			UserUtil.getUserName(),
+			"personal",
+			previousMonth.unix(),
+			nextMonth.unix()
+		);
+
+		const slotsThisMonth = await EventUtil.fetchCalendarEvents(
+			UserUtil.getUserName(),
+			"appointment-slots",
+			previousMonth.unix(),
+			nextMonth.unix()
+		);
+
+		this.calendarSlots = slotsThisMonth.map((slotEvent) => ({
+			...slotEvent,
+			isBooked: eventsThisMonth.some((evt) =>
+				dayjs(slotEvent.dtstart).isBetween(
+					evt.dtstart,
+					evt.dtend,
+					"minute",
+					"[]"
+				)
+			),
+		}));
 	},
 	methods: {
 		getNextFiveNonAllDayEvents: (events) =>

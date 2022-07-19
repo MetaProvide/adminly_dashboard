@@ -19,6 +19,7 @@
 				v-for="(evt, idx) in events"
 				:key="idx"
 				:slot="evt.dtstart.slice(0, 10)"
+				:class="colorCodes[evt.dtstart.slice(0, 10)]"
 			></div>
 		</SlotCalendar>
 	</div>
@@ -27,13 +28,18 @@
 <script>
 import dayjs from "dayjs";
 import SlotCalendar from "vue2-slot-calendar";
-// import dayjs from "dayjs";
 
 export default {
 	name: "Calendar",
 	components: { SlotCalendar },
 	props: {
 		events: {
+			type: Array,
+			default() {
+				return [];
+			},
+		},
+		slots: {
 			type: Array,
 			default() {
 				return [];
@@ -58,12 +64,44 @@ export default {
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
+			colorCodes: {},
 		};
 	},
 	computed: {
 		todayText() {
 			const today = dayjs();
 			return `Today, ${today.format("D MMMM YYYY")}`;
+		},
+	},
+	watch: {
+		slots(_new, _old) {
+			// Accumulate slots by date
+			const slotsObj = {};
+			for (const slotEvent of this.slots) {
+				const dateStr = slotEvent.dtstart.slice(0, 10);
+				slotsObj[dateStr] = slotsObj[dateStr]
+					? [...slotsObj[dateStr], slotEvent.isBooked]
+					: [slotEvent.isBooked];
+			}
+
+			// calculate ratios for each date
+			for (const dateStr in slotsObj) {
+				if (Object.hasOwnProperty.call(slotsObj, dateStr)) {
+					const busyRatio =
+						slotsObj[dateStr].filter(Boolean).length /
+						slotsObj[dateStr].length;
+
+					if (busyRatio >= 0.99) {
+						this.colorCodes[dateStr] = "red";
+					} else if (busyRatio >= 0.3) {
+						this.colorCodes[dateStr] = "#E1AD01";
+					} else {
+						this.colorCodes[dateStr] = "blue";
+					}
+				}
+			}
+
+			this.applyDateStyling();
 		},
 	},
 	updated() {},
@@ -75,26 +113,8 @@ export default {
 			return a - n * Math.floor(a / n);
 		},
 		applyDateStyling() {
-			const today = dayjs();
-			const currentDayIndex = this.mod(today.day() - 1, 6); // because monday should be index 0
-
-			document
-				.querySelector(".datepicker-weekRange")
-				.childNodes.forEach((daySpan, idx) => {
-					daySpan.style.fontWeight =
-						currentDayIndex === idx ? 900 : 500;
-				});
-
 			document.querySelectorAll(".day-cell").forEach((day) => {
-				if (
-					this.events.some(
-						(evt) =>
-							dayjs(evt.dtstart).date() === Number(day.innerText)
-					)
-				) {
-					day.style.color = "#F68500";
-					day.style.fontWeight = 600;
-				}
+				day.style.color = this.colorCodes[day.dataset.date] || "black";
 			});
 		},
 	},
