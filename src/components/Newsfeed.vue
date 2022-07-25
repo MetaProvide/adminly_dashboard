@@ -34,8 +34,11 @@
 							</span>
 						</p>
 					</div>
-					<div class="time">
-						{{ timeText(message.datetime) }}
+					<div class="datetime">
+						<div class="day">{{ getDay(message.datetime) }}</div>
+						<div class="time">
+							{{ timeText(message.datetime) }}
+						</div>
 					</div>
 				</div>
 			</a>
@@ -81,16 +84,19 @@ export default {
 			window.location.href = link;
 		},
 		timeText(dateTime) {
+			return dayjs(dateTime).format("hh:mm A");
+		},
+		getDay(dateTime) {
 			const today = new Date();
 			const yesterday = getDateYesterday();
 			if (isDateSame(dateTime, today)) {
-				return dayjs(dateTime).format("hh:mm A");
+				return "Today";
 			} else if (isDateSame(dateTime, yesterday)) {
-				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
+				return "Yesterday";
 			} else if (isMoreThanAweekAgo(dateTime)) {
 				return dayjs(dateTime).format("MMMM D");
 			} else {
-				return dayjs(dateTime).format("dddd hh:mm A");
+				return dayjs(dateTime).format("dddd");
 			}
 		},
 	},
@@ -124,10 +130,17 @@ p span {
 	margin-right: auto;
 }
 
-.time {
+.datetime {
 	margin-left: auto;
-	color: blue;
 	text-align: end;
+}
+
+.day {
+	color: #010564;
+}
+
+.time {
+	color: #6c9ce3;
 }
 
 .avatar {
