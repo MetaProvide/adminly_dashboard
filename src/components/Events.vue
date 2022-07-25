@@ -70,15 +70,9 @@ export default {
 <style lang="scss">
 .event-column {
 	max-width: 385px;
-	padding: 10px 22px 0px 22px;
+	padding: 0.6rem 1.25rem 0 1.25rem;
 	overflow-y: scroll;
 	height: 100%;
-	background: linear-gradient(
-		180deg,
-		rgba(255, 255, 255, 0) 0%,
-		#dcedff 79.45%,
-		#e2e2ff 100%
-	);
 }
 
 .no-event-container {

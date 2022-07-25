@@ -11,15 +11,16 @@
 			<h2>NEWSFEED</h2>
 			<Newsfeed :news="sortedNews" :is-empty="isNewsfeedEmpty" />
 		</div>
-		<div class="booking-widget">
+		<div class="calendar-booking">
 			<Calendar
 				:events="calendarEvents"
 				:slots="calendarSlots"
 				:change-pane="handleFetchCalendarEvents"
 			/>
-			<div class="separator-line"></div>
-			<h2 class="booking-header">BOOK APPOINTMENT</h2>
-			<Booking :booking-form-url="bookingFormUrl" />
+			<Booking
+				class="booking-widget"
+				:booking-form-url="bookingFormUrl"
+			/>
 		</div>
 	</main>
 </template>
@@ -162,7 +163,7 @@ export default {
 
 <style scoped>
 main {
-	background-color: #fff;
+	background: linear-gradient(180deg, #ffffff 0%, #e3e4f7 100%) !important;
 	width: 100%;
 	min-height: 100vh;
 	padding-top: 1.25rem;
@@ -204,9 +205,9 @@ h2 {
 	grid-column-end: 3;
 }
 
-.booking-widget {
-	margin-right: 0.75rem;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+.calendar-booking {
+	width: 390px;
+	margin-right: 1.25rem;
 	border-radius: 16px;
 	padding-top: 1.8rem;
 	grid-column-start: 3;
@@ -218,5 +219,9 @@ h2 {
 
 main a {
 	font-weight: 600;
+}
+
+.booking-widget {
+	padding-bottom: 1rem;
 }
 </style>

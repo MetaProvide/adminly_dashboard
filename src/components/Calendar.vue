@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="calendar">
 		<h3 class="today-text">{{ todayText }}</h3>
 		<SlotCalendar
 			v-model="value"
@@ -120,7 +120,18 @@ export default {
 	},
 };
 </script>
-
+<style scoped>
+.calendar {
+	background-color: white;
+	width: 100%;
+	box-shadow: 4px 4px 4px rgba(145, 149, 234, 0.3);
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 2rem;
+	align-items: center;
+}
+</style>
 <style lang="scss">
 .today-text {
 	text-align: center;
