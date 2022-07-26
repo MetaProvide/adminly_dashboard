@@ -60,7 +60,7 @@ export default {
 			format: "yyyy-MM-dd",
 			clear: true,
 			placeholder: "Start Date",
-			width: "345px",
+			width: "383px",
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
@@ -145,7 +145,7 @@ export default {
 	}
 
 	.datepicker-inner {
-		width: 345px;
+		width: 387px;
 	}
 
 	.datepicker-body {
@@ -169,6 +169,11 @@ export default {
 
 		span div div {
 			height: 0;
+		}
+
+		.datepicker-weekRange {
+			display: flex;
+			justify-content: space-between;
 		}
 	}
 
