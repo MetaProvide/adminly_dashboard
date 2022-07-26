@@ -1,25 +1,28 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="event">
-		<h3 class="row just-sb" :class="{ primary: isPrimary }">
-			<span class="title">{{ mainTitle }}</span>
+		<div class="row just-sb" :class="{ primary: isPrimary }">
+			<div class="column">
+				<span class="title">{{ mainTitle }}</span>
+				<div class="participant row">
+					<div
+						v-for="participant in cleanedParticipants"
+						:key="participant"
+						class="avatar-container"
+					>
+						<Avatar :username="participant" :size="24" />
+					</div>
+					<span class="text">{{ participantsText }}</span>
+				</div>
+			</div>
 			<div class="datetime">
 				<div class="day">{{ dayText }}</div>
 				<div class="time">
 					{{ timeText }}
 				</div>
 			</div>
-		</h3>
-		<div class="row">
-			<div
-				v-for="participant in cleanedParticipants"
-				:key="participant"
-				class="avatar-container"
-			>
-				<Avatar :username="participant" :size="24" />
-			</div>
-			<span class="text">{{ participantsText }}</span>
 		</div>
+
 		<div v-if="isPrimary" class="column title">
 			<h4>Description</h4>
 			<p
@@ -276,6 +279,10 @@ export default {
 
 	h3 {
 		margin-top: 0;
+	}
+
+	.participant {
+		padding-top: 0.25rem;
 	}
 }
 </style>

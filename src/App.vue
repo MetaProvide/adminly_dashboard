@@ -184,7 +184,7 @@ main {
 }
 
 h2 {
-	color: #255280;
+	color: #010564;
 	text-align: center;
 }
 

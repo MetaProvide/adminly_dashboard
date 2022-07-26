@@ -110,7 +110,7 @@ export default {
 }
 
 p span {
-	color: #6295e2;
+	font-weight: 500;
 }
 
 .message-box {
@@ -121,6 +121,7 @@ p span {
 
 .message {
 	display: flex;
+	color: #010564;
 	margin: auto;
 	margin-top: 1.5em;
 	margin-bottom: 1.5em;
@@ -128,6 +129,7 @@ p span {
 
 .subject {
 	margin-right: auto;
+	font-weight: 400;
 }
 
 .datetime {
@@ -137,9 +139,11 @@ p span {
 
 .day {
 	color: #010564;
+	font-weight: 600;
 }
 
 .time {
+	font-weight: 600;
 	color: #6c9ce3;
 }
 
@@ -156,7 +160,8 @@ p span {
 
 .title {
 	margin-block: 0.5rem;
-	font-weight: bold;
+	font-weight: 600;
+	color: #010564;
 }
 
 .loading {
