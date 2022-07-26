@@ -3,7 +3,12 @@
 	<div class="event">
 		<h3 class="row just-sb" :class="{ primary: isPrimary }">
 			<span class="title">{{ mainTitle }}</span>
-			<span class="time">{{ timeText }}</span>
+			<div class="datetime">
+				<div class="day">{{ dayText }}</div>
+				<div class="time">
+					{{ timeText }}
+				</div>
+			</div>
 		</h3>
 		<div class="row">
 			<div
@@ -142,17 +147,31 @@ export default {
 				return words.slice(0, wordLimit).join(" ");
 			});
 		},
+		// timeText() {
+		// 	const today = new Date();
+		// 	const tomorrow = getDateTomorrow();
+		// 	if (isDateSame(this.dateTimeStart, today)) {
+		// 		return dayjs(this.dateTimeStart).format("HH:mm A");
+		// 	} else if (isDateSame(this.dateTimeStart, tomorrow)) {
+		// 		return `Tomorrow ${dayjs(this.dateTimeStart).format(
+		// 			"hh:mm A"
+		// 		)}`;
+		// 	} else {
+		// 		return dayjs(this.dateTimeStart).format("dddd hh:mm A");
+		// 	}
+		// },
 		timeText() {
+			return dayjs(this.dateTimeStart).format("hh:mm A");
+		},
+		dayText() {
 			const today = new Date();
 			const tomorrow = getDateTomorrow();
 			if (isDateSame(this.dateTimeStart, today)) {
-				return dayjs(this.dateTimeStart).format("HH:mm A");
+				return "Today";
 			} else if (isDateSame(this.dateTimeStart, tomorrow)) {
-				return `Tomorrow ${dayjs(this.dateTimeStart).format(
-					"hh:mm A"
-				)}`;
+				return "Tomorrow";
 			} else {
-				return dayjs(this.dateTimeStart).format("dddd hh:mm A");
+				return dayjs(this.dateTimeStart).format("dddd");
 			}
 		},
 	},
@@ -201,13 +220,24 @@ export default {
 			font-size: 1.05rem;
 			font-weight: 500;
 			margin-left: 0;
+			margin-bottom: auto;
+		}
+
+		.datetime {
+			margin-left: auto;
+			text-align: end;
+			font-weight: 600;
+		}
+
+		.day {
+			color: #010564;
 		}
 
 		.time {
 			font-size: 0.85rem;
-			text-align: right;
 			font-weight: 400;
 			margin-left: 0;
+			color: #6c9ce3;
 		}
 	}
 
@@ -242,6 +272,10 @@ export default {
 
 	.vue-avatar--wrapper span {
 		margin-left: 0;
+	}
+
+	h3 {
+		margin-top: 0;
 	}
 }
 </style>

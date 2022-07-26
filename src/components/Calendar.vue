@@ -142,6 +142,7 @@ export default {
 .event-calendar {
 	.datepicker-popup {
 		box-shadow: none;
+		border-radius: 10px;
 	}
 
 	.datepicker-inner {
