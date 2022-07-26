@@ -203,6 +203,7 @@ h2 {
 .newsfeed-widget {
 	grid-column-start: 2;
 	grid-column-end: 3;
+	padding-top: 9.25rem;
 }
 
 .calendar-booking {

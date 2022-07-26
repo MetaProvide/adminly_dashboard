@@ -172,15 +172,34 @@ export default {
 			height: 0;
 		}
 
+		p {
+			color: #000000;
+			font-weight: 500;
+			font-size: 1.5rem;
+			line-height: 1rem;
+			margin: 0 0 1.5rem;
+		}
+
 		.datepicker-weekRange {
 			display: flex;
 			justify-content: space-between;
+			padding-inline: inherit;
+		}
+
+		.datepicker-dateRange span {
+			margin: 2px 5px;
 		}
 	}
 
 	.datepicker-item-gray {
 		color: unset;
 		opacity: 0.5;
+	}
+
+	.datepicker-ctrl span {
+		width: 80px;
+		color: #090fa4;
+		font-weight: 900;
 	}
 }
 </style>
