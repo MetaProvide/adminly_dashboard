@@ -150,19 +150,6 @@ export default {
 				return words.slice(0, wordLimit).join(" ");
 			});
 		},
-		// timeText() {
-		// 	const today = new Date();
-		// 	const tomorrow = getDateTomorrow();
-		// 	if (isDateSame(this.dateTimeStart, today)) {
-		// 		return dayjs(this.dateTimeStart).format("HH:mm A");
-		// 	} else if (isDateSame(this.dateTimeStart, tomorrow)) {
-		// 		return `Tomorrow ${dayjs(this.dateTimeStart).format(
-		// 			"hh:mm A"
-		// 		)}`;
-		// 	} else {
-		// 		return dayjs(this.dateTimeStart).format("dddd hh:mm A");
-		// 	}
-		// },
 		timeText() {
 			return dayjs(this.dateTimeStart).format("hh:mm A");
 		},
@@ -174,7 +161,11 @@ export default {
 			} else if (isDateSame(this.dateTimeStart, tomorrow)) {
 				return "Tomorrow";
 			} else {
-				return dayjs(this.dateTimeStart).format("dddd");
+				return (
+					dayjs(this.dateTimeStart)
+						.format("dddd DD")
+						.replace(" ", ", ") + "th"
+				);
 			}
 		},
 	},
@@ -194,12 +185,13 @@ export default {
 
 <style lang="scss">
 .event {
-	width: 345px;
+	width: 387px;
+	padding: 0.6rem 1.25rem 0 1.25rem;
 	padding: 1.5rem;
 	background: #ffffff;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	border-radius: 16px;
 	margin-bottom: 1rem;
+	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3);
+	border-radius: 10px;
 
 	svg {
 		width: 24px;

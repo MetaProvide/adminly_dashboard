@@ -137,6 +137,9 @@ export default {
 	text-align: center;
 	font-size: 1.3rem;
 	line-height: 1.8rem;
+	font-weight: 500;
+	color: #010564;
+	margin-bottom: 1.5rem;
 }
 
 .event-calendar {
@@ -152,7 +155,8 @@ export default {
 	.datepicker-body {
 		.datepicker-dateRange-item-active {
 			border: 3px solid white;
-			outline: thin solid #3276b1;
+			outline: thin solid #090fa4;
+			background: #090fa4 !important;
 			line-height: 24px;
 		}
 
@@ -184,6 +188,12 @@ export default {
 			display: flex;
 			justify-content: space-between;
 			padding-inline: inherit;
+		}
+
+		.datepicker-weekRange span {
+			font-weight: 500;
+			color: #255280;
+			height: unset;
 		}
 
 		.datepicker-dateRange span {

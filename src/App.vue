@@ -174,7 +174,7 @@ main {
 }
 
 .events-widget {
-	width: 390px;
+	width: 420px;
 	grid-column-start: 1;
 	grid-column-end: 2;
 	display: flex;
@@ -207,7 +207,7 @@ h2 {
 }
 
 .calendar-booking {
-	width: 390px;
+	width: 387px;
 	margin-left: auto;
 	margin-right: 1.25rem;
 	border-radius: 16px;
