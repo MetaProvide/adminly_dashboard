@@ -60,9 +60,11 @@
 				>
 			</span>
 		</p>
-		<span v-if="email" class="text">
+		<p v-if="email" class="text">
+			<span class="emailIcon"></span>
+
 			{{ email }}
-		</span>
+		</p>
 	</div>
 </template>
 
@@ -295,6 +297,42 @@ export default {
 
 	.participant {
 		padding-top: 0.25rem;
+	}
+
+	.emailIcon::before {
+		content: "";
+		background-image: url("../../img/email.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		padding: 0 0 0 28px;
+		position: relative;
+	}
+
+	.phoneIcon::before {
+		content: "";
+		background-image: url("../../img/phone.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		padding: 0 0 0 28px;
+		position: relative;
+	}
+
+	.locationIcon::before {
+		content: "";
+		background-image: url("../../img/location.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		padding: 0 0 0 28px;
+		position: relative;
+	}
+
+	.videoIcon::before {
+		content: "";
+		background-image: url("../../img/video.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		padding: 0 0 0 28px;
+		position: relative;
 	}
 }
 </style>
