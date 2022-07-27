@@ -184,6 +184,7 @@ export default {
 		cleanDescription(str) {
 			str = this.talkUrlPruned(str);
 			str = this.emailPruned(str);
+			str = this.phonePruned(str);
 			return str;
 		},
 		talkUrlPruned(str) {
@@ -193,7 +194,7 @@ export default {
 		emailPruned(str) {
 			return str.replace(this.emailRegex, "");
 		},
-		linkifyPhone(str) {
+		phonePruned(str) {
 			return str.replace(this.phoneRegex, "");
 		},
 		linkify(text) {
