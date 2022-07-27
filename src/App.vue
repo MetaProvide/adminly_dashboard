@@ -1,14 +1,14 @@
 <template>
 	<main>
 		<div class="events-widget">
-			<h2>UPCOMING EVENTS</h2>
+			<h2>Upcoming Events</h2>
 			<Events
 				:events="upcomingEvents"
 				:is-empty="isUpcomingEventsEmpty"
 			/>
 		</div>
 		<div class="newsfeed-widget">
-			<h2>NEWSFEED</h2>
+			<h2>Newsfeed</h2>
 			<Newsfeed :news="sortedNews" :is-empty="isNewsfeedEmpty" />
 		</div>
 		<div class="calendar-booking">
@@ -186,6 +186,7 @@ main {
 h2 {
 	color: #010564;
 	text-align: center;
+	font-size: 1.6rem;
 }
 
 .separator-line {

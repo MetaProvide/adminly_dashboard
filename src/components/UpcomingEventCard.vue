@@ -57,9 +57,12 @@
 							? mainLink.slice(0, 32) + "..."
 							: mainLink
 					}}</a
-				></span
-			>
+				>
+			</span>
 		</p>
+		<span v-if="email" class="text">
+			{{ email }}
+		</span>
 	</div>
 </template>
 
@@ -134,8 +137,13 @@ export default {
 
 			return links.pop();
 		},
+		email() {
+			return this.description
+				.match(/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi)
+				.pop();
+		},
 		safeDescription() {
-			return sanitizeHtml(this.talkUrlPruned(this.description));
+			return sanitizeHtml(this.cleanDescription(this.description));
 		},
 		participantsText() {
 			return this.participants
@@ -170,9 +178,21 @@ export default {
 		},
 	},
 	methods: {
+		cleanDescription(str) {
+			str = this.talkUrlPruned(str);
+			str = this.emailPruned(str);
+			return str;
+		},
 		talkUrlPruned(str) {
 			// remove any text that is part of `/call\/[a-z0-9]+/`
 			return str.replace(/https:\/\/.*\/call\/[a-z0-9]+/g, "");
+		},
+		emailPruned(str) {
+			// remove any text that is part of `/call\/[a-z0-9]+/`
+			return str.replace(
+				/([a-zA-Z0-9._+-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi,
+				""
+			);
 		},
 		linkify(text) {
 			const urlRegex =
