@@ -166,7 +166,7 @@ main {
 	background: linear-gradient(180deg, #ffffff 0%, #e3e4f7 100%) !important;
 	width: 100%;
 	min-height: 100vh;
-	padding-top: 1.25rem;
+	padding-top: 1.75rem;
 	display: grid;
 	gap: 1.25rem;
 	grid-template-columns: 1fr 2fr 1fr;
@@ -181,6 +181,9 @@ main {
 	flex-direction: column;
 	align-content: center;
 	position: static;
+}
+.events-widget h2 {
+	margin-bottom: 0.5rem;
 }
 
 h2 {
@@ -211,7 +214,6 @@ h2 {
 	width: 420px;
 	margin-left: auto;
 	border-radius: 10px;
-	padding-top: 1.8rem;
 	grid-column-start: 3;
 	grid-column-end: 4;
 	display: flex;

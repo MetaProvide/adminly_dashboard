@@ -69,6 +69,7 @@ export default {
 
 <style lang="scss">
 .event-column {
+	padding-top: 0.5rem;
 	display: flex;
 	justify-content: center;
 	overflow-y: scroll;

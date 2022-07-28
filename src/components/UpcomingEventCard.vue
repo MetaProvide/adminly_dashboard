@@ -32,19 +32,19 @@
 			></p>
 		</div>
 		<p v-if="phone" class="text">
-			<span class="phone-icon"></span>
+			<span class="icon phone-icon"></span>
 			<a class="link" :href="`tel:${phone}`">{{ phone }}</a>
 		</p>
 		<p v-if="email" class="text">
-			<span class="email-icon"></span>
+			<span class="icon email-icon"></span>
 			<a class="link" :href="`mailto:${email}`">{{ email }}</a>
 		</p>
 		<p v-if="location" class="text">
-			<span class="location-icon"></span>
+			<span class="icon location-icon"></span>
 			<a class="link">{{ location }}</a>
 		</p>
 		<p v-if="mainLink" class="text">
-			<span class="videoIcon"></span>
+			<span class="icon video-icon"></span>
 			<span v-if="mainLink" class="talk-link"
 				>Link:
 				<a :href="mainLink" :class="{ primary: isPrimary }">{{
@@ -248,7 +248,7 @@ export default {
 
 		.time {
 			font-size: 0.85rem;
-			font-weight: 400;
+			font-weight: 600;
 			margin-left: 0;
 			color: #6c9ce3;
 		}
@@ -278,7 +278,12 @@ export default {
 	}
 
 	.talk-link {
-		padding-left: 1rem;
+		padding-left: 1.25rem;
+	}
+
+	.talk-link a {
+		color: #6295e2;
+		text-decoration: underline;
 	}
 
 	.description-text {
@@ -305,40 +310,27 @@ export default {
 		padding-top: 0.25rem;
 	}
 
-	.email-icon::before {
+	.icon::before {
 		content: "";
-		background-image: url("../../img/email.svg");
-		background-position: center;
 		background-repeat: no-repeat;
-		padding: 0 0 0 28px;
-		position: relative;
+		background-position: left;
+		padding: 0.5rem 0.8rem;
+	}
+
+	.email-icon::before {
+		background-image: url("../../img/email.svg");
 	}
 
 	.phone-icon::before {
-		content: "";
 		background-image: url("../../img/phone.svg");
-		background-position: center;
-		background-repeat: no-repeat;
-		padding: 2px 0 2px 28px;
-		position: relative;
 	}
 
 	.location-icon::before {
-		content: "";
 		background-image: url("../../img/location.svg");
-		background-position: center;
-		background-repeat: no-repeat;
-		padding: 0 0 0 28px;
-		position: relative;
 	}
 
-	.videoIcon::before {
-		content: "";
+	.video-icon::before {
 		background-image: url("../../img/video.svg");
-		background-position: center;
-		background-repeat: no-repeat;
-		padding: 0 0 0 32px;
-		position: relative;
 	}
 }
 </style>
