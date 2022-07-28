@@ -123,7 +123,7 @@ export default {
 <style scoped>
 .calendar {
 	background-color: white;
-	width: 100%;
+	width: 387px;
 	box-shadow: 4px 4px 4px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
 	display: flex;

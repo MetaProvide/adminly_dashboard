@@ -208,9 +208,9 @@ h2 {
 }
 
 .calendar-booking {
-	width: 387px;
+	width: 420px;
 	margin-left: auto;
-	margin-right: 1.25rem;
+	/* margin-right: 1.25rem; */
 	border-radius: 16px;
 	padding-top: 1.8rem;
 	grid-column-start: 3;

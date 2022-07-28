@@ -115,7 +115,7 @@ p span {
 
 .message-box {
 	border-bottom: 1px solid lightgray;
-	width: 70%;
+	width: 80%;
 	margin: auto;
 }
 
