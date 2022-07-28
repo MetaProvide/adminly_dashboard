@@ -124,7 +124,8 @@ export default {
 .calendar {
 	background-color: white;
 	width: 387px;
-	box-shadow: 4px 4px 4px rgba(145, 149, 234, 0.3);
+	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3),
+		inset 2px 2px 0.5px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
@@ -150,6 +151,10 @@ export default {
 
 	.datepicker-inner {
 		width: 387px;
+	}
+
+	.datepicker-wrapper {
+		width: 383px !important;
 	}
 
 	.datepicker-body {
