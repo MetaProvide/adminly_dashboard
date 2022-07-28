@@ -92,11 +92,11 @@ export default {
 						slotsObj[dateStr].length;
 
 					if (busyRatio >= 0.99) {
-						this.colorCodes[dateStr] = "red";
+						this.colorCodes[dateStr] = "#F40000";
 					} else if (busyRatio >= 0.3) {
-						this.colorCodes[dateStr] = "#E1AD01";
+						this.colorCodes[dateStr] = "#F68500";
 					} else {
-						this.colorCodes[dateStr] = "blue";
+						this.colorCodes[dateStr] = "#6295E2";
 					}
 				}
 			}
