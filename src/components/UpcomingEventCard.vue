@@ -1,7 +1,7 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="event">
-		<div class="row just-sb" :class="{ primary: isPrimary }">
+		<div class="row just-sb">
 			<div class="column">
 				<span class="title">{{ mainTitle }}</span>
 				<div class="participant row">
@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-		<div v-if="isPrimary" class="column title">
+		<div class="column title">
 			<h4>Description</h4>
 			<p
 				v-linkified
@@ -32,31 +32,26 @@
 			></p>
 		</div>
 		<p v-if="phone" class="text">
-			<span class="phoneIcon"></span>
-			<a :href="`tel:${phone}`">{{ phone }}</a>
+			<span class="phone-icon"></span>
+			<a class="link" :href="`tel:${phone}`">{{ phone }}</a>
 		</p>
 		<p v-if="email" class="text">
-			<span class="emailIcon"></span>
-			<a :href="`mailto:${email}`">{{ email }}</a>
+			<span class="email-icon"></span>
+			<a class="link" :href="`mailto:${email}`">{{ email }}</a>
 		</p>
 		<p v-if="location" class="text">
-			<span class="locationIcon"></span>
-			<a>{{ location }}</a>
+			<span class="location-icon"></span>
+			<a class="link">{{ location }}</a>
 		</p>
-		<p v-if="mainLink" class="row">
+		<p v-if="mainLink" class="text">
 			<span class="videoIcon"></span>
-			<span v-if="mainLink" class="text"
+			<span v-if="mainLink" class="talk-link"
 				>Link:
-				<a
-					:href="mainLink"
-					class="link"
-					:class="{ primary: isPrimary }"
-					>{{
-						mainLink.length > 32
-							? mainLink.slice(0, 32) + "..."
-							: mainLink
-					}}</a
-				>
+				<a :href="mainLink" :class="{ primary: isPrimary }">{{
+					mainLink.length > 32
+						? mainLink.slice(0, 32) + "..."
+						: mainLink
+				}}</a>
 			</span>
 		</p>
 	</div>
@@ -189,7 +184,7 @@ export default {
 		},
 		talkUrlPruned(str) {
 			// remove any text that is part of `/call\/[a-z0-9]+/`
-			return str.replace(/https:\/\/.*\/call\/[a-z0-9]+/g, "");
+			return str.replace(/https?:\/\/.*\/call\/[a-z0-9]+/g, "");
 		},
 		emailPruned(str) {
 			return str.replace(this.emailRegex, "");
@@ -279,12 +274,17 @@ export default {
 	}
 
 	.link {
-		text-decoration: underline;
+		padding-left: 1.25rem;
+	}
+
+	.talk-link {
+		padding-left: 1rem;
 	}
 
 	.description-text {
-		color: #595959;
+		color: #010564;
 		line-height: 1rem;
+		margin-bottom: 0.75rem;
 	}
 
 	.vue-avatar--wrapper span {
@@ -295,11 +295,17 @@ export default {
 		margin-top: 0;
 	}
 
+	h4 {
+		font-weight: 500;
+		color: #010564;
+		line-height: 2.5rem;
+	}
+
 	.participant {
 		padding-top: 0.25rem;
 	}
 
-	.emailIcon::before {
+	.email-icon::before {
 		content: "";
 		background-image: url("../../img/email.svg");
 		background-position: center;
@@ -308,7 +314,7 @@ export default {
 		position: relative;
 	}
 
-	.phoneIcon::before {
+	.phone-icon::before {
 		content: "";
 		background-image: url("../../img/phone.svg");
 		background-position: center;
@@ -317,7 +323,7 @@ export default {
 		position: relative;
 	}
 
-	.locationIcon::before {
+	.location-icon::before {
 		content: "";
 		background-image: url("../../img/location.svg");
 		background-position: center;
@@ -331,7 +337,7 @@ export default {
 		background-image: url("../../img/video.svg");
 		background-position: center;
 		background-repeat: no-repeat;
-		padding: 0 0 0 28px;
+		padding: 0 0 0 32px;
 		position: relative;
 	}
 }
