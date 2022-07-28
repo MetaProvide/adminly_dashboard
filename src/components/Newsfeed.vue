@@ -34,8 +34,11 @@
 							</span>
 						</p>
 					</div>
-					<div class="time">
-						{{ timeText(message.datetime) }}
+					<div class="datetime">
+						<div class="day">{{ getDay(message.datetime) }}</div>
+						<div class="time">
+							{{ timeText(message.datetime) }}
+						</div>
 					</div>
 				</div>
 			</a>
@@ -81,16 +84,19 @@ export default {
 			window.location.href = link;
 		},
 		timeText(dateTime) {
+			return dayjs(dateTime).format("hh:mm A");
+		},
+		getDay(dateTime) {
 			const today = new Date();
 			const yesterday = getDateYesterday();
 			if (isDateSame(dateTime, today)) {
-				return dayjs(dateTime).format("hh:mm A");
+				return "Today";
 			} else if (isDateSame(dateTime, yesterday)) {
-				return `Yesterday ${dayjs(dateTime).format("hh:mm A")}`;
+				return "Yesterday";
 			} else if (isMoreThanAweekAgo(dateTime)) {
 				return dayjs(dateTime).format("MMMM D");
 			} else {
-				return dayjs(dateTime).format("dddd hh:mm A");
+				return dayjs(dateTime).format("dddd");
 			}
 		},
 	},
@@ -104,17 +110,18 @@ export default {
 }
 
 p span {
-	color: #6295e2;
+	font-weight: 500;
 }
 
 .message-box {
 	border-bottom: 1px solid lightgray;
-	width: 70%;
+	width: 80%;
 	margin: auto;
 }
 
 .message {
 	display: flex;
+	color: #010564;
 	margin: auto;
 	margin-top: 1.5em;
 	margin-bottom: 1.5em;
@@ -122,12 +129,22 @@ p span {
 
 .subject {
 	margin-right: auto;
+	font-weight: 400;
+}
+
+.datetime {
+	margin-left: auto;
+	text-align: end;
+}
+
+.day {
+	color: #010564;
+	font-weight: 600;
 }
 
 .time {
-	margin-left: auto;
-	color: blue;
-	text-align: end;
+	font-weight: 600;
+	color: #6c9ce3;
 }
 
 .avatar {
@@ -143,7 +160,8 @@ p span {
 
 .title {
 	margin-block: 0.5rem;
-	font-weight: bold;
+	font-weight: 600;
+	color: #010564;
 }
 
 .loading {

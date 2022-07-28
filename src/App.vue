@@ -1,25 +1,26 @@
 <template>
 	<main>
 		<div class="events-widget">
-			<h2>UPCOMING EVENTS</h2>
+			<h2>Upcoming Events</h2>
 			<Events
 				:events="upcomingEvents"
 				:is-empty="isUpcomingEventsEmpty"
 			/>
 		</div>
 		<div class="newsfeed-widget">
-			<h2>NEWSFEED</h2>
+			<h2>Newsfeed</h2>
 			<Newsfeed :news="sortedNews" :is-empty="isNewsfeedEmpty" />
 		</div>
-		<div class="booking-widget">
+		<div class="calendar-booking">
 			<Calendar
 				:events="calendarEvents"
 				:slots="calendarSlots"
 				:change-pane="handleFetchCalendarEvents"
 			/>
-			<div class="separator-line"></div>
-			<h2 class="booking-header">BOOK APPOINTMENT</h2>
-			<Booking :booking-form-url="bookingFormUrl" />
+			<Booking
+				class="booking-widget"
+				:booking-form-url="bookingFormUrl"
+			/>
 		</div>
 	</main>
 </template>
@@ -162,10 +163,10 @@ export default {
 
 <style scoped>
 main {
-	background-color: #fff;
+	background: linear-gradient(180deg, #ffffff 0%, #e3e4f7 100%) !important;
 	width: 100%;
 	min-height: 100vh;
-	padding-top: 1.25rem;
+	padding-top: 1.75rem;
 	display: grid;
 	gap: 1.25rem;
 	grid-template-columns: 1fr 2fr 1fr;
@@ -173,7 +174,7 @@ main {
 }
 
 .events-widget {
-	width: 390px;
+	width: 420px;
 	grid-column-start: 1;
 	grid-column-end: 2;
 	display: flex;
@@ -181,10 +182,14 @@ main {
 	align-content: center;
 	position: static;
 }
+.events-widget h2 {
+	margin-bottom: 0.5rem;
+}
 
 h2 {
-	color: #255280;
+	color: #010564;
 	text-align: center;
+	font-size: 1.6rem;
 }
 
 .separator-line {
@@ -202,13 +207,13 @@ h2 {
 .newsfeed-widget {
 	grid-column-start: 2;
 	grid-column-end: 3;
+	padding-top: 9.25rem;
 }
 
-.booking-widget {
-	margin-right: 0.75rem;
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-	border-radius: 16px;
-	padding-top: 1.8rem;
+.calendar-booking {
+	width: 420px;
+	margin-left: auto;
+	border-radius: 10px;
 	grid-column-start: 3;
 	grid-column-end: 4;
 	display: flex;
@@ -218,5 +223,9 @@ h2 {
 
 main a {
 	font-weight: 600;
+}
+
+.booking-widget {
+	padding-bottom: 1rem;
 }
 </style>
