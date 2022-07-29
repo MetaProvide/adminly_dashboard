@@ -47,7 +47,7 @@
 			<span class="icon video-icon"></span>
 			<span v-if="mainLink" class="talk-link"
 				>Link:
-				<a :href="mainLink" :class="{ primary: isPrimary }">{{
+				<a :href="mainLink">{{
 					mainLink.length > 32
 						? mainLink.slice(0, 32) + "..."
 						: mainLink
