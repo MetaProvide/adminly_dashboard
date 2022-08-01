@@ -24,7 +24,18 @@
 								{{ message.clientName }}
 							</span>
 						</p>
-						<p v-if="message.type == 'appointment'">
+						<p v-if="message.title == 'Booking updated'">
+							<a>Booking for</a>
+							<span>
+								{{ message.booking }}
+							</span>
+							<a>at</a>
+							<span>
+								{{ message.dtStart }}
+							</span>
+							<a>has been modified</a>
+						</p>
+						<p v-else-if="message.type == 'appointment'">
 							<span>
 								{{ message.booking }}
 							</span>
