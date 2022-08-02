@@ -135,10 +135,10 @@ export default {
 			return links.pop();
 		},
 		email() {
-			return this.description.match(this.emailRegex).pop();
+			return this.description.match(this.emailRegex)?.pop();
 		},
 		phone() {
-			return this.description.match(this.phoneRegex).pop();
+			return this.description.match(this.phoneRegex)?.pop();
 		},
 		safeDescription() {
 			return sanitizeHtml(this.cleanDescription(this.description));
