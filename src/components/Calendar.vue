@@ -60,7 +60,7 @@ export default {
 			format: "yyyy-MM-dd",
 			clear: true,
 			placeholder: "Start Date",
-			width: "383px",
+			width: "320px",
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
@@ -123,7 +123,7 @@ export default {
 <style scoped>
 .calendar {
 	background-color: white;
-	width: 387px;
+	width: 320px;
 	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
 	display: flex;
@@ -133,43 +133,42 @@ export default {
 }
 </style>
 <style lang="scss">
-.today-text {
+.app-adminly_dashboard .today-text {
 	text-align: center;
-	font-size: 1.3rem;
-	line-height: 1.8rem;
+	font-size: 1rem;
 	font-weight: 500;
 	color: #010564;
-	margin-bottom: 1.5rem;
+	margin-bottom: 0.5rem;
+	margin-top: 1rem;
 }
 
-.event-calendar {
+.app-adminly_dashboard .event-calendar {
+	font-family: var(--font-face);
+
 	.datepicker-popup {
 		box-shadow: none;
 		border-radius: 10px;
 	}
 
 	.datepicker-inner {
-		width: 387px;
-	}
-
-	.datepicker-wrapper {
-		width: 383px !important;
+		width: 320px;
 	}
 
 	.datepicker-body {
 		.datepicker-dateRange-item-active {
-			border: 3px solid white;
-			outline: thin solid #090fa4;
+			border: 2px solid white;
+			outline: 2px solid #6295e2;
 			background: #090fa4 !important;
-			line-height: 24px;
+			line-height: 1.25rem;
+			font-size: 1rem;
+			font-weight: 700;
 		}
 
 		span {
-			width: 42px;
-			height: 42px;
-			border-radius: 14px;
-			margin: 2px;
-			line-height: 28px;
+			width: 32px;
+			height: 32px;
+			border-radius: 16px;
+			margin: 2px 5px;
 		}
 
 		span div {
@@ -183,7 +182,7 @@ export default {
 		p {
 			color: #000000;
 			font-weight: 500;
-			font-size: 1.5rem;
+			font-size: 1.125rem;
 			line-height: 1rem;
 			margin: 0 0 1.5rem;
 		}
@@ -191,17 +190,12 @@ export default {
 		.datepicker-weekRange {
 			display: flex;
 			justify-content: space-between;
-			padding-inline: inherit;
 		}
 
 		.datepicker-weekRange span {
 			font-weight: 500;
 			color: #255280;
 			height: unset;
-		}
-
-		.datepicker-dateRange span {
-			margin: 2px 5px;
 		}
 	}
 

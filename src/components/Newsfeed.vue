@@ -114,7 +114,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .newsFeed {
 	overflow-y: scroll;
 	height: 100vh;
@@ -125,17 +125,21 @@ p span {
 }
 
 .message-box {
-	border-bottom: 1px solid lightgray;
+	border-bottom: 1px solid #e4e4e4;
 	width: 80%;
 	margin: auto;
 }
 
 .message {
 	display: flex;
-	color: #010564;
-	margin: auto;
-	margin-top: 1.5em;
+	margin-top: 0.5rem;
 	margin-bottom: 1.5em;
+
+	.title {
+		font-size: 1rem;
+		font-weight: 600;
+		margin-bottom: 1rem;
+	}
 }
 
 .subject {
@@ -144,17 +148,11 @@ p span {
 }
 
 .datetime {
-	margin-left: auto;
 	text-align: end;
-}
-
-.day {
-	color: #010564;
 	font-weight: 600;
 }
 
 .time {
-	font-weight: 600;
 	color: #6c9ce3;
 }
 
@@ -167,12 +165,6 @@ p span {
 
 .vaBox {
 	display: flex;
-}
-
-.title {
-	margin-block: 0.5rem;
-	font-weight: 600;
-	color: #010564;
 }
 
 .loading {

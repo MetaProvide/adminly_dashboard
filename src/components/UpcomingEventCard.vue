@@ -27,23 +27,23 @@
 			<h4>Description</h4>
 			<p
 				v-linkified
-				class="text description-text"
+				class="description-text"
 				v-html="safeDescription"
 			></p>
 		</div>
-		<p v-if="phone" class="text">
+		<p v-if="phone" class="info">
 			<span class="icon phone-icon"></span>
 			<a class="link" :href="`tel:${phone}`">{{ phone }}</a>
 		</p>
-		<p v-if="email" class="text">
+		<p v-if="email" class="info">
 			<span class="icon email-icon"></span>
 			<a class="link" :href="`mailto:${email}`">{{ email }}</a>
 		</p>
-		<p v-if="location" class="text">
+		<p v-if="location" class="info">
 			<span class="icon location-icon"></span>
 			<a class="link">{{ location }}</a>
 		</p>
-		<p v-if="mainLink" class="text">
+		<p v-if="mainLink" class="info">
 			<span class="icon video-icon"></span>
 			<span v-if="mainLink" class="talk-link"
 				>Link:
@@ -204,9 +204,8 @@ export default {
 <style lang="scss">
 .event {
 	width: 387px;
-	padding: 0.6rem 1.25rem 0 1.25rem;
-	padding: 1.5rem;
-	background: #ffffff;
+	padding: 1.25rem;
+	background: #fff;
 	margin-bottom: 1rem;
 	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
@@ -222,34 +221,25 @@ export default {
 
 	.row {
 		display: flex;
-		align-items: center;
-		margin-bottom: 0.5rem;
 
 		span {
 			margin-left: 0.5rem;
 		}
 
 		.title {
-			font-size: 1.05rem;
-			font-weight: 500;
+			font-size: 1rem;
+			font-weight: 600;
 			margin-left: 0;
-			margin-bottom: auto;
 		}
 
 		.datetime {
-			margin-left: auto;
 			text-align: end;
 			font-weight: 600;
-		}
-
-		.day {
-			color: #010564;
+			font-size: 0.8rem;
+			line-height: 1rem;
 		}
 
 		.time {
-			font-size: 0.85rem;
-			font-weight: 600;
-			margin-left: 0;
 			color: #6c9ce3;
 		}
 	}
@@ -257,20 +247,11 @@ export default {
 	.column {
 		display: flex;
 		flex-direction: column;
-		margin-bottom: 0.5rem;
-	}
-
-	.primary {
-		color: #6295e2;
-	}
-
-	.text {
-		font-size: 0.75rem;
-		font-weight: 500;
 	}
 
 	.just-sb {
 		justify-content: space-between;
+		margin-bottom: 0.5rem;
 	}
 
 	.link {
@@ -287,9 +268,9 @@ export default {
 	}
 
 	.description-text {
-		color: #010564;
+		font-size: 0.75rem;
 		line-height: 1rem;
-		margin-bottom: 0.75rem;
+		margin-bottom: 1rem;
 	}
 
 	.vue-avatar--wrapper span {
@@ -302,19 +283,29 @@ export default {
 
 	h4 {
 		font-weight: 500;
-		color: #010564;
-		line-height: 2.5rem;
+		font-size: 0.9rem;
+		margin-bottom: 0.25rem;
 	}
 
 	.participant {
-		padding-top: 0.25rem;
+		padding-top: 0.75rem;
+	}
+
+	.info {
+		font-size: 0.8rem;
+		font-weight: 500;
+
+		a {
+			line-height: 1rem;
+		}
 	}
 
 	.icon::before {
 		content: "";
 		background-repeat: no-repeat;
 		background-position: left;
-		padding: 0.5rem 0.8rem;
+		padding: 0.25rem 0.6rem;
+		background-size: 1rem;
 	}
 
 	.email-icon::before {
