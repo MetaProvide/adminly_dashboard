@@ -60,7 +60,7 @@ export default {
 			format: "yyyy-MM-dd",
 			clear: true,
 			placeholder: "Start Date",
-			width: "320px",
+			width: "383px",
 			firstDayOfWeek: 1,
 			errored: false,
 			loading: true,
@@ -123,7 +123,7 @@ export default {
 <style scoped>
 .calendar {
 	background-color: white;
-	width: 320px;
+	width: 389px;
 	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
 	display: flex;
@@ -151,7 +151,7 @@ export default {
 	}
 
 	.datepicker-inner {
-		width: 320px;
+		width: 387px;
 	}
 
 	.datepicker-body {
@@ -159,28 +159,29 @@ export default {
 			border: 2px solid white;
 			outline: 2px solid #6295e2;
 			background: #090fa4 !important;
-			line-height: 1.25rem;
 			font-size: 1rem;
 			font-weight: 700;
+			height: 39px;
+			width: 39px;
+
+			div {
+				line-height: 35px;
+			}
 		}
 
 		span {
-			width: 32px;
-			height: 32px;
-			border-radius: 16px;
+			width: 42px;
+			height: 42px;
+			border-radius: 21px;
 			margin: 2px 5px;
 		}
 
 		span div {
-			transform: translate(0, 25%);
-		}
-
-		span div div {
-			height: 0;
+			line-height: 42px;
 		}
 
 		p {
-			color: #000000;
+			color: var(--color-main-text);
 			font-weight: 500;
 			font-size: 1.125rem;
 			line-height: 1rem;
@@ -208,6 +209,22 @@ export default {
 		width: 80px;
 		color: #090fa4;
 		font-weight: 900;
+	}
+
+	.datepicker-ctrl .datepicker-preBtn.calendaricon-angle-left::before,
+	.datepicker-ctrl .datepicker-nextBtn.calendaricon-angle-right::before {
+		background-image: url("../../img/rightarrow.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 12px;
+		content: "";
+		display: inline-block;
+		width: 28px;
+		height: 28px;
+	}
+
+	.datepicker-ctrl .datepicker-preBtn.calendaricon-angle-left::before {
+		transform: rotate(180deg);
 	}
 }
 </style>
