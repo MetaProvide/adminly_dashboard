@@ -123,7 +123,7 @@ export default {
 <style scoped>
 .calendar {
 	background-color: white;
-	width: 387px;
+	width: 389px;
 	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
 	display: flex;
@@ -133,16 +133,18 @@ export default {
 }
 </style>
 <style lang="scss">
-.today-text {
+.app-adminly_dashboard .today-text {
 	text-align: center;
-	font-size: 1.3rem;
-	line-height: 1.8rem;
+	font-size: 1rem;
 	font-weight: 500;
 	color: #010564;
-	margin-bottom: 1.5rem;
+	margin-bottom: 0.5rem;
+	margin-top: 1rem;
 }
 
-.event-calendar {
+.app-adminly_dashboard .event-calendar {
+	font-family: var(--font-face);
+
 	.datepicker-popup {
 		box-shadow: none;
 		border-radius: 10px;
@@ -152,38 +154,36 @@ export default {
 		width: 387px;
 	}
 
-	.datepicker-wrapper {
-		width: 383px !important;
-	}
-
 	.datepicker-body {
 		.datepicker-dateRange-item-active {
-			border: 3px solid white;
-			outline: thin solid #090fa4;
+			border: 2px solid white;
+			outline: 2px solid #6295e2;
 			background: #090fa4 !important;
-			line-height: 24px;
+			font-size: 1rem;
+			font-weight: 700;
+			height: 39px;
+			width: 39px;
+
+			div {
+				line-height: 35px;
+			}
 		}
 
 		span {
 			width: 42px;
 			height: 42px;
-			border-radius: 14px;
-			margin: 2px;
-			line-height: 28px;
+			border-radius: 21px;
+			margin: 2px 5px;
 		}
 
 		span div {
-			transform: translate(0, 25%);
-		}
-
-		span div div {
-			height: 0;
+			line-height: 42px;
 		}
 
 		p {
-			color: #000000;
+			color: var(--color-main-text);
 			font-weight: 500;
-			font-size: 1.5rem;
+			font-size: 1.125rem;
 			line-height: 1rem;
 			margin: 0 0 1.5rem;
 		}
@@ -191,17 +191,12 @@ export default {
 		.datepicker-weekRange {
 			display: flex;
 			justify-content: space-between;
-			padding-inline: inherit;
 		}
 
 		.datepicker-weekRange span {
 			font-weight: 500;
 			color: #255280;
 			height: unset;
-		}
-
-		.datepicker-dateRange span {
-			margin: 2px 5px;
 		}
 	}
 
@@ -214,6 +209,22 @@ export default {
 		width: 80px;
 		color: #090fa4;
 		font-weight: 900;
+	}
+
+	.datepicker-ctrl .datepicker-preBtn.calendaricon-angle-left::before,
+	.datepicker-ctrl .datepicker-nextBtn.calendaricon-angle-right::before {
+		background-image: url("../../img/rightarrow.svg");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 12px;
+		content: "";
+		display: inline-block;
+		width: 28px;
+		height: 28px;
+	}
+
+	.datepicker-ctrl .datepicker-preBtn.calendaricon-angle-left::before {
+		transform: rotate(180deg);
 	}
 }
 </style>
