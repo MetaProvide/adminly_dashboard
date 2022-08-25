@@ -10,7 +10,12 @@
 						:key="participant"
 						class="avatar-container"
 					>
-						<Avatar :username="participant" :size="24" />
+						<Avatar
+							:username="participant"
+							:size="24"
+							color="white"
+							:background-color="getAdminlyColor(participant)"
+						/>
 					</div>
 					<span class="text">{{ participantsText }}</span>
 				</div>
@@ -60,7 +65,7 @@
 <script>
 import Avatar from "vue-avatar";
 import sanitizeHtml from "sanitize-html";
-import { isDateSame, getDateTomorrow } from "../utils";
+import { isDateSame, getDateTomorrow, AdminlyUtil } from "../utils";
 import dayjs from "dayjs";
 
 export default {
@@ -196,6 +201,9 @@ export default {
 			const urlRegex =
 				/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; // eslint-disable-line
 			return text.match(urlRegex);
+		},
+		getAdminlyColor(name) {
+			return AdminlyUtil.getAdminlyColor(name);
 		},
 	},
 };
