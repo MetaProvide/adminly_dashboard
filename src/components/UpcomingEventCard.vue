@@ -14,7 +14,7 @@
 							:username="participant"
 							:size="24"
 							color="white"
-							:background-color="getAdminlyColor(participant)"
+							:class="getAdminlyColor(participant)"
 						/>
 					</div>
 					<span class="text">{{ participantsText }}</span>
@@ -65,7 +65,7 @@
 <script>
 import Avatar from "vue-avatar";
 import sanitizeHtml from "sanitize-html";
-import { isDateSame, getDateTomorrow, AdminlyUtil } from "../utils";
+import { isDateSame, getDateTomorrow } from "../utils";
 import dayjs from "dayjs";
 
 export default {
@@ -203,7 +203,8 @@ export default {
 			return text.match(urlRegex);
 		},
 		getAdminlyColor(name) {
-			return AdminlyUtil.getAdminlyColor(name);
+			const index = name.length > 12 ? name.length - 12 : name.length;
+			return `adminly-avatar-${index}`;
 		},
 	},
 };
