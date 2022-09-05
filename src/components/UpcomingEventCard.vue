@@ -10,7 +10,12 @@
 						:key="participant"
 						class="avatar-container"
 					>
-						<Avatar :username="participant" :size="24" />
+						<Avatar
+							:username="participant"
+							:size="24"
+							color="white"
+							:class="getAdminlyColor(participant)"
+						/>
 					</div>
 					<span class="text">{{ participantsText }}</span>
 				</div>
@@ -196,6 +201,10 @@ export default {
 			const urlRegex =
 				/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi; // eslint-disable-line
 			return text.match(urlRegex);
+		},
+		getAdminlyColor(name) {
+			const index = name.length % 12;
+			return `adminly-avatar-${index}`;
 		},
 	},
 };
