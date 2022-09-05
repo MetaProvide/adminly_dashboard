@@ -203,7 +203,7 @@ export default {
 			return text.match(urlRegex);
 		},
 		getAdminlyColor(name) {
-			const index = name.length > 12 ? name.length % 12 : name.length;
+			const index = name.length % 12;
 			return `adminly-avatar-${index}`;
 		},
 	},
