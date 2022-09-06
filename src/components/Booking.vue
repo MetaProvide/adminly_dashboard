@@ -86,6 +86,6 @@ iframe {
 	box-shadow: 4px 4px 10px rgba(145, 149, 234, 0.3);
 	border-radius: 10px;
 	width: 389px;
-	height: 680px;
+	height: 730px;
 }
 </style>
