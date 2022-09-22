@@ -5,7 +5,7 @@
     <name>Adminly Dashboard</name>
     <summary><![CDATA[Adminly Dashboard]]></summary>
     <description><![CDATA[Adminly Dashboard]]></description>
-    <version>0.4.0-alpha1</version>
+    <version>0.4.0</version>
     <licence>agpl</licence>
     <author>MetaProvide</author>
     <namespace>Adminly_Dashboard</namespace>
