@@ -155,10 +155,15 @@ export default {
 		},
 		cleanedParticipants() {
 			return this.participants.map((text) => {
-				const fullname = text.replace(/\p{Emoji}/gu, "").trim();
-				const words = fullname.split(" ");
-				const wordLimit = Math.max(words.length - 1, 2);
-				return words.slice(0, wordLimit).join(" ");
+				const fullName = text
+					.replace(/\p{Emoji}/gu, "")
+					.trim()
+					.split(" ");
+				const firstName = fullName[0];
+				const lastName = fullName.pop();
+				return firstName === lastName
+					? firstName
+					: `${firstName} ${lastName}`;
 			});
 		},
 		timeText() {
