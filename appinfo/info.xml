@@ -17,7 +17,7 @@
     </dependencies>
     <navigations>
       <navigation>
-        <name>Dashboard</name>
+        <name>Home</name>
         <route>adminly_dashboard.dashboard.index</route>
         <icon>adminly_dashboard.svg</icon>
         <order>-1</order>
