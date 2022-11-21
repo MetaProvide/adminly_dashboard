@@ -3,3 +3,4 @@ vendor
 js
 composer.lock
 package-lock.json
+src/components/vue2-slot-calendar

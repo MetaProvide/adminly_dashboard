@@ -38,8 +38,7 @@
 		"sanitize-html": "^2.7.0",
 		"vue": "^2.6.14",
 		"vue-avatar": "^2.3.3",
-		"vue-linkify": "^1.0.1",
-		"vue2-slot-calendar": "^2.2.5"
+		"vue-linkify": "^1.0.1"
 	},
 	"browserslist": [
 		"extends @nextcloud/browserslist-config"
