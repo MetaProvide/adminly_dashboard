@@ -22,7 +22,7 @@
 import { generateFilePath } from "@nextcloud/router";
 
 import Vue from "vue";
-import App from "./App";
+import App from "./App.vue";
 import linkify from "vue-linkify";
 
 Vue.directive("linkified", linkify);

@@ -26,13 +26,13 @@
 </template>
 
 <script>
-import Events from "./components/Events";
-import Calendar from "./components/Calendar";
-import Booking from "./components/Booking";
-import Newsfeed from "./components/Newsfeed";
+import Events from "./components/Events.vue";
+import Calendar from "./components/Calendar.vue";
+import Booking from "./components/Booking.vue";
+import Newsfeed from "./components/Newsfeed.vue";
 import dayjs from "dayjs";
-import isBetween from "dayjs/plugin/isBetween";
-import { UserUtil, EventUtil, NewsUtil } from "./utils";
+import isBetween from "dayjs/plugin/isBetween.js";
+import { UserUtil, EventUtil, NewsUtil } from "./utils.js";
 
 dayjs.extend(isBetween);
 
@@ -182,6 +182,7 @@ main {
 	align-content: center;
 	position: static;
 }
+
 .events-widget h2 {
 	margin-bottom: 0.5rem;
 }

@@ -65,7 +65,7 @@
 <script>
 import Avatar from "vue-avatar";
 import sanitizeHtml from "sanitize-html";
-import { isDateSame, getDateTomorrow } from "../utils";
+import { isDateSame, getDateTomorrow } from "../utils.js";
 import dayjs from "dayjs";
 
 export default {

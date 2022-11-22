@@ -27,6 +27,7 @@
 
 <script>
 import dayjs from "dayjs";
+/* eslint-disable */
 import SlotCalendar from "./vue2-slot-calendar";
 
 export default {
