@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils";
+import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils.js";
 import dayjs from "dayjs";
 
 export default {
