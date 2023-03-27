@@ -117,7 +117,13 @@ export default {
 <style lang="scss" scoped>
 .newsFeed {
 	overflow-y: scroll;
-	height: 100vh;
+	max-height: 1080px;
+}
+
+@media (min-height: 1200px) {
+	.newsFeed {
+		max-height: 85vh;
+	}
 }
 
 p span {

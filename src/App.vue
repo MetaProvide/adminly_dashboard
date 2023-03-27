@@ -165,7 +165,6 @@ export default {
 main {
 	background: linear-gradient(180deg, #ffffff 0%, #e3e4f7 100%) !important;
 	width: 100%;
-	min-height: 100vh;
 	padding-top: 1.75rem;
 	display: grid;
 	gap: 1.25rem;
