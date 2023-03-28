@@ -117,12 +117,13 @@ export default {
 <style lang="scss" scoped>
 .newsFeed {
 	overflow-y: scroll;
+	min-height: 4rem;
 	max-height: 1080px;
 }
 
-@media (min-height: 1200px) {
+@media (min-height: 1300px) {
 	.newsFeed {
-		max-height: 85vh;
+		max-height: calc(100vh - 13rem);
 	}
 }
 
