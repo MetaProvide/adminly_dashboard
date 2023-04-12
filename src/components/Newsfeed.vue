@@ -41,7 +41,7 @@
 							</span>
 							{{ message.subject }}
 							<span>
-								{{ message.dtStart }}
+								{{ dateTimeText(message.dtStart) }}
 							</span>
 						</p>
 					</div>
@@ -93,6 +93,9 @@ export default {
 	methods: {
 		openLink: (link) => {
 			window.location.href = link;
+		},
+		dateTimeText(dateTime) {
+			return dayjs(dateTime).format("MMMM D, YYYY hh:mm A");
 		},
 		timeText(dateTime) {
 			return dayjs(dateTime).format("hh:mm A");
