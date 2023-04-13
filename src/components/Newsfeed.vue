@@ -1,20 +1,12 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="newsFeed">
-		<div
-			v-for="message in news"
-			:key="message.activityId"
-			class="message-box"
-		>
+		<div v-for="message in news" :key="message.activityId" class="message-box">
 			<a :href="message.link">
 				<div class="message">
 					<div class="subject">
 						<div v-if="message.type == 'vaMessage'" class="vaBox">
-							<img
-								:src="message.icon"
-								alt="Avatar"
-								class="avatar"
-							/>
+							<img :src="message.icon" alt="Avatar" class="avatar" />
 							<p>{{ message.vaName }}</p>
 						</div>
 						<p class="title">{{ message.title }}</p>
@@ -41,7 +33,7 @@
 							</span>
 							{{ message.subject }}
 							<span>
-								{{ dateTimeText(message.dtStart) }}
+								{{ formattedDate(message.dtStart) }}
 							</span>
 						</p>
 					</div>
@@ -90,12 +82,34 @@ export default {
 			return !this.isEmpty && !this.news.length;
 		},
 	},
+	// mounted() {
+	// 	dayjs.extend(utc);
+	// },
 	methods: {
 		openLink: (link) => {
 			window.location.href = link;
 		},
-		dateTimeText(dateTime) {
-			return dayjs(dateTime).format("MMMM D, YYYY hh:mm A");
+		formattedDate(dateTime) {
+			// Split the string into date and time components
+			const [dateStr, timeStr, tzStr] = dateTime.split(' ');
+
+			// Parse the date and time components
+			const [year, month, day] = dateStr.split('-').map(str => parseInt(str));
+			const [hours, minutes] = timeStr.split(':').map(str => parseInt(str));
+
+			// Determine the timezone offset in minutes
+			const tzOffset = getTimezoneOffset(tzStr);
+
+			// Create the Date object with the adjusted timezone
+			const dateObj = new Date(Date.UTC(year, month - 1, day, hours - tzOffset / 60, minutes));
+			// const datetime = dayjs(dateTime);
+			console.log('new', Date(dateTime));
+			// const datetimeWithOffset = datetime.utcOffset(60);
+			// console.log('datetimeWithOffset', datetimeWithOffset);
+			return dayjs(dateObj).format("MMMM D, YYYY hh:mm A Z");
+			// return datetimeWithOffset.format('MMMM D, YYYY hh:mm A');
+			// return dateTime
+			// return datetimeWithOffset.format('[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]');
 		},
 		timeText(dateTime) {
 			return dayjs(dateTime).format("hh:mm A");
