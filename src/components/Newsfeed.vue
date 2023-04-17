@@ -60,6 +60,9 @@
 <script>
 import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils.js";
 import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
 
 export default {
 	name: "Newsfeed",
@@ -82,34 +85,26 @@ export default {
 			return !this.isEmpty && !this.news.length;
 		},
 	},
-	// mounted() {
-	// 	dayjs.extend(utc);
-	// },
+	mounted() {
+		dayjs.extend(utc);
+		dayjs.extend(timezone);
+	},
 	methods: {
 		openLink: (link) => {
 			window.location.href = link;
 		},
 		formattedDate(dateTime) {
-			// Split the string into date and time components
-			const [dateStr, timeStr, tzStr] = dateTime.split(' ');
+			const dateRegex = /^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}(\s\w+\/\w+)?$/;
+			const hasTimezone = dateRegex.test(dateTime);
 
-			// Parse the date and time components
-			const [year, month, day] = dateStr.split('-').map(str => parseInt(str));
-			const [hours, minutes] = timeStr.split(':').map(str => parseInt(str));
-
-			// Determine the timezone offset in minutes
-			const tzOffset = getTimezoneOffset(tzStr);
-
-			// Create the Date object with the adjusted timezone
-			const dateObj = new Date(Date.UTC(year, month - 1, day, hours - tzOffset / 60, minutes));
-			// const datetime = dayjs(dateTime);
-			console.log('new', Date(dateTime));
-			// const datetimeWithOffset = datetime.utcOffset(60);
-			// console.log('datetimeWithOffset', datetimeWithOffset);
-			return dayjs(dateObj).format("MMMM D, YYYY hh:mm A Z");
-			// return datetimeWithOffset.format('MMMM D, YYYY hh:mm A');
-			// return dateTime
-			// return datetimeWithOffset.format('[YYYYescape] YYYY-MM-DDTHH:mm:ssZ[Z]');
+			if (hasTimezone) {
+				const [date, time, timezone] = dateTime.split(' ');
+				const dateAndTime = `${date} ${time}`;
+				const dateInLocalTimezone = dayjs.tz(dateAndTime, timezone);
+				return dateInLocalTimezone.local().format('MMMM D, YYYY hh:mm A');
+			} else {
+				return dayjs(dateTime).format('MMMM D, YYYY hh:mm A');
+			}
 		},
 		timeText(dateTime) {
 			return dayjs(dateTime).format("hh:mm A");
