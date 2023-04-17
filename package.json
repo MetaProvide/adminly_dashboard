@@ -33,7 +33,7 @@
 		"@nextcloud/dialogs": "^3.1.2",
 		"@nextcloud/router": "^2.0.0",
 		"@nextcloud/vue": "^4.4.0",
-		"dayjs": "^1.11.2",
+		"dayjs": "^1.11.7",
 		"linkify-string": "^3.0.4",
 		"sanitize-html": "^2.7.0",
 		"vue": "^2.6.14",

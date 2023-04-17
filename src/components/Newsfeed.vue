@@ -1,12 +1,20 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
 	<div class="newsFeed">
-		<div v-for="message in news" :key="message.activityId" class="message-box">
+		<div
+			v-for="message in news"
+			:key="message.activityId"
+			class="message-box"
+		>
 			<a :href="message.link">
 				<div class="message">
 					<div class="subject">
 						<div v-if="message.type == 'vaMessage'" class="vaBox">
-							<img :src="message.icon" alt="Avatar" class="avatar" />
+							<img
+								:src="message.icon"
+								alt="Avatar"
+								class="avatar"
+							/>
 							<p>{{ message.vaName }}</p>
 						</div>
 						<p class="title">{{ message.title }}</p>
@@ -60,9 +68,8 @@
 <script>
 import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils.js";
 import dayjs from "dayjs";
-import utc from 'dayjs/plugin/utc';
-import timezone from 'dayjs/plugin/timezone';
-
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
 
 export default {
 	name: "Newsfeed",
@@ -98,12 +105,14 @@ export default {
 			const hasTimezone = dateRegex.test(dateTime);
 
 			if (hasTimezone) {
-				const [date, time, timezone] = dateTime.split(' ');
+				const [date, time, timezone] = dateTime.split(" ");
 				const dateAndTime = `${date} ${time}`;
 				const dateInLocalTimezone = dayjs.tz(dateAndTime, timezone);
-				return dateInLocalTimezone.local().format('MMMM D, YYYY hh:mm A');
+				return dateInLocalTimezone
+					.local()
+					.format("MMMM D, YYYY hh:mm A");
 			} else {
-				return dayjs(dateTime).format('MMMM D, YYYY hh:mm A');
+				return dayjs(dateTime).format("MMMM D, YYYY hh:mm A");
 			}
 		},
 		timeText(dateTime) {
