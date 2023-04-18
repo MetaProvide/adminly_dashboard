@@ -41,7 +41,7 @@
 							</span>
 							{{ message.subject }}
 							<span>
-								{{ message.dtStart }}
+								{{ formattedDate(message.dtStart) }}
 							</span>
 						</p>
 					</div>
@@ -68,6 +68,8 @@
 <script>
 import { isDateSame, getDateYesterday, isMoreThanAweekAgo } from "../utils.js";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc.js";
+import timezone from "dayjs/plugin/timezone.js";
 
 export default {
 	name: "Newsfeed",
@@ -90,9 +92,28 @@ export default {
 			return !this.isEmpty && !this.news.length;
 		},
 	},
+	mounted() {
+		dayjs.extend(utc);
+		dayjs.extend(timezone);
+	},
 	methods: {
 		openLink: (link) => {
 			window.location.href = link;
+		},
+		formattedDate(dateTime) {
+			const dateRegex = /^\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}(\s\w+\/\w+)?$/;
+			const hasTimezone = dateRegex.test(dateTime);
+
+			if (hasTimezone) {
+				const [date, time, timezone] = dateTime.split(" ");
+				const dateAndTime = `${date} ${time}`;
+				const dateInLocalTimezone = dayjs.tz(dateAndTime, timezone);
+				return dateInLocalTimezone
+					.local()
+					.format("MMMM D, YYYY hh:mm A");
+			} else {
+				return dayjs(dateTime).format("MMMM D, YYYY hh:mm A");
+			}
 		},
 		timeText(dateTime) {
 			return dayjs(dateTime).format("hh:mm A");
